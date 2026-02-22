@@ -169,7 +169,7 @@ No canon files are modified.
 Agent may propose operational skills in:
 
 ```
-Jules/skills/<skill_name>/
+skills/<skill_name>/
 ```
 
 Skills are:
