@@ -1,4 +1,11 @@
-id: structure_invariants
-domain: architecture
-enabled: true
-statement: Repository structure invariants must be preserved.
+# canon/rules/architecture/structure_invariants.yaml
+id: ARCH_INVARIANTS
+layer: architecture
+effect: deny
+match:
+  condition: ARCH_VALIDATOR_FAILED
+  validators:
+    - "HTMX_SINGLE_SHELL"
+    - "NO_CLIENT_ROUTER"
+reason_code: ARCH_INVARIANT_VIOLATION
+message: "Architecture invariant violated."
