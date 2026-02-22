@@ -47,7 +47,7 @@ In the event of a conflict between documents, the document appearing **higher in
 18. [Jules/SKILLS_INDEX.md](../../Jules/SKILLS_INDEX.md)
 
 ### IV. Procedural Skills & Work Orders
-19. [SKILL.md files](../../Jules/skills/)
+19. [SKILL.md files](../../skills/)
 20. [Spec files (in .jtasks)](../../.jtasks/)
 
 ---

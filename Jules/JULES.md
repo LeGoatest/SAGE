@@ -58,7 +58,7 @@ For every request, the Agent MUST:
 4) Identify the affected system components.
 5) Validate the request against `src/canon/ARCHITECTURE_RULES.md` and `src/canon/SECURITY_MODEL.md`.
 6) Enforce strict architectural boundaries.
-7) If a procedural skill exists in `Jules/skills/`, it MUST be followed.
+7) If a procedural skill exists in `skills/`, it MUST be followed.
 
 ---
 

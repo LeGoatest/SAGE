@@ -64,7 +64,7 @@ Generate drafts for missing canon docs in `src/canon/`:
 - Violation requires refusal.
 
 ### Step 4: Propose Additional Skills
-Based on detected tooling (e.g., HTMX, Tailwind, Gin), suggest specific skill folders that should be created in `Jules/skills/`.
+Based on detected tooling (e.g., HTMX, Tailwind, Gin), suggest specific skill folders that should be created in `skills/`.
 Do NOT create the full skill logic yet—only the folder and a draft `SKILL.md` with "Procedure: TBD".
 
 ### Step 5: Finalize Unresolved Decisions
