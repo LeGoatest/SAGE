@@ -1,12 +1,39 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "Capability",
+  "title": "SAGT Capability Schema",
   "type": "object",
-  "required": ["name"],
+  "required": ["capabilities"],
   "properties": {
-    "name": {"type": "string"},
-    "description": {"type": "string"},
-    "constraints": {"type": "array", "items": {"type": "string"}}
+    "capabilities": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["allows", "mint_requires"],
+        "properties": {
+          "allows": {
+            "type": "object",
+            "properties": {
+              "actions": {
+                "type": "array",
+                "items": { "type": "string", "enum": ["WRITE_FILE", "PATCH_FILE", "DELETE_FILE", "RUN_CMD"] }
+              },
+              "path_globs": { "type": "array", "items": { "type": "string" } },
+              "tools": { "type": "array", "items": { "type": "string" } }
+            },
+            "additionalProperties": true
+          },
+          "mint_requires": {
+            "type": "object",
+            "properties": {
+              "task_groups": { "type": "array", "items": { "type": "string" } },
+              "proofs": { "type": "array", "items": { "type": "string" } }
+            },
+            "additionalProperties": true
+          }
+        },
+        "additionalProperties": true
+      }
+    }
   },
   "additionalProperties": true
 }
