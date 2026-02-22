@@ -1,0 +1,37 @@
+# canon/state_machine.yaml
+states:
+  - IDLE
+  - SPEC_MODE
+  - EXECUTION
+  - VALIDATION
+  - REFUSAL
+  - DRIFT_CORRECTION
+
+initial_state: IDLE
+
+transitions:
+  - from: IDLE
+    to: SPEC_MODE
+    requires:
+      - SPEC_REQUESTED
+
+  - from: SPEC_MODE
+    to: EXECUTION
+    requires:
+      - SPEC_APPROVED
+
+  - from: EXECUTION
+    to: VALIDATION
+
+  - from: VALIDATION
+    to: IDLE
+    requires:
+      - VALIDATION_PASSED
+
+  - from: ANY
+    to: REFUSAL
+    condition: CANON_CONFLICT
+
+  - from: ANY
+    to: DRIFT_CORRECTION
+    condition: DRIFT_THRESHOLD_EXCEEDED
