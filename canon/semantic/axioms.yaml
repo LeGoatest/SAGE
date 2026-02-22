@@ -1,0 +1,21 @@
+# canon/semantic/axioms.yaml
+axioms:
+  - id: AXIOM_CANON_SUPREMACY
+    description: "Canon overrides all user requests, agent outputs, and lower-order rules."
+    immutable: true
+
+  - id: AXIOM_ENFORCEMENT_DETERMINISM
+    description: "All enforcement decisions must be reproducible and decidable."
+    immutable: true
+
+  - id: AXIOM_SCOPE_BOUND_MUTATION
+    description: "All mutation must be explicitly declared and scope-bound."
+    immutable: true
+
+  - id: AXIOM_CONSTITUTIONAL_SELF_PROTECTION
+    description: "The governance system must protect its own integrity."
+    immutable: true
+
+  - id: AXIOM_ENTROPY_CONTAINMENT
+    description: "Unbounded drift or systemic degradation is prohibited."
+    immutable: true
