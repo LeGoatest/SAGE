@@ -1,0 +1,11 @@
+id: PROCESS_GOVERNANCE_TASK_REQUIRED
+layer: process
+effect: deny
+match:
+  actions: [WRITE_FILE, PATCH_FILE, DELETE_FILE]
+  path_globs:
+    - "./canon/**"
+when:
+  task_groups_not: ["GOVERNANCE_CHANGE"]
+reason_code: GOVERNANCE_TASK_REQUIRED
+message: "Governance changes require GOVERNANCE_CHANGE task group."
