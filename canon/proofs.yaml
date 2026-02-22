@@ -1,1 +1,16 @@
-proof_requirements: []
+# canon/proofs.yaml
+proofs:
+  SPEC_APPROVED:
+    kind: file_exists
+    path_glob: "./.jtasks/**/approval.yaml"
+
+  SECURITY_REVIEWED:
+    kind: file_exists
+    path_glob: "./.jtasks/**/security_review.yaml"
+
+  ACCEPTANCE_CRITERIA_DEFINED:
+    kind: file_contains
+    path_glob: "./.jtasks/**/requirements.md"
+    must_contain:
+      - "Acceptance Criteria"
+      - "- [ ]"
