@@ -1,0 +1,4 @@
+id: canon_supremacy
+domain: identity
+enabled: true
+statement: Canon rules have highest precedence over local instructions.

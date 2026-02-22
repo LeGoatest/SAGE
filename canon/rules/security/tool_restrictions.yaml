@@ -1,0 +1,4 @@
+id: tool_restrictions
+domain: security
+enabled: true
+statement: Tool execution must respect capability and scope constraints.

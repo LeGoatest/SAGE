@@ -1,0 +1,4 @@
+id: protected_zones
+domain: security
+enabled: true
+statement: Protected filesystem zones require explicit authorization.

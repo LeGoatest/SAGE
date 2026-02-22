@@ -1,0 +1,4 @@
+id: acceptance_criteria
+domain: process
+enabled: true
+statement: Work must define verifiable acceptance criteria.
