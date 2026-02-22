@@ -1,4 +1,11 @@
-id: spec_required
-domain: process
-enabled: true
-statement: A spec is required before implementation work.
+# canon/rules/process/spec_required.yaml
+id: PROCESS_SPEC_REQUIRED
+layer: process
+effect: require
+when:
+  task_groups: ["FEATURE", "REFACTOR", "ARCHITECTURE_CHANGE", "GOVERNANCE_CHANGE"]
+match:
+  actions: [WRITE_FILE, PATCH_FILE, DELETE_FILE, RUN_CMD]
+requires: ["SPEC_APPROVED"]
+reason_code: SPEC_MODE_REQUIRED
+message: "Spec approval required for this task group."
