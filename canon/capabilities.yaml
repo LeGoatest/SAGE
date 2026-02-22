@@ -1,1 +1,43 @@
-capabilities: []
+# canon/capabilities.yaml
+capabilities:
+  CAN_WRITE_CODE:
+    allows:
+      actions: [WRITE_FILE, PATCH_FILE]
+      path_globs:
+        - "./src/**"
+        - "./internal/**"
+        - "./cmd/**"
+        - "./tools/**"
+        - "./scripts/**"
+    mint_requires:
+      task_groups: ["MUTATION", "FEATURE", "BUGFIX", "REFACTOR"]
+
+  CAN_RUN_TOOL:
+    allows:
+      actions: [RUN_CMD]
+      tools:
+        - "go"
+        - "npm"
+        - "node"
+        - "python"
+        - "bash"
+        - "sh"
+        - "make"
+        - "git"
+    mint_requires:
+      task_groups: ["MUTATION", "FEATURE", "BUGFIX", "REFACTOR"]
+      proofs: ["SPEC_APPROVED"]
+
+  CAN_TOUCH_GOVERNANCE:
+    allows:
+      actions: [WRITE_FILE, PATCH_FILE, DELETE_FILE]
+      path_globs:
+        - "./canon/**"
+        - "./constitution/**"
+        - "./.jtasks/_template/**"
+        - "./Jules/**"
+        - "./skills/**"
+        - "./.docs/**"
+    mint_requires:
+      task_groups: ["GOVERNANCE_CHANGE"]
+      proofs: ["SPEC_APPROVED", "SECURITY_REVIEWED"]
