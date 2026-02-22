@@ -1,0 +1,6 @@
+canon_hash: "REPLACE_WITH_SHA256_OF_CANON_DIRECTORY"
+hash_algorithm: "sha256"
+lock_scope:
+  include:
+    - "./canon/**"
+  exclude: []
