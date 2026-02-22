@@ -1,0 +1,10 @@
+id: SECURITY_CANON_MUTATION
+layer: security
+effect: require
+match:
+  actions: [WRITE_FILE, PATCH_FILE, DELETE_FILE]
+  path_globs:
+    - "./canon/**"
+requires: ["CAN_TOUCH_GOVERNANCE"]
+reason_code: CANON_MUTATION_REQUIRES_GOVERNANCE_CAP
+message: "Canon mutation requires governance capability."
