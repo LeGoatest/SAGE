@@ -1,4 +1,8 @@
-id: canon_supremacy
-domain: identity
-enabled: true
-statement: Canon rules have highest precedence over local instructions.
+# canon/rules/identity/canon_supremacy.yaml
+id: IDENTITY_CANON_SUPREMACY
+layer: identity
+effect: deny
+match:
+  condition: CANON_CONFLICT
+reason_code: CANON_SUPREMACY
+message: "Conflicts with Canon: refusal required."
