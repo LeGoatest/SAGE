@@ -1,4 +1,11 @@
-id: acceptance_criteria
-domain: process
-enabled: true
-statement: Work must define verifiable acceptance criteria.
+# canon/rules/process/acceptance_criteria.yaml
+id: PROCESS_ACCEPTANCE_CRITERIA
+layer: process
+effect: require
+when:
+  task_groups: ["FEATURE"]
+match:
+  actions: [WRITE_FILE, PATCH_FILE]
+requires: ["ACCEPTANCE_CRITERIA_DEFINED"]
+reason_code: ACCEPTANCE_CRITERIA_REQUIRED
+message: "Acceptance criteria required."
