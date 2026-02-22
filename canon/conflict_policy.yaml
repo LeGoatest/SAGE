@@ -1,0 +1,6 @@
+# canon/conflict_policy.yaml
+conflict_resolution:
+  higher_layer_overrides_lower: true
+  deny_overrides_require: true
+  fail_on_same_layer_conflict: true
+  require_all_require_rules_to_pass: true
