@@ -1,0 +1,12 @@
+# canon/rules/security/tool_denylist.yaml
+id: SECURITY_TOOL_DENYLIST
+layer: security
+effect: deny
+match:
+  actions: [RUN_CMD]
+  cmd_regexes:
+    - "(?i)\\brm\\b\\s+-rf\\b"
+    - "(?i)\\bcurl\\b.*\\|\\s*(sh|bash)\\b"
+    - "(?i)\\bwget\\b.*\\|\\s*(sh|bash)\\b"
+reason_code: TOOL_DENIED
+message: "Command pattern is denied."
