@@ -1,0 +1,4 @@
+id: spec_required
+domain: process
+enabled: true
+statement: A spec is required before implementation work.

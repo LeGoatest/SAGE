@@ -1,0 +1,9 @@
+version: 1
+name: canon
+precedence:
+  - identity
+  - security
+  - architecture
+  - process
+  - skills
+enforcement: strict

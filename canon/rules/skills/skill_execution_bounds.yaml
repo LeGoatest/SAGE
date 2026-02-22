@@ -1,0 +1,4 @@
+id: skill_execution_bounds
+domain: skills
+enabled: true
+statement: Skills may execute only within declared boundaries.

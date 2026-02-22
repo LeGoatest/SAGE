@@ -1,0 +1,4 @@
+id: structure_invariants
+domain: architecture
+enabled: true
+statement: Repository structure invariants must be preserved.

@@ -1,0 +1,4 @@
+id: single_task
+domain: process
+enabled: true
+statement: Execute one scoped task at a time unless explicitly expanded.

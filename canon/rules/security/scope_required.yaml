@@ -1,0 +1,4 @@
+id: scope_required
+domain: security
+enabled: true
+statement: All operations must be bound to declared scope.
