@@ -1,0 +1,7 @@
+id: IDENTITY_VERSION_LOCK
+layer: identity
+effect: deny
+match:
+  condition: CANON_HASH_MISMATCH
+reason_code: CANON_HASH_MISMATCH
+message: "Canon integrity hash mismatch."
