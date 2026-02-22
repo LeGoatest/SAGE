@@ -2,3 +2,11 @@ thresholds:
   max_protected_zone_attempts_per_pr: 0
   max_scope_violation_attempts: 2
   max_spec_bypass_attempts: 1
+  max_rule_violations_per_pr: 3
+
+metrics:
+  track:
+    - protected_zone_attempts
+    - scope_violations
+    - spec_bypass_attempts
+    - rule_violations
