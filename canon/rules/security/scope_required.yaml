@@ -1,4 +1,9 @@
-id: scope_required
-domain: security
-enabled: true
-statement: All operations must be bound to declared scope.
+# canon/rules/security/scope_required.yaml
+id: SECURITY_SCOPE_REQUIRED
+layer: security
+effect: require
+match:
+  actions: [WRITE_FILE, PATCH_FILE, DELETE_FILE]
+requires: ["DECLARED_SCOPE"]
+reason_code: SCOPE_REQUIRED
+message: "Mutations require declared scope."
