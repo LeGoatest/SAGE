@@ -1,4 +1,18 @@
-id: skill_execution_bounds
-domain: skills
-enabled: true
-statement: Skills may execute only within declared boundaries.
+# canon/rules/skills/skill_execution_bounds.yaml
+id: SKILL_BOUNDS
+layer: skills
+effect: require
+when:
+  skill_ids:
+    - "spec-mode"
+    - "audit-governance"
+    - "bootstrap-project"
+    - "constitutional-check"
+    - "context-pruning"
+    - "doc-maintainer"
+    - "test-enforcer"
+match:
+  actions: [WRITE_FILE, PATCH_FILE, RUN_CMD]
+requires: ["SKILL_CAP_GRANTED"]
+reason_code: SKILL_CAP_REQUIRED
+message: "Skill execution requires explicit skill capability grant."
