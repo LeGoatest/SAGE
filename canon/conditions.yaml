@@ -1,0 +1,22 @@
+# canon/conditions.yaml
+conditions:
+  CANON_CONFLICT:
+    description: "Proposal violates one or more canonical rules."
+
+  CANON_HASH_MISMATCH:
+    description: "Computed SHA256 of canon directory differs from locked value."
+
+  DRIFT_THRESHOLD_EXCEEDED:
+    description: "Telemetry indicates governance drift beyond threshold."
+
+  ARCH_VALIDATOR_FAILED:
+    description: "Architecture validator returned failure."
+
+  MULTIPLE_ACTIVE_TASKS:
+    description: "More than one active task detected."
+
+  DECLARED_SCOPE:
+    description: "Proposal contains declared scope that matches all mutated paths."
+
+  SKILL_CAP_GRANTED:
+    description: "Skill capability explicitly granted for execution."
