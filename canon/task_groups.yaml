@@ -1,0 +1,26 @@
+# canon/task_groups.yaml
+
+task_groups:
+  MUTATION:
+    requires_spec: false
+    requires_security_review: false
+
+  FEATURE:
+    requires_spec: true
+    requires_security_review: false
+
+  BUGFIX:
+    requires_spec: false
+    requires_security_review: false
+
+  REFACTOR:
+    requires_spec: true
+    requires_security_review: false
+
+  ARCHITECTURE_CHANGE:
+    requires_spec: true
+    requires_security_review: false
+
+  GOVERNANCE_CHANGE:
+    requires_spec: true
+    requires_security_review: true
