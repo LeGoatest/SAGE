@@ -1,13 +1,39 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "Proposal",
+  "title": "SAGT ActionProposal Schema",
   "type": "object",
-  "required": ["id", "title", "status"],
+  "required": ["task_id", "task_group", "actions"],
   "properties": {
-    "id": {"type": "string"},
-    "title": {"type": "string"},
-    "status": {"type": "string", "enum": ["draft", "approved", "rejected"]},
-    "changes": {"type": "array", "items": {"type": "string"}}
+    "task_id": { "type": "string", "minLength": 1 },
+    "task_group": { "type": "string", "minLength": 1 },
+    "skill_id": { "type": "string" },
+    "declared_scope": {
+      "type": "object",
+      "properties": {
+        "path_globs": { "type": "array", "items": { "type": "string" } }
+      },
+      "additionalProperties": true
+    },
+    "actions": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["type"],
+        "properties": {
+          "type": { "type": "string", "enum": ["WRITE_FILE", "PATCH_FILE", "DELETE_FILE", "RUN_CMD"] },
+          "path": { "type": "string" },
+          "content": { "type": "string" },
+          "unified_diff": { "type": "string" },
+          "tool": { "type": "string" },
+          "command": { "type": "string" },
+          "args": { "type": "array", "items": { "type": "string" } },
+          "metadata": { "type": "object", "additionalProperties": true }
+        },
+        "additionalProperties": true
+      }
+    },
+    "tokens": { "type": "array", "items": { "type": "string" } }
   },
   "additionalProperties": true
 }
