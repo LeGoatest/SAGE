@@ -1,4 +1,9 @@
-id: tool_restrictions
-domain: security
-enabled: true
-statement: Tool execution must respect capability and scope constraints.
+# canon/rules/security/tool_restrictions.yaml
+id: SECURITY_TOOL_RESTRICTIONS
+layer: security
+effect: require
+match:
+  actions: [RUN_CMD]
+requires: ["CAN_RUN_TOOL"]
+reason_code: TOOL_CAP_REQUIRED
+message: "Tool execution requires CAN_RUN_TOOL."
