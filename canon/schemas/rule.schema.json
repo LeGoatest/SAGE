@@ -1,13 +1,39 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "Rule",
+  "title": "SAGT Canon Rule Schema",
   "type": "object",
-  "required": ["id", "domain", "enabled", "statement"],
+  "required": ["id", "layer", "effect", "reason_code", "message"],
   "properties": {
-    "id": {"type": "string"},
-    "domain": {"type": "string"},
-    "enabled": {"type": "boolean"},
-    "statement": {"type": "string"}
+    "id": { "type": "string", "minLength": 1 },
+    "layer": { "type": "string", "enum": ["identity", "security", "architecture", "process", "skills"] },
+    "effect": { "type": "string", "enum": ["deny", "require", "allow"] },
+    "priority": { "type": "integer" },
+    "match": {
+      "type": "object",
+      "properties": {
+        "actions": {
+          "type": "array",
+          "items": { "type": "string", "enum": ["WRITE_FILE", "PATCH_FILE", "DELETE_FILE", "RUN_CMD"] }
+        },
+        "path_globs": { "type": "array", "items": { "type": "string" } },
+        "tools": { "type": "array", "items": { "type": "string" } },
+        "cmd_regexes": { "type": "array", "items": { "type": "string" } },
+        "condition": { "type": "string" },
+        "validators": { "type": "array", "items": { "type": "string" } }
+      },
+      "additionalProperties": true
+    },
+    "when": {
+      "type": "object",
+      "properties": {
+        "task_groups": { "type": "array", "items": { "type": "string" } },
+        "skill_ids": { "type": "array", "items": { "type": "string" } }
+      },
+      "additionalProperties": true
+    },
+    "requires": { "type": "array", "items": { "type": "string" } },
+    "reason_code": { "type": "string", "minLength": 1 },
+    "message": { "type": "string", "minLength": 1 }
   },
   "additionalProperties": true
 }
