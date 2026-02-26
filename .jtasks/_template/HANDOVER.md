@@ -10,9 +10,9 @@ This document ensures continuity of execution across context resets or model cha
 - **Spec State:** [e.g., In-progress / Design Approved]
 - **Target Repository:** [repo name/path]
 - **Governance Binding File:** `governance.yaml`
-- **SAGT Repo:** https://github.com/LeGoatest/Sovereign-agent-template
+- **SAGE Repo:** https://github.com/LeGoatest/Sovereign-agent-template
 - **Pinned Canon Ref (commit SHA):** [sha]
-- **Resolved Canon Root (Jules cache):** [jules_cache/sagt/checkouts/<ref>/]
+- **Resolved Canon Root (Jules cache):** [jules_cache/sage/checkouts/<ref>/]
 - **Current Model Identity:** [e.g., Jules]
 
 ## 2. Execution State
@@ -30,7 +30,7 @@ This document ensures continuity of execution across context resets or model cha
 ## 4. Canonical References Used
 List the canon references used during execution in this format:
 
-- `SAGT@<ref>:<path>#<anchor>` — [Why it mattered]
+- `SAGE@<ref>:<path>#<anchor>` — [Why it mattered]
 
 ## 5. Continuity Instruction
 *Provide the exact next step for the successor model/context.*

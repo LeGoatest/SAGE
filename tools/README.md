@@ -1,18 +1,18 @@
 # Tools
 
-These scripts validate SAGT governance integrity.
+These scripts validate SAGE governance integrity.
 
-## sagt-check.sh
+## sage-check.sh
 Fast checks for required files and key invariants.
 
 Usage:
-- `bash tools/sagt-check.sh .`
+- `bash tools/sage-check.sh .`
 
-## sagt_validate.py
+## sage_validate.py
 YAML schema validation for governance state machine and structured rules.
 
 Dependencies:
 - PyYAML
 
 Usage:
-- `python tools/sagt_validate.py .`
+- `python tools/sage_validate.py .`

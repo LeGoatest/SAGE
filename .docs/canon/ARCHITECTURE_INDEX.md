@@ -57,7 +57,7 @@ In the event of a conflict between documents, the document appearing **higher in
 The following files are provided for token efficiency or quick reference. They carry NO canonical authority and are subordinate to all documents listed above.
 
 - [src/reference/MINI_CANON.md](../reference/MINI_CANON.md)
-- [src/reference/SAGT_OVERVIEW.md](../reference/SAGT_OVERVIEW.md)
+- [src/reference/SAGE_OVERVIEW.md](../reference/SAGE_OVERVIEW.md)
 
 ---
 

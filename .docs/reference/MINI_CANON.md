@@ -6,7 +6,7 @@
 ## 1. Absolute Precedence (Highest to Lowest)
 1. src/canon/ARCHITECTURE_RULES.md
 2. src/canon/SYSTEM_AXIOMS.md
-3. src/reference/SAGT_OVERVIEW.md
+3. src/reference/SAGE_OVERVIEW.md
 4. src/canon/SECURITY_MODEL.md
 ... (Refer to src/canon/ARCHITECTURE_INDEX.md for full list)
 

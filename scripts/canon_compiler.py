@@ -86,7 +86,7 @@ def main():
         print("Canon compilation FAILED.")
         sys.exit(1)
     else:
-        print(f"--- SAGT Canon Compiled ---")
+        print(f"--- SAGE Canon Compiled ---")
         for rule in all_rules:
             print(f"[{rule['id']}] {rule['operator']}: {rule['statement'][:50]}...")
         print(f"---------------------------")

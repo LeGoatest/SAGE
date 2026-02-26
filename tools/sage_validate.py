@@ -6,13 +6,13 @@ from pathlib import Path
 try:
     import yaml  # type: ignore
 except Exception as e:
-    print("SAGT-VALIDATE: PyYAML is required (pip install pyyaml).", file=sys.stderr)
+    print("SAGE-VALIDATE: PyYAML is required (pip install pyyaml).", file=sys.stderr)
     raise
 
 ROOT = Path(sys.argv[1]) if len(sys.argv) > 1 else Path(".")
 
 def die(msg: str) -> None:
-    print(f"SAGT-VALIDATE: {msg}", file=sys.stderr)
+    print(f"SAGE-VALIDATE: {msg}", file=sys.stderr)
     raise SystemExit(1)
 
 def load_yaml(path: Path) -> dict:
@@ -55,7 +55,7 @@ def main() -> None:
     if algo.get("max_passes") != 3:
         die("A12.mode.algorithm.max_passes must be 3")
 
-    print("SAGT-VALIDATE: OK")
+    print("SAGE-VALIDATE: OK")
 
 if __name__ == "__main__":
     main()

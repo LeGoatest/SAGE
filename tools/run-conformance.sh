@@ -3,7 +3,7 @@ set -euo pipefail
 
 ROOT="${1:-.}"
 
-bash "$ROOT/tools/sagt-check.sh" "$ROOT"
-python "$ROOT/tools/sagt_validate.py" "$ROOT"
+bash "$ROOT/tools/sage-check.sh" "$ROOT"
+python "$ROOT/tools/sage_validate.py" "$ROOT"
 
-echo "SAGT-CONFORMANCE: PASS"
+echo "SAGE-CONFORMANCE: PASS"

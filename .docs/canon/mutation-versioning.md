@@ -13,7 +13,7 @@ If not referenced, treat as enforcement guidance and keep it aligned with `ARCHI
 
 ## Version Fields
 
-SAGT canon version is tracked as:
+SAGE canon version is tracked as:
 
 - Major.Minor
 

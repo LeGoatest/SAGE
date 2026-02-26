@@ -1,6 +1,6 @@
 # SYSTEM AXIOMS
 
-The Sovereign Agent Template enforces the following constitutional axioms as the foundation of its governance model:
+The Sovereign Agent Governance Engine enforces the following constitutional axioms as the foundation of its governance model:
 
 ## 1. Rule Governance
 All behavior must be constrained by explicit written rules. No implicit authority exists. No heuristic override is permitted.

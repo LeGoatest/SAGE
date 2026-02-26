@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# sagt-check.sh - SAGT Vibe Check CLI
+# sage-check.sh - SAGE Vibe Check CLI
 # Informational only. Detects HITL markers, TODOs, and Refusals.
 
 RED='\033[0;31m'
@@ -8,7 +8,7 @@ GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 NC='\033[0m' # No Color
 
-echo -e "${YELLOW}--- SAGT Vibe Check ---${NC}"
+echo -e "${YELLOW}--- SAGE Vibe Check ---${NC}"
 
 # Check for HITL markers
 echo -e "\n${YELLOW}Checking for [AWAIT_HUMAN_VALIDATION]...${NC}"

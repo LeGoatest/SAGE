@@ -3,14 +3,14 @@ set -euo pipefail
 
 ROOT="${1:-.}"
 
-die() { echo "SAGT-CHECK: $*" >&2; exit 1; }
+die() { echo "SAGE-CHECK: $*" >&2; exit 1; }
 
 req_file() {
   local p="$1"
   [[ -f "$ROOT/$p" ]] || die "Missing required file: $p"
 }
 
-echo "SAGT-CHECK: verifying required governance files..."
+echo "SAGE-CHECK: verifying required governance files..."
 
 req_file "src/canon/ARCHITECTURE_RULES.md"
 req_file "src/canon/ENFORCEMENT_MATRIX.md"
@@ -32,4 +32,4 @@ grep -q "\[AWAIT_HUMAN_VALIDATION\]" "$ROOT/src/governance/deep-governance-mode.
 # Verify forbidden transition is declared somewhere
 grep -qi "Deep.*MUST NOT transition.*Execution" "$ROOT/src/canon/ARCHITECTURE_RULES.md" || die "Missing Deep→Exec invariant in ARCHITECTURE_RULES.md"
 
-echo "SAGT-CHECK: OK"
+echo "SAGE-CHECK: OK"
