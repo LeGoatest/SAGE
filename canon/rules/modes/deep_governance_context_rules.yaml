@@ -1,0 +1,34 @@
+- id: DEEP_CONTEXT_BLOCK_REQUIRED
+  type: rule
+  effect: require
+  condition: >
+    When ENTER_DEEP_GOVERNANCE_MODE is active, output includes reasoning_context
+    with keys: situation, constraints, true_goal, failure_states.
+  message: >
+    Deep Governance Mode requires reasoning_context (situation/constraints/true_goal/failure_states).
+
+- id: DEEP_CONTEXT_NO_INFERENCE
+  type: rule
+  effect: deny
+  condition: >
+    Deep Governance Mode output contains speculative architecture, invented trust boundaries,
+    or inferred security properties without explicit evidence.
+  message: >
+    Deep Governance Mode forbids inference. Use evidence only and mark unknowns as TODO.
+
+- id: DEEP_CONTEXT_NO_IMPLEMENTATION
+  type: rule
+  effect: deny
+  condition: >
+    Deep Governance Mode output includes implementation steps, file edits, or execution instructions.
+  message: >
+    Deep Governance Mode is analysis-only. Implementation steps and file edits are forbidden.
+
+- id: DEEP_CONTEXT_GATE_SPEC_AND_EXEC
+  type: rule
+  effect: require
+  condition: >
+    Transition to ENTER_SPEC_MODE or ENTER_EXEC_MODE is allowed only if a valid reasoning_context
+    block was produced in the current request lifecycle.
+  message: >
+    Cannot enter Spec/Exec until reasoning_context is produced and validated.

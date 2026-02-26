@@ -15,7 +15,13 @@ CANON_PATH = Path("canon")
 def load_rules():
     rules = []
     for file in CANON_PATH.joinpath("rules").rglob("*.yaml"):
-        rules.append(yaml.safe_load(file.read_text()))
+        data = yaml.safe_load(file.read_text())
+        if not data:
+            continue
+        if isinstance(data, list):
+            rules.extend(data)
+        else:
+            rules.append(data)
     return rules
 
 def compute_canon_hash():
@@ -41,10 +47,17 @@ def get_changed_files():
     return []
 
 def match_rule(rule, changed_files):
-    match = rule.get("match", {})
+    if not isinstance(rule, dict):
+        return False
+
+    # Handle two formats:
+    # 1. Rule with 'match' key (legacy/structured)
+    # 2. Rule with 'condition' or 'path_globs' at top level
+
+    match_data = rule.get("match", rule)
 
     # Path glob matching
-    globs = match.get("path_globs")
+    globs = match_data.get("path_globs")
     if globs:
         for file in changed_files:
             if not file: continue
@@ -54,7 +67,7 @@ def match_rule(rule, changed_files):
         return False
 
     # Condition matching
-    condition = match.get("condition")
+    condition = match_data.get("condition")
     if condition == "CANON_HASH_MISMATCH":
         lock_file = CANON_PATH.joinpath("identity/version_lock.yaml")
         if not lock_file.exists():
@@ -63,6 +76,11 @@ def match_rule(rule, changed_files):
         if lock_file.exists():
             expected = yaml.safe_load(lock_file.read_text())["canon_hash"]
             return compute_canon_hash() != expected
+
+    # Target Repository check (mock for demonstration)
+    if isinstance(condition, str) and "Target Repository contains" in condition:
+        # In a real engine, this would scan the local file system
+        return False
 
     return False
 

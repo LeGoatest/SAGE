@@ -64,10 +64,22 @@ class BootValidator:
 
     def _check_duplicate_ids(self):
         rule_ids = []
+        in_rules_invariant_ids = []
+
         for file in RULES_PATH.rglob("*.yaml"):
             data = yaml.safe_load(file.read_text())
-            if data and "id" in data:
-                rule_ids.append(data["id"])
+            if not data:
+                continue
+
+            items = data if isinstance(data, list) else [data]
+            for item in items:
+                if not isinstance(item, dict) or "id" not in item:
+                    continue
+
+                if item.get("type", "rule") == "rule":
+                    rule_ids.append(item["id"])
+                elif item.get("type") == "invariant":
+                    in_rules_invariant_ids.append(item["id"])
 
         self._assert_unique(rule_ids, "Duplicate rule IDs detected")
 
@@ -78,7 +90,10 @@ class BootValidator:
         self._assert_unique([i["id"] for i in intents], "Duplicate intent IDs detected")
 
         invariants = yaml.safe_load((SEMANTIC_PATH / "invariants.yaml").read_text())["invariants"]
-        self._assert_unique([inv["id"] for inv in invariants], "Duplicate invariant IDs detected")
+        inv_ids = [inv["id"] for inv in invariants]
+        inv_ids.extend(in_rules_invariant_ids)
+
+        self._assert_unique(inv_ids, "Duplicate invariant IDs detected")
 
     # --------------------------------------------------
 
@@ -111,7 +126,7 @@ class BootValidator:
 
     def _fail(self, message):
         print(f"❌ Boot validation error: {message}")
-        sys.exit(1)
+        exit(1)
 
 
 if __name__ == "__main__":

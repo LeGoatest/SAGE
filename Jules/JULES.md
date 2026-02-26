@@ -86,7 +86,7 @@ When generating output:
 
 For every request, the Agent MUST:
 
-1) Classify the request using `TASK_GROUPS.md` (repo root).
+1) Classify the request using `.docs/TASK_GROUPS.md`.
 2) If the request is non-trivial or governance-level, initiate **Deep Governance Mode** as defined in `Jules/modes.md`.
 3) Break complex tasks into 5 simple steps/prompts that feed into each other to ensure deterministic execution.
 4) Identify the affected system components.

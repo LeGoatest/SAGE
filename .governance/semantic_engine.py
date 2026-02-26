@@ -1,26 +1,26 @@
 import yaml
 from pathlib import Path
 
-# Use absolute path relative to the script's root if possible
-# or just assume it's run from the root.
 CANON_PATH = Path("canon")
 SEMANTIC_PATH = CANON_PATH / "semantic"
+RULES_PATH = CANON_PATH / "rules"
 
 
 class SemanticEngine:
 
     def __init__(self):
-        self.axioms = self._load_yaml("axioms.yaml")["axioms"]
-        self.intents = self._load_yaml("intents.yaml")["intents"]
-        self.invariants = self._load_yaml("invariants.yaml")["invariants"]
-        self.dependencies = self._load_yaml("dependencies.yaml")["dependencies"]
-        self.norm_hierarchy = self._load_yaml("norm_hierarchy.yaml")
-        self.refusal_logic = self._load_yaml("refusal_logic.yaml")
-        self.templates = self._load_yaml("explanation_templates.yaml")["templates"]
+        self.axioms = self._load_semantic("axioms.yaml")["axioms"]
+        self.intents = self._load_semantic("intents.yaml")["intents"]
+        self.invariants = self._load_semantic("invariants.yaml")["invariants"]
+        self.dependencies = self._load_semantic("dependencies.yaml")["dependencies"]
+        self.norm_hierarchy = self._load_semantic("norm_hierarchy.yaml")
+        self.refusal_logic = self._load_semantic("refusal_logic.yaml")
+        self.templates = self._load_semantic("explanation_templates.yaml")["templates"]
 
+        self._load_additional_invariants()
         self._index_data()
 
-    def _load_yaml(self, filename):
+    def _load_semantic(self, filename):
         path = SEMANTIC_PATH / filename
         if not path.exists():
             # Try alternative path if run from a different context
@@ -28,6 +28,21 @@ class SemanticEngine:
             if alt_path.exists():
                 path = alt_path
         return yaml.safe_load(path.read_text())
+
+    def _load_additional_invariants(self):
+        path = RULES_PATH
+        if not path.exists():
+            path = Path(__file__).parent.parent / "canon" / "rules"
+
+        for file in path.rglob("*.yaml"):
+            data = yaml.safe_load(file.read_text())
+            if not data:
+                continue
+
+            items = data if isinstance(data, list) else [data]
+            for item in items:
+                if isinstance(item, dict) and item.get("type") == "invariant":
+                    self.invariants.append(item)
 
     def _index_data(self):
         self.axiom_index = {a["id"]: a for a in self.axioms}

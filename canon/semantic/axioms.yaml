@@ -18,3 +18,11 @@ axioms:
   - id: AXIOM_ENTROPY_CONTAINMENT
     description: "Unbounded drift or systemic degradation is prohibited."
     immutable: true
+
+  - id: AXIOM_SPEC_PRIMACY
+    description: "Specification must precede execution."
+    immutable: true
+
+  - id: AXIOM_DETERMINISM
+    description: "System behavior must be reproducible."
+    immutable: true

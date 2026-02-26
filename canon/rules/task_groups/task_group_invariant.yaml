@@ -1,0 +1,25 @@
+- id: TASK_GROUP_SELECTION_ENFORCEMENT
+  type: invariant
+  scope: request_lifecycle
+  description: Ensures exactly one task group is active and stable.
+  enforces_rules:
+    - TASK_GROUP_SINGLE_SELECTION
+    - TASK_GROUP_NO_IMPLICIT_RECLASSIFICATION
+  supports_intents:
+    - INTENT_NO_SCOPE_CREEP
+  derives_from_axioms:
+    - AXIOM_DETERMINISM
+
+- id: TASK_GROUP_ALIGNMENT_ENFORCEMENT
+  type: invariant
+  scope: request_lifecycle
+  description: Ensures request classification and mode compatibility.
+  enforces_rules:
+    - TASK_GROUP_REQUIRED
+    - TASK_GROUP_MODE_ALIGNMENT
+  supports_intents:
+    - INTENT_DETERMINISTIC_EXECUTION
+    - INTENT_CONSTITUTIONAL_DISCIPLINE
+  derives_from_axioms:
+    - AXIOM_CANON_SUPREMACY
+    - AXIOM_DETERMINISM

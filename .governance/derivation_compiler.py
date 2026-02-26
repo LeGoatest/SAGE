@@ -15,7 +15,7 @@ class DerivationCompiler:
         self.intents = self._load_semantic("intents.yaml")["intents"]
         self.invariants = self._load_semantic("invariants.yaml")["invariants"]
 
-        self.rules = self._load_rules()
+        self._load_rules_and_additional_invariants()
 
         self._index()
 
@@ -29,17 +29,26 @@ class DerivationCompiler:
 
     # --------------------------------------------------
 
-    def _load_rules(self):
-        rule_map = {}
+    def _load_rules_and_additional_invariants(self):
+        self.rules = {}
         path = RULES_PATH
         if not path.exists():
             path = Path(__file__).parent.parent / "canon" / "rules"
 
         for file in path.rglob("*.yaml"):
             data = yaml.safe_load(file.read_text())
-            if data and "id" in data:
-                rule_map[data["id"]] = data
-        return rule_map
+            if not data:
+                continue
+
+            items = data if isinstance(data, list) else [data]
+            for item in items:
+                if not isinstance(item, dict) or "id" not in item:
+                    continue
+
+                if item.get("type", "rule") == "rule":
+                    self.rules[item["id"]] = item
+                elif item.get("type") == "invariant":
+                    self.invariants.append(item)
 
     def _index(self):
         self.axiom_ids = {a["id"] for a in self.axioms}

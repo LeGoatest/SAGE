@@ -16,7 +16,8 @@ class InvariantValidator:
         self.invariants = self._load("invariants.yaml")["invariants"]
         self.dependencies = self._load("dependencies.yaml")["dependencies"]
 
-        self.rules = self._load_all_rules()
+        self.rules = []
+        self._load_rules_and_additional_invariants()
 
         self._index_data()
 
@@ -29,17 +30,25 @@ class InvariantValidator:
                  path = alt_path
         return yaml.safe_load(path.read_text())
 
-    def _load_all_rules(self):
-        rule_ids = []
+    def _load_rules_and_additional_invariants(self):
         path = RULES_PATH
         if not path.exists():
             path = Path(__file__).parent.parent / "canon" / "rules"
 
         for file in path.rglob("*.yaml"):
             data = yaml.safe_load(file.read_text())
-            if data and "id" in data:
-                rule_ids.append(data["id"])
-        return rule_ids
+            if not data:
+                continue
+
+            items = data if isinstance(data, list) else [data]
+            for item in items:
+                if not isinstance(item, dict) or "id" not in item:
+                    continue
+
+                if item.get("type", "rule") == "rule":
+                    self.rules.append(item["id"])
+                elif item.get("type") == "invariant":
+                    self.invariants.append(item)
 
     def _index_data(self):
         self.axiom_ids = {a["id"] for a in self.axioms}

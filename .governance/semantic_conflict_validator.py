@@ -15,7 +15,8 @@ class SemanticConflictValidator:
         self.intents = self._load_semantic("intents.yaml")["intents"]
         self.axioms = self._load_semantic("axioms.yaml")["axioms"]
 
-        self.rules = self._load_rules()
+        self.rules = {}
+        self._load_rules_and_additional_invariants()
 
         self._index()
 
@@ -29,17 +30,25 @@ class SemanticConflictValidator:
 
     # --------------------------------------------------
 
-    def _load_rules(self):
-        rule_map = {}
+    def _load_rules_and_additional_invariants(self):
         path = RULES_PATH
         if not path.exists():
             path = Path(__file__).parent.parent / "canon" / "rules"
 
         for file in path.rglob("*.yaml"):
             data = yaml.safe_load(file.read_text())
-            if data and "id" in data:
-                rule_map[data["id"]] = data
-        return rule_map
+            if not data:
+                continue
+
+            items = data if isinstance(data, list) else [data]
+            for item in items:
+                if not isinstance(item, dict) or "id" not in item:
+                    continue
+
+                if item.get("type", "rule") == "rule":
+                    self.rules[item["id"]] = item
+                elif item.get("type") == "invariant":
+                    self.invariants.append(item)
 
     def _index(self):
         self.intent_ids = {i["id"] for i in self.intents}
@@ -142,7 +151,7 @@ class SemanticConflictValidator:
 
     def _fail(self, message):
         print(f"❌ Semantic conflict detected: {message}")
-        sys.exit(1)
+        exit(1)
 
 
 if __name__ == "__main__":

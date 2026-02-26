@@ -1,0 +1,28 @@
+- id: BOOTSTRAP_ISOLATION_ENFORCEMENT
+  type: invariant
+  scope: repository_bootstrap
+  description: Prevents local canon contamination and prompt overrides.
+  enforces_rules:
+    - BOOTSTRAP_NO_LOCAL_CANON
+    - BOOTSTRAP_NO_PROMPT_CANON_OVERRIDE
+  supports_intents:
+    - INTENT_CANON_SUPREMACY
+    - INTENT_NO_HALLUCINATED_ARCHITECTURE
+  derives_from_axioms:
+    - AXIOM_CANON_SUPREMACY
+    - AXIOM_DETERMINISM
+
+- id: BOOTSTRAP_PROCEDURAL_ENFORCEMENT
+  type: invariant
+  scope: repository_bootstrap
+  description: Ensures bootstrap follows correct resolution and validation flow.
+  enforces_rules:
+    - BOOTSTRAP_PINNED_REF_REQUIRED
+    - BOOTSTRAP_CANON_CACHE_RESOLUTION
+    - BOOTSTRAP_HITL_REQUIRED
+  supports_intents:
+    - INTENT_DETERMINISTIC_GOVERNANCE
+    - INTENT_STRICT_MODE_ENFORCEMENT
+  derives_from_axioms:
+    - AXIOM_SPEC_PRIMACY
+    - AXIOM_DETERMINISM

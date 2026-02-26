@@ -13,3 +13,21 @@ intents:
 
   - id: INTENT_DRIFT_PREVENTION
     description: "The system must detect and contain governance drift."
+
+  - id: INTENT_CANON_SUPREMACY
+    description: "Maintain the absolute authority of the canonical documents."
+
+  - id: INTENT_NO_HALLUCINATED_ARCHITECTURE
+    description: "Prevent the creation of undocumented architectural patterns."
+
+  - id: INTENT_STRICT_MODE_ENFORCEMENT
+    description: "Ensure that all execution occurs within defined governance modes."
+
+  - id: INTENT_DETERMINISTIC_EXECUTION
+    description: "Ensure that system execution follows established procedures."
+
+  - id: INTENT_NO_SCOPE_CREEP
+    description: "Prevent tasks from expanding beyond their classified task group."
+
+  - id: INTENT_CONSTITUTIONAL_DISCIPLINE
+    description: "Enforce strict adherence to constitutional rules."
