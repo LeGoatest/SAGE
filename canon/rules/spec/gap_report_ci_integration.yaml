@@ -1,0 +1,17 @@
+id: GAP_REPORT_VALIDATION_STAGE
+type: invariant
+scope: governance_engine
+description: >
+  GAP_REPORT validation MUST execute in CI before merging brownfield specs.
+
+enforces_rules:
+  - GAP_REPORT_REQUIRED_RULE
+  - GAP_REPORT_BLOCKERS_MUST_BE_RESOLVED
+
+supports_intents:
+  - INTENT_NO_SILENT_ARCHITECTURE_DRIFT
+  - INTENT_BROWNFIELD_DISCIPLINE
+  - INTENT_DETERMINISTIC_SPEC
+
+derives_from_axioms:
+  - AXIOM_SPEC_PRIMACY

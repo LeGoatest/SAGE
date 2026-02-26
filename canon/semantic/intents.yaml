@@ -40,3 +40,21 @@ intents:
 
   - id: INTENT_DETERMINISTIC_SPEC
     description: "Ensure that specifications are complete and traceable."
+
+  - id: INTENT_DETERMINISTIC_HANDOFF
+    description: "Ensure that task handoff between sessions or agents is deterministic."
+
+  - id: INTENT_SESSION_REHYDRATION
+    description: "Enable the accurate restoration of system state and goals across sessions."
+
+  - id: INTENT_NO_CONTEXT_LOSS
+    description: "Prevent the loss of architectural or procedural context during transitions."
+
+  - id: INTENT_NO_CONTEXT_DRIFT
+    description: "Maintain goal stability and alignment when resuming tasks."
+
+  - id: INTENT_GOVERNANCE_ENGINE_ALIGNMENT
+    description: "Ensure all validation logic is synchronized with the central engine."
+
+  - id: INTENT_NO_RUNTIME_DRIFT
+    description: "Prevent unauthorized behavioral changes during the execution phase."

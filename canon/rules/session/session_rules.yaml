@@ -1,0 +1,23 @@
+- id: HANDOVER_VALIDATED_ON_RESUME
+  type: rule
+  effect: require
+  condition: >
+    A new session resumes execution on an existing .jtasks/<timestamp>/ folder.
+  message: >
+    HANDOVER.md must be present and validated before resuming execution.
+
+- id: CANON_HASH_MATCH_ON_RESUME
+  type: rule
+  effect: require
+  condition: >
+    version_lock.yaml hash differs from the value recorded in HANDOVER.md.
+  message: >
+    Canon hash mismatch detected. Execution blocked until resolved.
+
+- id: NO_EXEC_WITHOUT_DEEP_REENTRY
+  type: rule
+  effect: require
+  condition: >
+    Execution resumes without ENTER_DEEP_GOVERNANCE_MODE revalidation.
+  message: >
+    Deep Governance Mode must be re-entered before resuming execution.
