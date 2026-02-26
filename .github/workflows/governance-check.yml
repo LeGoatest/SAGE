@@ -28,5 +28,8 @@ jobs:
       - name: Validate Constitutional Graph
         run: python .governance/invariant_validator.py
 
+      - name: Semantic Conflict Detection
+        run: python .governance/semantic_conflict_validator.py
+
       - name: Run Governance Validator
         run: python .governance/validator.py

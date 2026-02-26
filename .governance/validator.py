@@ -10,6 +10,7 @@ sys.path.append(str(Path(__file__).parent))
 
 from boot_validator import BootValidator
 from invariant_validator import InvariantValidator
+from semantic_conflict_validator import SemanticConflictValidator
 from semantic_engine import SemanticEngine
 
 CANON_PATH = Path("canon")
@@ -80,8 +81,13 @@ def evaluate():
     inv_validator = InvariantValidator()
     inv_validator.validate()
 
-    # 3. Rule Evaluation
-    print("Step 3: Rule Evaluation")
+    # 3. Semantic Conflict Detection
+    print("Step 3: Semantic Conflict Detection")
+    conflict_validator = SemanticConflictValidator()
+    conflict_validator.validate()
+
+    # 4. Rule Evaluation
+    print("Step 4: Rule Evaluation")
     rules = load_rules()
     changed_files = get_changed_files()
 

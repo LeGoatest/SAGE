@@ -1,15 +1,22 @@
 invariants:
   - id: INV_PROTECTED_ZONES_IMMUTABLE
-    description: "Protected zones cannot be modified without governance capability."
+    description: "Protected zones are immutable by default."
     enforces_rules:
       - SECURITY_PROTECTED_ZONES
-      - SECURITY_CANON_MUTATION
     supports_intents:
       - INTENT_SECURITY_BOUNDARIES
-      - INTENT_STRUCTURAL_SOVEREIGNTY
     derives_from_axioms:
       - AXIOM_CANON_SUPREMACY
       - AXIOM_CONSTITUTIONAL_SELF_PROTECTION
+
+  - id: INV_CANON_MUTATION_RESTRICTED
+    description: "Canon mutation is restricted to governance capability."
+    enforces_rules:
+      - SECURITY_CANON_MUTATION
+    supports_intents:
+      - INTENT_STRUCTURAL_SOVEREIGNTY
+    derives_from_axioms:
+      - AXIOM_CANON_SUPREMACY
 
   - id: INV_SINGLE_ACTIVE_TASK
     description: "Only one active task may exist at any time."
