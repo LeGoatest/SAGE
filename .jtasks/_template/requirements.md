@@ -4,7 +4,19 @@ Status: DRAFT
 Task Group: TODO
 Modes: ENTER_DEEP_GOVERNANCE_MODE → ENTER_SPEC_MODE → ENTER_EXEC_MODE
 Canon: canon/ (prevails)
-Docs: .docs/ (must not be deleted)
+
+---
+
+## 0) Brownfield Determination (Mandatory)
+
+Is this task modifying or extending an existing system?
+
+- YES → GAP_REPORT.md is REQUIRED.
+- NO → GAP_REPORT.md is OPTIONAL.
+
+If YES and GAP_REPORT.md is missing:
+- STOP
+- Emit: [AWAIT_HUMAN_VALIDATION]
 
 ---
 
@@ -16,33 +28,27 @@ Implementation is forbidden until:
 - requirements.md approved
 - design.md approved
 - tasks.md approved
-- any required HITL validation completed
+- GAP_REPORT.md approved (if required)
 
 ---
 
-## 2) Request Summary
+## 2) Evidence (No Inference)
 
-- TODO: one-paragraph summary of the request in plain language.
-
----
-
-## 3) Evidence (No Inference)
-
-List evidence sources used (files, paths, links, logs). Evidence must be explicit; no assumptions.
+List explicit evidence.
 
 - TODO: <path or link> — <what it proves>
 - TODO: <path or link> — <what it proves>
 
 Rules:
+- Evidence must be explicit; no assumptions.
 - If evidence is missing, mark TODO and add to DECISIONS_NEEDED.md (if applicable).
 - Do not fabricate architecture, boundaries, or security properties.
 
 ---
 
-## 4) Structured Constraint Extraction (Required)
+## 3) Structured Constraint Extraction (Required)
 
-Before Spec or Exec, Deep Governance Mode MUST produce the following `reasoning_context` block.
-Paste the finalized Deep Mode output here once produced.
+Paste finalized Deep Mode reasoning_context here.
 
 ```yaml
 reasoning_context:
@@ -64,20 +70,7 @@ Rules:
 
 ---
 
-## 5) Functional Requirements (EARS)
-
-Each requirement MUST be:
-- uniquely ID’d
-- testable
-- mapped in the Traceability Matrix (§8)
-
-Template patterns:
-- REQ-###: When <trigger>, the system SHALL <behavior>.
-- REQ-###: While <state>, the system SHALL <behavior>.
-- REQ-###: If <condition>, the system SHALL <behavior>.
-- REQ-###: The system SHALL NOT <prohibited behavior>.
-
-### Requirements
+## 4) Functional Requirements (EARS)
 
 REQ-001: TODO
 
@@ -85,56 +78,27 @@ REQ-002: TODO
 
 ---
 
-## 6) Non-Functional Requirements
+## 5) Non-Functional Requirements
 
-NFR-001 (Performance): TODO
+NFR-001: TODO
 
-NFR-002 (Security/Governance): MUST NOT violate canon invariants.
+NFR-002: MUST NOT violate canon invariants.
 
-NFR-003 (Determinism): Same inputs MUST produce equivalent outputs.
+NFR-003: Same inputs MUST produce equivalent outputs.
 
-NFR-004 (Compatibility): TODO
+NFR-004: TODO
 
 ---
 
-## 7) Failure Modeling (Mandatory)
-
-Define what “failure” means and how it is detected.
-
-Each failure state MUST include:
-- ID
-- Description
-- Detection method
-- Severity (BLOCKER/HIGH/MED/LOW)
-- Canon linkage (invariant/rule IDs) when applicable
-
-### Failure States
+## 6) Failure Modeling
 
 FAIL-001: TODO
-- Detection: TODO
-- Severity: TODO
-- Canon: TODO
 
 FAIL-002: TODO
-- Detection: TODO
-- Severity: TODO
-- Canon: TODO
-
-### Negative Tests (if applicable)
-
-NEG-001: TODO
 
 ---
 
-## 8) Traceability Matrix (Mandatory)
-
-Every requirement MUST trace to:
-- Evidence
-- Design section(s)
-- Task(s)
-- Test/Validation
-- Canon linkage (when governance/security relevant)
-- Failure state(s)
+## 7) Traceability Matrix
 
 | Requirement | Evidence | Design Ref | Task Ref | Test/Validation | Canon Link | Failure State |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
@@ -148,11 +112,11 @@ Rules:
 
 ---
 
-## 9) Acceptance Criteria
+## 8) Acceptance Criteria
 
-AC-001: TODO (observable pass condition)
+AC-001: TODO
 
-AC-002: TODO (observable pass condition)
+AC-002: TODO
 
 AC-003: CI/governance checks pass with zero BLOCKER failures.
 
@@ -160,23 +124,8 @@ AC-004: No protected zones were modified.
 
 ---
 
-## 10) Out of Scope
+## 9) HITL Gate
 
-OOS-001: TODO
-
-OOS-002: TODO
-
----
-
-## 11) HITL Gate
-
-If any of the following are true, end this document with:
+If canon conflict, ambiguity, or governance mutation:
 
 [AWAIT_HUMAN_VALIDATION]
-
-Triggers:
-- ambiguous task group classification
-- canon conflict or required canon mutation
-- security boundary modification
-- unresolved DECISIONS_NEEDED.md items
-- missing evidence for required claims

@@ -31,3 +31,12 @@ intents:
 
   - id: INTENT_CONSTITUTIONAL_DISCIPLINE
     description: "Enforce strict adherence to constitutional rules."
+
+  - id: INTENT_NO_SILENT_ARCHITECTURE_DRIFT
+    description: "Prevent undocumented changes to existing architectural patterns."
+
+  - id: INTENT_BROWNFIELD_DISCIPLINE
+    description: "Enforce rigorous gap analysis for modifications to existing systems."
+
+  - id: INTENT_DETERMINISTIC_SPEC
+    description: "Ensure that specifications are complete and traceable."

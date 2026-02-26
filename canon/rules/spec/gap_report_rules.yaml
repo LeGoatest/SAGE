@@ -1,0 +1,15 @@
+- id: GAP_REPORT_REQUIRED_RULE
+  type: rule
+  effect: require
+  condition: >
+    Task modifies existing files OR extends existing components OR alters current architecture
+  message: >
+    Brownfield modification detected. GAP_REPORT.md is required before proceeding to design or execution.
+
+- id: GAP_REPORT_BLOCKERS_MUST_BE_RESOLVED
+  type: rule
+  effect: require
+  condition: >
+    GAP_REPORT.md exists AND contains any Risk Level: BLOCKER gaps
+  message: >
+    All BLOCKER gaps must be resolved or explicitly validated before proceeding to execution.

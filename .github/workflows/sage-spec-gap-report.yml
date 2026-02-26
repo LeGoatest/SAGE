@@ -1,0 +1,23 @@
+name: SAGE Spec Validation (GAP_REPORT)
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  gap_report_validator:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Validate GAP_REPORT for brownfield specs
+        run: |
+          python tools/ci/validate_gap_report.py .
