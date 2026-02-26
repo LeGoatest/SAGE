@@ -1,37 +1,49 @@
-# Semantic Handover (Multi-Model Resilience)
+# HANDOVER
 
-This document ensures continuity of execution across context resets or model changes.
-**Mandatory for every incomplete execution.**
+This file is required if work stops before execution is complete.
 
 ---
 
-## 1. Context Snapshot
-- **Task Group:** [e.g., development]
-- **Spec State:** [e.g., In-progress / Design Approved]
-- **Target Repository:** [repo name/path]
-- **Governance Binding File:** `governance.yaml`
-- **SAGE Repo:** https://github.com/LeGoatest/Sovereign-agent-template
-- **Pinned Canon Ref (commit SHA):** [sha]
-- **Resolved Canon Root (Jules cache):** [jules_cache/sage/checkouts/<ref>/]
-- **Current Model Identity:** [e.g., Jules]
+## 1) Current State
 
-## 2. Execution State
-- **Active Task ID:** [e.g., T4]
-- **Completed Tasks:**
-  - [ID] - [Summary]
-- **Pending Tasks:**
-  - [ID] - [Summary]
+- Deep Mode complete: YES/NO
+- Spec approved: YES/NO
+- Exec started: YES/NO
+- Tasks completed: <list>
 
-## 3. Risks & Refusals
-- **Last Refusal Trigger:** [None / Reason]
-- **Architectural Risks Detected:**
-  - [Risk] - [Canonical Reference]
+---
 
-## 4. Canonical References Used
-List the canon references used during execution in this format:
+## 2) Remaining Work
 
-- `SAGE@<ref>:<path>#<anchor>` — [Why it mattered]
+- TODO
 
-## 5. Continuity Instruction
-*Provide the exact next step for the successor model/context.*
-> [Next step]
+---
+
+## 3) Known Risks
+
+- RISK-001: TODO
+- RISK-002: TODO
+
+---
+
+## 4) Failure States Still Possible
+
+- FAIL-###: TODO
+
+---
+
+## 5) Next Required Mode
+
+- ENTER_DEEP_GOVERNANCE_MODE
+- ENTER_SPEC_MODE
+- ENTER_EXEC_MODE
+
+---
+
+## 6) Blockers
+
+If blocked, include:
+
+[AWAIT_HUMAN_VALIDATION]
+
+With explanation.
