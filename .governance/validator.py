@@ -13,6 +13,7 @@ from invariant_validator import InvariantValidator
 from semantic_conflict_validator import SemanticConflictValidator
 from semantic_engine import SemanticEngine
 from graph_generator import GraphGenerator
+from derivation_compiler import DerivationCompiler
 
 CANON_PATH = Path("canon")
 
@@ -113,6 +114,10 @@ def evaluate():
     # 5. Generate Graph (Post-validation)
     print("Step 5: Generate Constitutional Graph")
     GraphGenerator().generate()
+
+    # 6. Constitutional Derivation Analysis
+    print("Step 6: Constitutional Derivation Analysis")
+    DerivationCompiler().analyze()
 
     print("✅ Governance Passed")
 
