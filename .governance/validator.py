@@ -8,12 +8,7 @@ from pathlib import Path
 # Add current dir to path for imports
 sys.path.append(str(Path(__file__).parent))
 
-from boot_validator import BootValidator
-from invariant_validator import InvariantValidator
-from semantic_conflict_validator import SemanticConflictValidator
-from semantic_engine import SemanticEngine
-from graph_generator import GraphGenerator
-from derivation_compiler import DerivationCompiler
+from engine import SAGEEngine
 
 CANON_PATH = Path("canon")
 
@@ -63,7 +58,6 @@ def match_rule(rule, changed_files):
     if condition == "CANON_HASH_MISMATCH":
         lock_file = CANON_PATH.joinpath("identity/version_lock.yaml")
         if not lock_file.exists():
-            # Old path?
             lock_file = CANON_PATH.joinpath("version_lock.yaml")
 
         if lock_file.exists():
@@ -73,20 +67,19 @@ def match_rule(rule, changed_files):
     return False
 
 def evaluate():
+    engine = SAGEEngine()
+
     # 1. Canon Boot Validation
     print("Step 1: Canon Boot Validation")
-    boot_validator = BootValidator()
-    boot_validator.validate()
+    engine.boot_validate()
 
     # 2. Invariant Consistency Validation
     print("Step 2: Invariant Consistency Validation")
-    inv_validator = InvariantValidator()
-    inv_validator.validate()
+    engine.invariant_validate()
 
     # 3. Semantic Conflict Detection
     print("Step 3: Semantic Conflict Detection")
-    conflict_validator = SemanticConflictValidator()
-    conflict_validator.validate()
+    engine.conflict_validate()
 
     # 4. Rule Evaluation
     print("Step 4: Rule Evaluation")
@@ -96,15 +89,12 @@ def evaluate():
     violated_rule_ids = []
     for rule in rules:
         if match_rule(rule, changed_files):
-            # In this simple version, any match is a violation for demonstration
-            # In a real lattice system, resolve_conflicts would decide.
             if rule.get("effect") == "deny":
                  violated_rule_ids.append(rule["id"])
 
     if violated_rule_ids:
         print("❌ Governance Denied")
-        engine = SemanticEngine()
-        explanation = engine.evaluate_violation(violated_rule_ids)
+        explanation = engine.explain_violation(violated_rule_ids)
         if explanation:
             print("\n--- CONSTITUTIONAL REASONING ---")
             print(explanation)
@@ -113,11 +103,11 @@ def evaluate():
 
     # 5. Generate Graph (Post-validation)
     print("Step 5: Generate Constitutional Graph")
-    GraphGenerator().generate()
+    engine.generate_graph()
 
     # 6. Constitutional Derivation Analysis
     print("Step 6: Constitutional Derivation Analysis")
-    DerivationCompiler().analyze()
+    engine.analyze_derivation()
 
     print("✅ Governance Passed")
 
