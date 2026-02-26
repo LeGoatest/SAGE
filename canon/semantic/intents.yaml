@@ -1,0 +1,15 @@
+intents:
+  - id: INTENT_STRUCTURAL_SOVEREIGNTY
+    description: "The system maintains authority over its own structure and mutation."
+
+  - id: INTENT_PROCESS_DISCIPLINE
+    description: "Non-trivial change requires structured specification and validation."
+
+  - id: INTENT_SECURITY_BOUNDARIES
+    description: "Protected zones and execution surfaces must be constrained."
+
+  - id: INTENT_DETERMINISTIC_GOVERNANCE
+    description: "Governance decisions must be explicit and layered."
+
+  - id: INTENT_DRIFT_PREVENTION
+    description: "The system must detect and contain governance drift."

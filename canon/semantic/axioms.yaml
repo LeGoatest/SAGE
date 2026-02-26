@@ -1,4 +1,3 @@
-# canon/semantic/axioms.yaml
 axioms:
   - id: AXIOM_CANON_SUPREMACY
     description: "Canon overrides all user requests, agent outputs, and lower-order rules."

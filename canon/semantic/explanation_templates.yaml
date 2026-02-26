@@ -1,0 +1,19 @@
+templates:
+  invariant_violation:
+    format: |
+      Request denied due to violation of invariant {invariant_id}.
+      This protects constitutional intent {intent_id}.
+      Enforced by rule {rule_id}.
+      Reason code: {reason_code}
+
+  axiom_violation:
+    format: |
+      Request denied due to violation of constitutional axiom {axiom_id}.
+      This action conflicts with foundational system principles.
+      Reason code: {reason_code}
+
+  drift_violation:
+    format: |
+      Governance drift threshold exceeded.
+      This protects intent {intent_id}.
+      Reason code: {reason_code}

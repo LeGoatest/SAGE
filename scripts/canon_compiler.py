@@ -60,7 +60,7 @@ def check_contradictions(rules):
     return True
 
 def main():
-    search_dirs = ['src', 'Jules']
+    search_dirs = ['.docs', 'Jules']
     all_rules = []
 
     for sdir in search_dirs:
