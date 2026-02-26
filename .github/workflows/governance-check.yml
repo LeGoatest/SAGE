@@ -33,3 +33,12 @@ jobs:
 
       - name: Run Governance Validator
         run: python .governance/validator.py
+
+      - name: Generate Constitutional Graph
+        run: python .governance/graph_generator.py
+
+      - name: Upload Constitutional Graph
+        uses: actions/upload-artifact@v4
+        with:
+          name: constitutional-graph
+          path: .governance/constitutional_graph.dot

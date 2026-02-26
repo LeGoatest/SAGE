@@ -12,6 +12,7 @@ from boot_validator import BootValidator
 from invariant_validator import InvariantValidator
 from semantic_conflict_validator import SemanticConflictValidator
 from semantic_engine import SemanticEngine
+from graph_generator import GraphGenerator
 
 CANON_PATH = Path("canon")
 
@@ -108,6 +109,10 @@ def evaluate():
             print(explanation)
             print("--------------------------------\n")
         sys.exit(1)
+
+    # 5. Generate Graph (Post-validation)
+    print("Step 5: Generate Constitutional Graph")
+    GraphGenerator().generate()
 
     print("✅ Governance Passed")
 
