@@ -1,4 +1,4 @@
-canon_hash: "REPLACE_WITH_SHA256_OF_CANON_DIRECTORY"
+canon_hash: "f4c891827a89007447ef8e964b1292b1a0037ec5c35512db27d2e855a0637be1"
 hash_algorithm: "sha256"
 lock_scope:
   include:

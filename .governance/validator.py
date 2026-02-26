@@ -8,8 +8,9 @@ from pathlib import Path
 # Add current dir to path for imports
 sys.path.append(str(Path(__file__).parent))
 
-from semantic_engine import SemanticEngine
+from boot_validator import BootValidator
 from invariant_validator import InvariantValidator
+from semantic_engine import SemanticEngine
 
 CANON_PATH = Path("canon")
 
@@ -27,18 +28,19 @@ def compute_canon_hash():
     return sha.hexdigest()
 
 def get_changed_files():
-    # Attempt to get changed files against origin/main
-    try:
-        result = subprocess.run(
-            ["git", "diff", "--name-only", "origin/main"],
-            capture_output=True,
-            text=True,
-            check=True
-        )
-        return result.stdout.strip().split("\n")
-    except subprocess.CalledProcessError:
-        # Fallback if origin/main is not available
-        return []
+    # Attempt to get changed files against main branches
+    for target in ["origin/main", "main", "origin/master", "master", "HEAD^"]:
+        try:
+            result = subprocess.run(
+                ["git", "diff", "--name-only", target],
+                capture_output=True,
+                text=True,
+                check=True
+            )
+            return result.stdout.strip().split("\n")
+        except subprocess.CalledProcessError:
+            continue
+    return []
 
 def match_rule(rule, changed_files):
     match = rule.get("match", {})
@@ -68,13 +70,18 @@ def match_rule(rule, changed_files):
     return False
 
 def evaluate():
-    # 1. Run Invariant Consistency Validation First
-    print("Step 1: Invariant Consistency Validation")
+    # 1. Canon Boot Validation
+    print("Step 1: Canon Boot Validation")
+    boot_validator = BootValidator()
+    boot_validator.validate()
+
+    # 2. Invariant Consistency Validation
+    print("Step 2: Invariant Consistency Validation")
     inv_validator = InvariantValidator()
     inv_validator.validate()
 
-    # 2. Evaluate Rules
-    print("Step 2: Rule Evaluation")
+    # 3. Rule Evaluation
+    print("Step 3: Rule Evaluation")
     rules = load_rules()
     changed_files = get_changed_files()
 

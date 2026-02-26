@@ -22,8 +22,11 @@ jobs:
       - name: Install Dependencies
         run: pip install pyyaml jsonschema
 
-      - name: Run Governance Validator
-        run: python .governance/validator.py
+      - name: Canon Boot Validation
+        run: python .governance/boot_validator.py
 
       - name: Validate Constitutional Graph
         run: python .governance/invariant_validator.py
+
+      - name: Run Governance Validator
+        run: python .governance/validator.py
