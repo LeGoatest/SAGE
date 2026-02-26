@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "SAGT Canon Rule Schema",
+  "title": "SAGE Canon Rule Schema",
   "type": "object",
   "required": ["id", "layer", "effect", "reason_code", "message"],
   "properties": {

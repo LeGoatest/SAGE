@@ -1,6 +1,6 @@
 # Governance State Machine
 
-SAGT treats “modes” as **governance states** in a deterministic state machine.
+SAGE treats “modes” as **governance states** in a deterministic state machine.
 States are not vibes, and they do not expand authority.
 
 This document defines:

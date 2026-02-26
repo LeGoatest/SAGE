@@ -3,12 +3,12 @@
 - [ ] **Task 1**: Description
   - Task Group: [Group]
   - Skill: [Skill]
-  - Canon Reference: `SAGT@<ref>:<path>#<anchor>`
+  - Canon Reference: `SAGE@<ref>:<path>#<anchor>`
   - Outputs: [Files]
 - [ ] **Task 2**: Description
   - Task Group: [Group]
   - Skill: [Skill]
-  - Canon Reference: `SAGT@<ref>:<path>#<anchor>`
+  - Canon Reference: `SAGE@<ref>:<path>#<anchor>`
   - Outputs: [Files]
 
 ---

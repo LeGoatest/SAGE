@@ -5,9 +5,9 @@ Briefly describe the current status of the repository and what this bootstrap/sp
 
 ## Governance Binding (External Canon)
 - **governance.yaml present**: [Yes/No]
-- **SAGT Repo**: https://github.com/LeGoatest/Sovereign-agent-template
+- **SAGE Repo**: https://github.com/LeGoatest/Sovereign-agent-template
 - **Pinned Ref (commit SHA)**: [sha]
-- **Jules Canon Cache Checkout Path**: [jules_cache/sagt/checkouts/<ref>/...]
+- **Jules Canon Cache Checkout Path**: [jules_cache/sage/checkouts/<ref>/...]
 
 ## Technical Status
 - **Component 1**: [Status]

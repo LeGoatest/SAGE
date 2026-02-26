@@ -1,5 +1,5 @@
 # Bootstrapping a Target Repository  
-## SAGT v4.1 — External Canon Model
+## SAGE v4.1 — External Canon Model
 
 ---
 
@@ -7,8 +7,8 @@
 
 To eliminate ambiguity:
 
-- **SAGT Repository**  
-  The Sovereign Agent Template repository.  
+- **SAGE Repository**
+  The Sovereign Agent Governance Engine repository.
   This contains the Universal Canon.  
   It is the only authoritative governance source.
 
@@ -33,7 +33,7 @@ The Target Repository:
 - MUST NOT generate or modify canonical documents.
 - MUST only declare governance reference via `governance.yaml`.
 
-Canon lives exclusively in the SAGT Repository.
+Canon lives exclusively in the SAGE Repository.
 
 ---
 
@@ -43,7 +43,7 @@ The Target Repository MUST contain:
 
 ```yaml
 # governance.yaml
-sagt:
+sage:
   repo: https://github.com/LeGoatest/Sovereign-agent-template
   ref: <commit-sha>
   mode: strict
@@ -68,7 +68,7 @@ For every bootstrap session:
 4. Load canonical entrypoint:
 
 ```
-<jules_cache>/sagt/checkouts/<ref>/canon/bootstrap.md
+<jules_cache>/sage/checkouts/<ref>/canon/bootstrap.md
 ```
 
 Prompts MUST NOT specify canon paths.
@@ -251,7 +251,7 @@ The Agent MUST:
 - Target Repository MUST NOT contain `.canon/`.
 - Canon MUST be resolved from pinned external `ref`.
 - Prompts MUST NOT override canon entrypoint.
-- Canon mutations MUST occur only in the SAGT Repository.
+- Canon mutations MUST occur only in the SAGE Repository.
 - Canon is authoritative; Target Repository is declarative only.
 
 ---

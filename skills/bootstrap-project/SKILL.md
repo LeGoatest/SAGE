@@ -33,7 +33,7 @@ Do not use when:
    - Detect primary language and build systems (e.g., `go.mod`, `package.json`, `Makefile`).
    - Identify existing documentation (README, `src/`).
 2) **Gap Analysis:**
-   - Compare current state against the [Sovereign Agent Template structure](../../../README.md).
+   - Compare current state against the [Sovereign Agent Governance Engine structure](../../../README.md).
    - Identify missing canonical docs (Rules, Security, Index).
    - Identify missing agent governance files (JULES.md, TASK_GROUPS.md, SKILLS_INDEX.md).
 

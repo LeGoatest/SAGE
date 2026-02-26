@@ -1,6 +1,6 @@
 # ARCHITECTURE_RULES
 
-This document defines the highest-precedence invariants for SAGT.
+This document defines the highest-precedence invariants for SAGE.
 
 These rules are binding.
 Agents must refuse when these rules are violated or when compliance is ambiguous.
@@ -270,7 +270,7 @@ After emitting it, the agent must not continue execution.
 
 Refer to `src/canon/rule-schema-v2.governance.yaml` for structured definition.
 
-SAGT governance operates as a deterministic state machine with explicit states and transitions.
+SAGE governance operates as a deterministic state machine with explicit states and transitions.
 
 States include:
 - Normal

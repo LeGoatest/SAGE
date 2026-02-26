@@ -2,7 +2,7 @@
 # This file is additive and must not conflict with ARCHITECTURE_RULES.md.
 
 schema_version: "2.0"
-domain: "sagt_canon"
+domain: "sage_canon"
 module: "governance_states"
 module_version: "1.0"
 

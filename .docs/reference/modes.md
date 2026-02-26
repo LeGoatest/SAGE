@@ -1,6 +1,6 @@
 # Modes and Governance States
 
-SAGT uses the term “mode” to mean a **governance state**.
+SAGE uses the term “mode” to mean a **governance state**.
 States constrain what outputs are allowed at a given time.
 
 A mode is not a skill.

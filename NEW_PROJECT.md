@@ -1,11 +1,11 @@
-# New Project Prompt (SAGT v4 – External Canon Model)
+# New Project Prompt (SAGE v4 – External Canon Model)
 
 If you are starting a new project or bringing the Sovereign Agent into an existing Target Repository, paste the following prompt:
 
 ---
 
 **Resolve governance using governance.yaml.**
-**Load the pinned SAGT ref via Jules Canon Cache.**
+**Load the pinned SAGE ref via Jules Canon Cache.**
 **Use the canonical entrypoint defined by the resolved ref.**
 **Validate all requests against the externally resolved Universal Canon.**
 **If a request conflicts with canonical invariants, you MUST refuse.**

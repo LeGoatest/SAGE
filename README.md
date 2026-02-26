@@ -10,14 +10,14 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <h3 align="center">Sovereign Agent Template (SAGT)</h3>
+  <h3 align="center">Sovereign Agent Governance Engine (SAGE)</h3>
 
   <p align="center">
     A formalized contract-governed multi-plane execution constitution for AI coding agents.
     <br />
     <a href=".docs/canon/ARCHITECTURE_INDEX.md"><strong>Explore the docs »</strong></a>
     &middot;
-    <a href=".docs/reference/SAGT_OVERVIEW.md">View Handbook</a>
+    <a href=".docs/reference/SAGE_OVERVIEW.md">View Handbook</a>
     <br />
     <br />
     <a href="BOOTSTRAP.md">Bootstrap Project</a>
@@ -50,7 +50,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-SAGT is an **operating doctrine** that provides a deterministic, repository-controlled governance framework. It establishes a clear separation between architectural authority and procedural execution.
+SAGE is an **operating doctrine** that provides a deterministic, repository-controlled governance framework. It establishes a clear separation between architectural authority and procedural execution.
 
 ### Core Philosophy: Sovereign Systems Axioms
 
@@ -65,7 +65,7 @@ The framework is built on six constitutional axioms defined in `.docs/canon/SYST
 
 ### Advanced Governance Layer
 
-Beyond basic mechanics, SAGT enforces sophisticated organizational invariants:
+Beyond basic mechanics, SAGE enforces sophisticated organizational invariants:
 - **CONTRACT_MODEL.md**: Defines explicit interfaces for cross-plane communication.
 - **INVARIANT_MODEL.md**: Documents core system truths that must be preserved.
 - **MUTATION_PROCESS.md**: Establishes a formal process for constitutional/canon amendments.
@@ -84,7 +84,7 @@ pip install -r requirements.txt
 ```
 
 ### Installation
-To implement SAGT in your project:
+To implement SAGE in your project:
 
 1. Refer to [BOOTSTRAP.md](BOOTSTRAP.md) to initialize governance in an existing repository.
 2. Follow [NEW_PROJECT.md](NEW_PROJECT.md) if starting from scratch.
@@ -95,11 +95,11 @@ To implement SAGT in your project:
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-SAGT defines a strict **Governance Hierarchy**. All work must comply with the hierarchy defined in `.docs/canon/ARCHITECTURE_INDEX.md`.
+SAGE defines a strict **Governance Hierarchy**. All work must comply with the hierarchy defined in `.docs/canon/ARCHITECTURE_INDEX.md`.
 
 1.  **.docs/canon/ARCHITECTURE_RULES.md**: The supreme law of the project.
 2.  **.docs/canon/SYSTEM_AXIOMS.md**: The philosophical invariants.
-3.  **.docs/reference/SAGT_OVERVIEW.md**: The Handbook. Complete structural guide.
+3.  **.docs/reference/SAGE_OVERVIEW.md**: The Handbook. Complete structural guide.
 4.  **.docs/canon/SECURITY_MODEL.md**: The trust and safety boundary.
 5.  **.docs/canon/INVARIANT_MODEL.md**: The immutability layer.
 6.  **.docs/canon/CONTRACT_MODEL.md**: Cross-plane communication.
@@ -135,7 +135,7 @@ The Agent MUST refuse any request that violates the canon or implies undocumente
 <!-- ROADMAP -->
 ## Roadmap
 
-- [x] SAGT v3.0 Multi-Zone Architecture
+- [x] SAGE v3.0 Multi-Zone Architecture
 - [x] Deterministic Planning Protocol (.jtasks)
 - [ ] Multi-Agent Coordination Protocol
 - [ ] Automated Governance Auditing
