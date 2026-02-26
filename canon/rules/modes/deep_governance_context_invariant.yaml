@@ -1,7 +1,9 @@
-- id: DEEP_GOVERNANCE_PROCEDURAL_ENFORCEMENT
+- id: DEEP_GOVERNANCE_CONTEXT_REQUIRED
   type: invariant
   scope: mode_transition
-  description: Ensures Deep Governance Mode follows correct procedural steps.
+  description: >
+    Requires Structured Constraint Extraction (reasoning_context) during
+    ENTER_DEEP_GOVERNANCE_MODE before any transition to Spec Mode or Exec Mode.
   enforces_rules:
     - DEEP_CONTEXT_BLOCK_REQUIRED
     - DEEP_CONTEXT_GATE_SPEC_AND_EXEC
@@ -13,10 +15,11 @@
     - AXIOM_CANON_SUPREMACY
     - AXIOM_SPEC_PRIMACY
 
-- id: DEEP_GOVERNANCE_ANALYSIS_ENFORCEMENT
+- id: DEEP_GOVERNANCE_CONTEXT_BOUNDARY
   type: invariant
   scope: mode_transition
-  description: Ensures Deep Governance Mode remains analysis-only without inference.
+  description: >
+    Ensures Deep Governance Mode remains analysis-only without inference.
   enforces_rules:
     - DEEP_CONTEXT_NO_INFERENCE
     - DEEP_CONTEXT_NO_IMPLEMENTATION
