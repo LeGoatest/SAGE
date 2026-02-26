@@ -1,0 +1,7 @@
+id: IDENTITY_DRIFT_THRESHOLD
+layer: identity
+effect: deny
+match:
+  condition: DRIFT_THRESHOLD_EXCEEDED
+reason_code: DRIFT_THRESHOLD_EXCEEDED
+message: "Governance drift threshold exceeded."
