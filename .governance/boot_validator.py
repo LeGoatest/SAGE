@@ -2,9 +2,11 @@ import yaml
 import hashlib
 import sys
 from pathlib import Path
+from governance_lattice import get_sage_root
 
-# Assume run from repo root
-CANON_PATH = Path("canon")
+# Determine SAGE root for injection awareness
+SAGE_ROOT = get_sage_root()
+CANON_PATH = SAGE_ROOT / "canon"
 SEMANTIC_PATH = CANON_PATH / "semantic"
 RULES_PATH = CANON_PATH / "rules"
 SCHEMAS_PATH = CANON_PATH / "schemas"

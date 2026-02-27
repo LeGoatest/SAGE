@@ -2,6 +2,7 @@ import os
 import re
 import yaml
 import sys
+from governance_lattice import get_sage_root
 
 def extract_sagrules(filepath):
     try:
@@ -91,8 +92,15 @@ def check_contradictions(rules):
     return True
 
 def main():
+    # Determine SAGE root for injection awareness
+    sage_root = get_sage_root()
+
     # Prefer canon/ over .docs/
-    search_dirs = ['canon', 'Jules', '.docs']
+    search_dirs = [
+        sage_root / 'canon',
+        sage_root / 'Jules',
+        sage_root / '.docs'
+    ]
     all_rules = []
     seen_ids = set()
 

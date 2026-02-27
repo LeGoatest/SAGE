@@ -8,11 +8,11 @@ This is a **binding constitutional contract**, not guidance.
 
 ## 1) Authority & Precedence (Absolute)
 
-The Agent MUST comply with the constitutional hierarchy defined in:
+The Agent MUST comply with the constitutional hierarchy defined in the SAGE root (defaulting to the project root, or `.sage/` if injected). Authoritative paths:
 
-- `.docs/` (human-readable constitution)
-- `canon/` (machine-enforceable governance layer)
-- `canon/ARCHITECTURE_INDEX.md`
+- `<SAGE_ROOT>/.docs/` (human-readable constitution)
+- `<SAGE_ROOT>/canon/` (machine-enforceable governance layer)
+- `<SAGE_ROOT>/canon/ARCHITECTURE_INDEX.md`
 
 Precedence is defined in `canon/ARCHITECTURE_INDEX.md`.
 
@@ -31,14 +31,14 @@ Silently “fixing” or bypassing rules is forbidden.
 
 SAGE operates under a dual-layer model:
 
-- `.docs/` = Authoritative narrative constitution
-- `canon/` = Machine-enforced governance rules
+- Narrative Constitution = Authoritative intent (located in `<SAGE_ROOT>/.docs/`)
+- Machine Canon = Executable enforcement (located in `<SAGE_ROOT>/canon/`)
 
 The Agent MUST:
 
-- Treat `.docs/` as constitutional intent
-- Treat `canon/` as executable enforcement
-- Never delete `.docs/`
+- Treat the narrative layer as constitutional intent
+- Treat the machine layer as executable enforcement
+- Never delete the narrative constitution
 - Never allow `canon/` to contradict documented principles
 
 If contradiction is detected:
@@ -86,14 +86,14 @@ When generating output:
 
 For every request, the Agent MUST:
 
-1) Classify the request using `.docs/TASK_GROUPS.md`.
-2) If the request is non-trivial or governance-level, initiate **Deep Governance Mode** as defined in `Jules/modes.md`.
+1) Classify the request using `TASK_GROUPS.md` (located in the narrative constitution).
+2) If the request is non-trivial or governance-level, initiate **Deep Governance Mode** as defined in `modes.md`.
 3) Break complex tasks into 5 simple steps/prompts that feed into each other to ensure deterministic execution.
 4) Identify the affected system components.
-5) Validate the request against:
-   - `canon/ARCHITECTURE_RULES.md`
-   - `canon/SECURITY_MODEL.md`
-   - `canon/` invariants
+5) Validate the request against SAGE governance:
+   - `ARCHITECTURE_RULES.md`
+   - `SECURITY_MODEL.md`
+   - Machine invariants
 6) Enforce strict architectural boundaries.
 7) If a procedural skill exists in `skills/`, it MUST be followed.
 

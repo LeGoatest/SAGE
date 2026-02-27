@@ -1,32 +1,20 @@
-import yaml
+import os
 from pathlib import Path
 
-LAYER_ORDER = []
-
-def load_meta():
-    meta = yaml.safe_load(Path("canon/canon.meta.yaml").read_text())
-    global LAYER_ORDER
-    LAYER_ORDER = meta["precedence"]
-
-def layer_priority(layer):
-    return LAYER_ORDER.index(layer)
-
-def resolve_conflicts(matching_rules):
+def get_sage_root() -> Path:
     """
-    matching_rules: list of dict rules
-    Returns final decision: "deny", "require", or "allow"
+    Determines the SAGE root directory.
+    Priority:
+    1. SAGE_ROOT environment variable.
+    2. .sage/ directory if it exists in the current working directory.
+    3. Current working directory.
     """
+    env_root = os.environ.get("SAGE_ROOT")
+    if env_root:
+        return Path(env_root).resolve()
 
-    # Sort by layer priority
-    matching_rules.sort(key=lambda r: layer_priority(r["layer"]))
+    dot_sage = Path(".sage")
+    if dot_sage.exists() and dot_sage.is_dir():
+        return dot_sage.resolve()
 
-    # Identity highest precedence
-    for rule in matching_rules:
-        if rule["effect"] == "deny":
-            return "deny"
-
-    requires = [r for r in matching_rules if r["effect"] == "require"]
-    if requires:
-        return "require"
-
-    return "allow"
+    return Path.cwd().resolve()

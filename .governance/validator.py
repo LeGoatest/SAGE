@@ -4,13 +4,16 @@ import subprocess
 import hashlib
 import sys
 from pathlib import Path
+from governance_lattice import get_sage_root
 
 # Add current dir to path for imports
 sys.path.append(str(Path(__file__).parent))
 
 from engine import SAGEEngine
 
-CANON_PATH = Path("canon")
+# Determine SAGE root for injection awareness
+SAGE_ROOT = get_sage_root()
+CANON_PATH = SAGE_ROOT / "canon"
 
 def load_rules():
     rules = []
