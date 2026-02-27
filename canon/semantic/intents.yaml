@@ -58,3 +58,6 @@ intents:
 
   - id: INTENT_NO_RUNTIME_DRIFT
     description: "Prevent unauthorized behavioral changes during the execution phase."
+
+  - id: INTENT_TRACEABILITY
+    description: "Every action must be traceable to an approved requirement."

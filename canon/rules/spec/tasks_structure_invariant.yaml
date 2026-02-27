@@ -1,0 +1,16 @@
+id: TASKS_STRUCTURE_ENFORCED
+type: invariant
+scope: spec_phase
+description: >
+  tasks.md must follow the high-assurance SAGE v5.0 structural standard.
+
+enforces_rules:
+  - TASKS_MUST_SATISFY_REQUIREMENTS
+  - TASKS_MUST_LIST_MODIFIED_FILES
+
+supports_intents:
+  - INTENT_DETERMINISTIC_SPEC
+  - INTENT_TRACEABILITY
+
+derives_from_axioms:
+  - AXIOM_SPEC_PRIMACY

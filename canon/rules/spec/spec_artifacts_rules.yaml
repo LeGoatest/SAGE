@@ -1,0 +1,23 @@
+- id: REQUIREMENTS_MD_REQUIRED
+  type: rule
+  effect: require
+  condition: >
+    Task is not classified as "minor" OR Task group is "development" or "architecture"
+  message: >
+    requirements.md is required for this task.
+
+- id: DESIGN_MD_REQUIRED
+  type: rule
+  effect: require
+  condition: >
+    Task is not classified as "minor" OR Task group is "development" or "architecture"
+  message: >
+    design.md is required for this task.
+
+- id: TASKS_MD_REQUIRED
+  type: rule
+  effect: require
+  condition: >
+    Any implementation step is requested.
+  message: >
+    tasks.md is required before execution.

@@ -1,0 +1,15 @@
+- id: TASKS_MUST_SATISFY_REQUIREMENTS
+  type: rule
+  effect: require
+  condition: >
+    tasks.md exists AND contains a task definition lacking "Satisfies: REQ-"
+  message: >
+    Every task in tasks.md must satisfy at least one requirement (Satisfies: REQ-###).
+
+- id: TASKS_MUST_LIST_MODIFIED_FILES
+  type: rule
+  effect: require
+  condition: >
+    tasks.md exists AND contains a task definition lacking "Files Modified:"
+  message: >
+    Every task in tasks.md must explicitly list modified files.

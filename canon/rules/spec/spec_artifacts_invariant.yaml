@@ -1,0 +1,17 @@
+id: SPEC_ARTIFACTS_MANDATORY
+type: invariant
+scope: spec_phase
+description: >
+  Non-trivial work requires a complete set of specification artifacts.
+
+enforces_rules:
+  - REQUIREMENTS_MD_REQUIRED
+  - DESIGN_MD_REQUIRED
+  - TASKS_MD_REQUIRED
+
+supports_intents:
+  - INTENT_PROCESS_DISCIPLINE
+  - INTENT_DETERMINISTIC_SPEC
+
+derives_from_axioms:
+  - AXIOM_SPEC_PRIMACY

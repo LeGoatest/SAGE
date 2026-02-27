@@ -1,0 +1,16 @@
+id: REQUIREMENTS_STRUCTURE_ENFORCED
+type: invariant
+scope: spec_phase
+description: >
+  requirements.md must follow the high-assurance SAGE v5.0 structural standard.
+
+enforces_rules:
+  - REQUIREMENTS_MUST_HAVE_FAILURE_MODELING
+  - REQUIREMENTS_MUST_HAVE_TRACEABILITY_MATRIX
+
+supports_intents:
+  - INTENT_DETERMINISTIC_SPEC
+  - INTENT_GOVERNANCE_ENGINE_ALIGNMENT
+
+derives_from_axioms:
+  - AXIOM_SPEC_PRIMACY

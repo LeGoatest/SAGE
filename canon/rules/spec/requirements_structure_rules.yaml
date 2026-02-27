@@ -1,0 +1,15 @@
+- id: REQUIREMENTS_MUST_HAVE_FAILURE_MODELING
+  type: rule
+  effect: require
+  condition: >
+    requirements.md exists AND lacks a section titled "Failure Modeling"
+  message: >
+    requirements.md must include a Failure Modeling section.
+
+- id: REQUIREMENTS_MUST_HAVE_TRACEABILITY_MATRIX
+  type: rule
+  effect: require
+  condition: >
+    requirements.md exists AND lacks a section titled "Traceability Matrix"
+  message: >
+    requirements.md must include a Traceability Matrix.

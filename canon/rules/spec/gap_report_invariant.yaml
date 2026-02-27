@@ -3,6 +3,7 @@ type: invariant
 scope: spec_phase
 description: >
   Requires GAP_REPORT.md when a task modifies or extends an existing system (brownfield change).
+  This invariant is enforced in CI for governance engine alignment.
 
 enforces_rules:
   - GAP_REPORT_REQUIRED_RULE
@@ -12,7 +13,9 @@ supports_intents:
   - INTENT_NO_SILENT_ARCHITECTURE_DRIFT
   - INTENT_BROWNFIELD_DISCIPLINE
   - INTENT_DETERMINISTIC_SPEC
+  - INTENT_GOVERNANCE_ENGINE_ALIGNMENT
 
 derives_from_axioms:
   - AXIOM_DETERMINISM
   - AXIOM_CANON_SUPREMACY
+  - AXIOM_SPEC_PRIMACY
