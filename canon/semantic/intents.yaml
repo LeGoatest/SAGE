@@ -61,3 +61,12 @@ intents:
 
   - id: INTENT_TRACEABILITY
     description: "Every action must be traceable to an approved requirement."
+
+  - id: INTENT_SPEC_PRIMACY
+    description: "Specification must always precede implementation."
+
+  - id: INTENT_NO_HALLUCINATED_ASSUMPTIONS
+    description: "Prevent the use of unverified or hallucinated evidence in requirements."
+
+  - id: INTENT_NO_SILENT_DRIFT
+    description: "Ensure all system changes are explicitly captured in spec artifacts."

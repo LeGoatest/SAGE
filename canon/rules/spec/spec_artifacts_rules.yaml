@@ -1,23 +1,7 @@
-- id: REQUIREMENTS_MD_REQUIRED
+- id: SPEC_ARTIFACTS_PRESENT
   type: rule
   effect: require
   condition: >
-    Task is not classified as "minor" OR Task group is "development" or "architecture"
+    For the active .jtasks/<timestamp>/ folder, files requirements.md AND design.md AND tasks.md exist.
   message: >
-    requirements.md is required for this task.
-
-- id: DESIGN_MD_REQUIRED
-  type: rule
-  effect: require
-  condition: >
-    Task is not classified as "minor" OR Task group is "development" or "architecture"
-  message: >
-    design.md is required for this task.
-
-- id: TASKS_MD_REQUIRED
-  type: rule
-  effect: require
-  condition: >
-    Any implementation step is requested.
-  message: >
-    tasks.md is required before execution.
+    Spec artifacts missing. requirements.md, design.md, and tasks.md are required in every .jtasks/<timestamp>/ folder.

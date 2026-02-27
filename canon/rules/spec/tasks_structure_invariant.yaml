@@ -1,16 +1,15 @@
-id: TASKS_STRUCTURE_ENFORCED
+id: TASKS_STRUCTURE_REQUIRED
 type: invariant
 scope: spec_phase
 description: >
-  tasks.md must follow the high-assurance SAGE v5.0 structural standard.
-
+  tasks.md MUST link tasks to REQ-### and declare Files Modified for brownfield detection.
 enforces_rules:
-  - TASKS_MUST_SATISFY_REQUIREMENTS
-  - TASKS_MUST_LIST_MODIFIED_FILES
-
+  - TASKS_REQUIRE_REQ_LINKS
+  - TASKS_REQUIRE_FILES_MODIFIED
 supports_intents:
-  - INTENT_DETERMINISTIC_SPEC
   - INTENT_TRACEABILITY
-
+  - INTENT_BROWNFIELD_DISCIPLINE
+  - INTENT_NO_SILENT_DRIFT
 derives_from_axioms:
+  - AXIOM_DETERMINISM
   - AXIOM_SPEC_PRIMACY

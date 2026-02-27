@@ -1,17 +1,13 @@
-id: SPEC_ARTIFACTS_MANDATORY
+id: SPEC_ARTIFACTS_REQUIRED
 type: invariant
 scope: spec_phase
 description: >
-  Non-trivial work requires a complete set of specification artifacts.
-
+  Each .jtasks/<timestamp>/ folder MUST contain the required spec artifacts.
 enforces_rules:
-  - REQUIREMENTS_MD_REQUIRED
-  - DESIGN_MD_REQUIRED
-  - TASKS_MD_REQUIRED
-
+  - SPEC_ARTIFACTS_PRESENT
 supports_intents:
-  - INTENT_PROCESS_DISCIPLINE
+  - INTENT_SPEC_PRIMACY
   - INTENT_DETERMINISTIC_SPEC
-
 derives_from_axioms:
   - AXIOM_SPEC_PRIMACY
+  - AXIOM_DETERMINISM

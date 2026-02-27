@@ -1,15 +1,15 @@
-- id: TASKS_MUST_SATISFY_REQUIREMENTS
+- id: TASKS_REQUIRE_REQ_LINKS
   type: rule
   effect: require
   condition: >
-    tasks.md exists AND contains a task definition lacking "Satisfies: REQ-"
+    tasks.md contains at least one task entry that includes "Satisfies:" with a value matching "REQ-".
   message: >
-    Every task in tasks.md must satisfy at least one requirement (Satisfies: REQ-###).
+    tasks.md must link each task to at least one requirement (Satisfies: REQ-###).
 
-- id: TASKS_MUST_LIST_MODIFIED_FILES
+- id: TASKS_REQUIRE_FILES_MODIFIED
   type: rule
   effect: require
   condition: >
-    tasks.md exists AND contains a task definition lacking "Files Modified:"
+    tasks.md contains "Files Modified:" entries for tasks.
   message: >
-    Every task in tasks.md must explicitly list modified files.
+    tasks.md must include "Files Modified:" for each task (used for brownfield detection).
