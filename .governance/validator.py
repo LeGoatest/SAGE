@@ -3,6 +3,7 @@ import json
 import subprocess
 import hashlib
 import sys
+import re
 from pathlib import Path
 from governance_lattice import get_sage_root
 
@@ -49,6 +50,16 @@ def get_changed_files():
             continue
     return []
 
+def find_active_jtask():
+    jtasks = Path(".jtasks")
+    if not jtasks.exists():
+        return None
+    candidates = [p for p in jtasks.iterdir() if p.is_dir() and p.name != "_template"]
+    if not candidates:
+        return None
+    candidates.sort(key=lambda x: x.name)
+    return candidates[-1]
+
 def match_rule(rule, changed_files):
     if not isinstance(rule, dict):
         return False
@@ -70,7 +81,10 @@ def match_rule(rule, changed_files):
         return False
 
     # Condition matching
-    condition = match_data.get("condition")
+    condition = str(match_data.get("condition", ""))
+    if not condition:
+        return False
+
     if condition == "CANON_HASH_MISMATCH":
         lock_file = CANON_PATH.joinpath("identity/version_lock.yaml")
         if not lock_file.exists():
@@ -80,10 +94,50 @@ def match_rule(rule, changed_files):
             expected = yaml.safe_load(lock_file.read_text())["canon_hash"]
             return compute_canon_hash() != expected
 
-    # Target Repository check (mock for demonstration)
-    if isinstance(condition, str) and "Target Repository contains" in condition:
-        # In a real engine, this would scan the local file system
+    # Structural / Spec checks
+    active_jtask = find_active_jtask()
+
+    if "requirements.md AND design.md AND tasks.md exist" in condition:
+        if not active_jtask: return True # Missing entire folder is a failure
+        return not (all((active_jtask / f).exists() for f in ["requirements.md", "design.md", "tasks.md"]))
+
+    if "requirements.md contains a section header matching" in condition:
+        if not active_jtask or not (active_jtask / "requirements.md").exists(): return False
+        header = re.search(r'"(.+?)"', condition).group(1)
+        content = (active_jtask / "requirements.md").read_text()
+        return header not in content
+
+    if "tasks.md contains at least one task entry that includes \"Satisfies:\" with a value matching \"REQ-\"" in condition:
+        if not active_jtask or not (active_jtask / "tasks.md").exists(): return False
+        content = (active_jtask / "tasks.md").read_text()
+        return "Satisfies: REQ-" not in content
+
+    if "tasks.md contains \"Files Modified:\" entries" in condition:
+        if not active_jtask or not (active_jtask / "tasks.md").exists(): return False
+        content = (active_jtask / "tasks.md").read_text()
+        return "Files Modified:" not in content
+
+    if "Task modifies existing files OR extends existing components" in condition:
+        if not active_jtask or not (active_jtask / "tasks.md").exists(): return False
+        # Logic from validate_gap_report.py
+        import re as pyre
+        text = (active_jtask / "tasks.md").read_text()
+        pattern = pyre.compile(r"(?im)^\s*Files Modified:\s*\n((?:\s*-\s*.+\n)+)")
+        for m in pattern.finditer(text):
+            block = m.group(1)
+            for line in block.splitlines():
+                line = line.strip()
+                if line.startswith("-"):
+                    path_str = line[1:].strip()
+                    if path_str and not path_str.upper().startswith("TODO"):
+                        if Path(path_str).exists():
+                            return True
         return False
+
+    if "GAP_REPORT.md exists AND contains any Risk Level: BLOCKER gaps" in condition:
+        if not active_jtask or not (active_jtask / "GAP_REPORT.md").exists(): return False
+        content = (active_jtask / "GAP_REPORT.md").read_text()
+        return "Risk Level: BLOCKER" in content
 
     return False
 
