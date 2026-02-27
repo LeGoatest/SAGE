@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  sage-mcp:
+    build: .
+    restart: unless-stopped
+    environment:
+      - SAGE_MCP_ADDR=:8080
+      - SAGE_MCP_TOKEN=${SAGE_MCP_TOKEN}
+      - SAGE_MCP_DATA_DIR=/data
+    volumes:
+      - sage-mcp-data:/data
+
+  caddy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+      - caddy_config:/config
+
+volumes:
+  sage-mcp-data:
+  caddy_data:
+  caddy_config:
