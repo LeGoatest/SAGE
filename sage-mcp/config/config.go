@@ -6,13 +6,13 @@ import (
 )
 
 type Config struct {
-	Addr              string
-	Token             string
-	Workers           int
-	DataDir           string
-	CorsOrigins       string
-	MaxContextTokens  int
-	LambdaHours       float64
+	Addr             string
+	Token            string
+	Workers          int
+	DataDir          string
+	CorsOrigins      string
+	MaxContextTokens int
+	LambdaHours      float64
 }
 
 func Load() *Config {
