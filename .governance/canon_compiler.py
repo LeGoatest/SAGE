@@ -2,6 +2,7 @@ import os
 import re
 import yaml
 import sys
+from governance_lattice import get_sage_root
 
 def extract_sagrules(filepath):
     try:
@@ -24,7 +25,34 @@ def extract_sagrules(filepath):
             sys.exit(1)
     return rules
 
+def load_yaml_rules(filepath):
+    try:
+        with open(filepath, 'r') as f:
+            data = yaml.safe_load(f)
+    except Exception as e:
+        print(f"Could not read {filepath}: {e}")
+        return []
+
+    if not data:
+        return []
+
+    rules = data if isinstance(data, list) else [data]
+    result = []
+    for r in rules:
+        if isinstance(r, dict) and r.get('type', 'rule') == 'rule' and 'id' in r:
+            # Adapt YAML rule to sagrule-like format for validator
+            # YAML rules have different fields (e.g. 'match', 'effect')
+            # The compiler's validate_rule expects sagrule fields.
+            # We'll just pass them through for uniqueness check for now.
+            r['_file'] = filepath
+            result.append(r)
+    return result
+
 def validate_rule(rule):
+    # Only validate rules extracted from MD (sagrules)
+    if rule['_file'].endswith('.yaml'):
+        return True # YAML rules have their own schema
+
     required_fields = ['id', 'statement', 'operator', 'context', 'severity', 'enforcement']
     for field in required_fields:
         if field not in rule:
@@ -47,10 +75,14 @@ def check_contradictions(rules):
             return False
         ids[rid] = rule
 
+    # Statement check only makes sense for sagrules
     statements = {}
     for rule in rules:
-        stmt = rule['statement'].strip()
-        ctx = rule['context']
+        if 'statement' not in rule or 'operator' not in rule:
+            continue
+
+        stmt = str(rule['statement']).strip()
+        ctx = rule.get('context', 'all')
         key = (stmt, ctx)
         if key in statements:
             if rule['operator'] != statements[key]['operator']:
@@ -60,14 +92,36 @@ def check_contradictions(rules):
     return True
 
 def main():
-    search_dirs = ['src', 'Jules']
+    # Determine SAGE root for injection awareness
+    sage_root = get_sage_root()
+
+    # Prefer canon/ over .docs/
+    search_dirs = [
+        sage_root / 'canon',
+        sage_root / 'Jules',
+        sage_root / '.docs'
+    ]
     all_rules = []
+    seen_ids = set()
 
     for sdir in search_dirs:
+        if not os.path.exists(sdir):
+            continue
         for root, _, files in os.walk(sdir):
             for file in files:
+                filepath = os.path.join(root, file)
                 if file.endswith('.md'):
-                    all_rules.extend(extract_sagrules(os.path.join(root, file)))
+                    rules = extract_sagrules(filepath)
+                    for r in rules:
+                        if r['id'] not in seen_ids:
+                            all_rules.append(r)
+                            seen_ids.add(r['id'])
+                elif file.endswith('.yaml') and 'semantic' not in root:
+                    rules = load_yaml_rules(filepath)
+                    for r in rules:
+                        if r['id'] not in seen_ids:
+                            all_rules.append(r)
+                            seen_ids.add(r['id'])
 
     if not all_rules:
         print("No rules found to compile.")
@@ -88,7 +142,9 @@ def main():
     else:
         print(f"--- SAGE Canon Compiled ---")
         for rule in all_rules:
-            print(f"[{rule['id']}] {rule['operator']}: {rule['statement'][:50]}...")
+            op = rule.get('operator', rule.get('effect', 'rule')).upper()
+            stmt = rule.get('statement', rule.get('message', ''))
+            print(f"[{rule['id']}] {op}: {str(stmt)[:50]}...")
         print(f"---------------------------")
         print(f"SUCCESS: {len(all_rules)} rules verified.")
 

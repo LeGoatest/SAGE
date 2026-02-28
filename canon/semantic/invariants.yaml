@@ -1,0 +1,55 @@
+invariants:
+  - id: INV_PROTECTED_ZONES_IMMUTABLE
+    description: "Protected zones are immutable by default."
+    enforces_rules:
+      - SECURITY_PROTECTED_ZONES
+    supports_intents:
+      - INTENT_SECURITY_BOUNDARIES
+    derives_from_axioms:
+      - AXIOM_CANON_SUPREMACY
+      - AXIOM_CONSTITUTIONAL_SELF_PROTECTION
+
+  - id: INV_CANON_MUTATION_RESTRICTED
+    description: "Canon mutation is restricted to governance capability."
+    enforces_rules:
+      - SECURITY_CANON_MUTATION
+    supports_intents:
+      - INTENT_STRUCTURAL_SOVEREIGNTY
+    derives_from_axioms:
+      - AXIOM_CANON_SUPREMACY
+
+  - id: INV_SINGLE_ACTIVE_TASK
+    description: "Only one active task may exist at any time."
+    enforces_rules:
+      - PROCESS_SINGLE_TASK
+    supports_intents:
+      - INTENT_PROCESS_DISCIPLINE
+    derives_from_axioms:
+      - AXIOM_SCOPE_BOUND_MUTATION
+
+  - id: INV_SPEC_REQUIRED_FOR_MAJOR_CHANGE
+    description: "Feature, refactor, architecture, and governance changes require spec approval."
+    enforces_rules:
+      - PROCESS_SPEC_REQUIRED
+    supports_intents:
+      - INTENT_PROCESS_DISCIPLINE
+    derives_from_axioms:
+      - AXIOM_ENFORCEMENT_DETERMINISM
+
+  - id: INV_CANON_HASH_LOCK
+    description: "Canon integrity must match locked hash."
+    enforces_rules:
+      - IDENTITY_VERSION_LOCK
+    supports_intents:
+      - INTENT_STRUCTURAL_SOVEREIGNTY
+    derives_from_axioms:
+      - AXIOM_CONSTITUTIONAL_SELF_PROTECTION
+
+  - id: INV_DRIFT_THRESHOLD
+    description: "Governance drift must not exceed defined thresholds."
+    enforces_rules:
+      - IDENTITY_DRIFT_THRESHOLD
+    supports_intents:
+      - INTENT_DRIFT_PREVENTION
+    derives_from_axioms:
+      - AXIOM_ENTROPY_CONTAINMENT

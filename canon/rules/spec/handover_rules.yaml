@@ -1,0 +1,15 @@
+- id: HANDOVER_PRESENT_IF_INCOMPLETE
+  type: rule
+  effect: require
+  condition: >
+    Execution phase ended AND not all tasks are complete.
+  message: >
+    HANDOVER.md is required when execution stops before completion.
+
+- id: HANDOVER_PRESENT_FOR_SESSION_RESUME
+  type: rule
+  effect: require
+  condition: >
+    A new session resumes work on an existing .jtasks/<timestamp>/ folder.
+  message: >
+    HANDOVER.md must exist to rehydrate deterministic state before continuing execution.

@@ -1,0 +1,72 @@
+intents:
+  - id: INTENT_STRUCTURAL_SOVEREIGNTY
+    description: "The system maintains authority over its own structure and mutation."
+
+  - id: INTENT_PROCESS_DISCIPLINE
+    description: "Non-trivial change requires structured specification and validation."
+
+  - id: INTENT_SECURITY_BOUNDARIES
+    description: "Protected zones and execution surfaces must be constrained."
+
+  - id: INTENT_DETERMINISTIC_GOVERNANCE
+    description: "Governance decisions must be explicit and layered."
+
+  - id: INTENT_DRIFT_PREVENTION
+    description: "The system must detect and contain governance drift."
+
+  - id: INTENT_CANON_SUPREMACY
+    description: "Maintain the absolute authority of the canonical documents."
+
+  - id: INTENT_NO_HALLUCINATED_ARCHITECTURE
+    description: "Prevent the creation of undocumented architectural patterns."
+
+  - id: INTENT_STRICT_MODE_ENFORCEMENT
+    description: "Ensure that all execution occurs within defined governance modes."
+
+  - id: INTENT_DETERMINISTIC_EXECUTION
+    description: "Ensure that system execution follows established procedures."
+
+  - id: INTENT_NO_SCOPE_CREEP
+    description: "Prevent tasks from expanding beyond their classified task group."
+
+  - id: INTENT_CONSTITUTIONAL_DISCIPLINE
+    description: "Enforce strict adherence to constitutional rules."
+
+  - id: INTENT_NO_SILENT_ARCHITECTURE_DRIFT
+    description: "Prevent undocumented changes to existing architectural patterns."
+
+  - id: INTENT_BROWNFIELD_DISCIPLINE
+    description: "Enforce rigorous gap analysis for modifications to existing systems."
+
+  - id: INTENT_DETERMINISTIC_SPEC
+    description: "Ensure that specifications are complete and traceable."
+
+  - id: INTENT_DETERMINISTIC_HANDOFF
+    description: "Ensure that task handoff between sessions or agents is deterministic."
+
+  - id: INTENT_SESSION_REHYDRATION
+    description: "Enable the accurate restoration of system state and goals across sessions."
+
+  - id: INTENT_NO_CONTEXT_LOSS
+    description: "Prevent the loss of architectural or procedural context during transitions."
+
+  - id: INTENT_NO_CONTEXT_DRIFT
+    description: "Maintain goal stability and alignment when resuming tasks."
+
+  - id: INTENT_GOVERNANCE_ENGINE_ALIGNMENT
+    description: "Ensure all validation logic is synchronized with the central engine."
+
+  - id: INTENT_NO_RUNTIME_DRIFT
+    description: "Prevent unauthorized behavioral changes during the execution phase."
+
+  - id: INTENT_TRACEABILITY
+    description: "Every action must be traceable to an approved requirement."
+
+  - id: INTENT_SPEC_PRIMACY
+    description: "Specification must always precede implementation."
+
+  - id: INTENT_NO_HALLUCINATED_ASSUMPTIONS
+    description: "Prevent the use of unverified or hallucinated evidence in requirements."
+
+  - id: INTENT_NO_SILENT_DRIFT
+    description: "Ensure all system changes are explicitly captured in spec artifacts."

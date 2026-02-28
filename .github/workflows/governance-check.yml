@@ -22,5 +22,26 @@ jobs:
       - name: Install Dependencies
         run: pip install pyyaml jsonschema
 
+      - name: Canon Boot Validation
+        run: python .governance/boot_validator.py
+
+      - name: Validate Constitutional Graph
+        run: python .governance/invariant_validator.py
+
+      - name: Semantic Conflict Detection
+        run: python .governance/semantic_conflict_validator.py
+
       - name: Run Governance Validator
         run: python .governance/validator.py
+
+      - name: Generate Constitutional Graph
+        run: python .governance/graph_generator.py
+
+      - name: Constitutional Derivation Analysis
+        run: python .governance/derivation_compiler.py
+
+      - name: Upload Constitutional Graph
+        uses: actions/upload-artifact@v4
+        with:
+          name: constitutional-graph
+          path: .governance/constitutional_graph.dot

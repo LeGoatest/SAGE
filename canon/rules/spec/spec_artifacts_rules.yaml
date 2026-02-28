@@ -1,0 +1,7 @@
+- id: SPEC_ARTIFACTS_PRESENT
+  type: rule
+  effect: require
+  condition: >
+    For the active .jtasks/<timestamp>/ folder, files requirements.md AND design.md AND tasks.md exist.
+  message: >
+    Spec artifacts missing. requirements.md, design.md, and tasks.md are required in every .jtasks/<timestamp>/ folder.

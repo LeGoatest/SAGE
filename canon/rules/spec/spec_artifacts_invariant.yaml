@@ -1,0 +1,13 @@
+id: SPEC_ARTIFACTS_REQUIRED
+type: invariant
+scope: spec_phase
+description: >
+  Each .jtasks/<timestamp>/ folder MUST contain the required spec artifacts.
+enforces_rules:
+  - SPEC_ARTIFACTS_PRESENT
+supports_intents:
+  - INTENT_SPEC_PRIMACY
+  - INTENT_DETERMINISTIC_SPEC
+derives_from_axioms:
+  - AXIOM_SPEC_PRIMACY
+  - AXIOM_DETERMINISM

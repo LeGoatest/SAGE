@@ -1,0 +1,15 @@
+- id: REQUIREMENTS_HAS_FAILURE_MODELING
+  type: rule
+  effect: require
+  condition: >
+    requirements.md contains a section header matching "Failure Modeling".
+  message: >
+    requirements.md must include a "Failure Modeling" section.
+
+- id: REQUIREMENTS_HAS_TRACEABILITY_MATRIX
+  type: rule
+  effect: require
+  condition: >
+    requirements.md contains a section header matching "Traceability Matrix".
+  message: >
+    requirements.md must include a "Traceability Matrix" section.

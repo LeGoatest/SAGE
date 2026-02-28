@@ -1,0 +1,12 @@
+refusal_logic:
+  explanation_order:
+    - axiom
+    - invariant
+    - rule
+
+  require_reason_code: true
+  require_intent_trace: true
+
+  escalation:
+    invariant_violation: immediate_refusal
+    repeated_rule_violation: drift_monitor

@@ -125,9 +125,12 @@ The Agent MUST refuse any request that violates the canon or implies undocumente
 <!-- REPOSITORY STRUCTURE -->
 ## Repository Structure
 
-- `.docs/` -> Functional governance zones (Canon, Governance, Policy, Reference).
-- `Jules/` -> Agent operating instructions and procedural skills (compliant with `agentskills.io`).
-- `tools/` -> Governance integrity and validation tooling.
+- `.docs/` -> Human-readable narrative constitution and task groups.
+- `canon/` -> Machine-enforceable governance layer (Rules, Semantic, Schemas).
+- `.governance/` -> SAGE Constitutional Reasoning Engine and Validators.
+- `Jules/` -> Agent operating instructions and modes.
+- `skills/` -> Procedural skills (compliant with `agentskills.io`).
+- `tools/` -> Legacy validation tooling and vibe checks.
 - `.jtasks/` -> Deterministic planning and execution records.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>

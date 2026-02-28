@@ -1,0 +1,10 @@
+norm_hierarchy:
+  precedence:
+    - axioms
+    - invariants
+    - rules
+
+  enforcement_logic:
+    axiom_violation: system_halt
+    invariant_violation: deny
+    rule_violation: deny

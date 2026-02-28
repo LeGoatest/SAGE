@@ -1,0 +1,31 @@
+- id: DEEP_GOVERNANCE_CONTEXT_REQUIRED
+  type: invariant
+  scope: mode_transition
+  description: >
+    Requires Structured Constraint Extraction (reasoning_context) during
+    ENTER_DEEP_GOVERNANCE_MODE before any transition to Spec Mode or Exec Mode.
+  enforces_rules:
+    - DEEP_CONTEXT_BLOCK_REQUIRED
+    - DEEP_CONTEXT_GATE_SPEC_AND_EXEC
+  supports_intents:
+    - INTENT_DETERMINISTIC_EXECUTION
+    - INTENT_CANON_SUPREMACY
+  derives_from_axioms:
+    - AXIOM_DETERMINISM
+    - AXIOM_CANON_SUPREMACY
+    - AXIOM_SPEC_PRIMACY
+
+- id: DEEP_GOVERNANCE_CONTEXT_BOUNDARY
+  type: invariant
+  scope: mode_transition
+  description: >
+    Ensures Deep Governance Mode remains analysis-only without inference.
+  enforces_rules:
+    - DEEP_CONTEXT_NO_INFERENCE
+    - DEEP_CONTEXT_NO_IMPLEMENTATION
+  supports_intents:
+    - INTENT_NO_HALLUCINATED_ARCHITECTURE
+    - INTENT_NO_SCOPE_CREEP
+  derives_from_axioms:
+    - AXIOM_DETERMINISM
+    - AXIOM_CANON_SUPREMACY

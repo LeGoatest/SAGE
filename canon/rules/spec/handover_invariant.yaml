@@ -1,0 +1,25 @@
+id: HANDOVER_REQUIRED_FOR_INCOMPLETE_OR_SESSION_RESET
+type: invariant
+scope: execution_phase
+description: >
+  HANDOVER.md is required when execution is incomplete OR when a new session must resume work.
+  This invariant is enforced as a governance validation stage.
+
+enforces_rules:
+  - HANDOVER_PRESENT_IF_INCOMPLETE
+  - HANDOVER_PRESENT_FOR_SESSION_RESUME
+  - HANDOVER_VALIDATED_ON_RESUME
+  - CANON_HASH_MATCH_ON_RESUME
+  - NO_EXEC_WITHOUT_DEEP_REENTRY
+
+supports_intents:
+  - INTENT_DETERMINISTIC_HANDOFF
+  - INTENT_SESSION_REHYDRATION
+  - INTENT_NO_CONTEXT_LOSS
+  - INTENT_NO_CONTEXT_DRIFT
+  - INTENT_DETERMINISTIC_EXECUTION
+
+derives_from_axioms:
+  - AXIOM_DETERMINISM
+  - AXIOM_SPEC_PRIMACY
+  - AXIOM_CANON_SUPREMACY

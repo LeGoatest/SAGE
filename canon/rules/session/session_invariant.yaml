@@ -1,0 +1,23 @@
+id: SESSION_CONTINUITY_ENFORCED
+type: invariant
+scope: execution_phase
+description: >
+  Session continuity MUST be enforced when resuming work across sessions.
+  HANDOVER.md must be validated before execution resumes.
+
+enforces_rules:
+  - HANDOVER_VALIDATED_ON_RESUME
+  - CANON_HASH_MATCH_ON_RESUME
+  - NO_EXEC_WITHOUT_DEEP_REENTRY
+
+supports_intents:
+  - INTENT_DETERMINISTIC_HANDOFF
+  - INTENT_SESSION_REHYDRATION
+  - INTENT_NO_CONTEXT_LOSS
+  - INTENT_NO_CONTEXT_DRIFT
+  - INTENT_DETERMINISTIC_EXECUTION
+
+derives_from_axioms:
+  - AXIOM_DETERMINISM
+  - AXIOM_SPEC_PRIMACY
+  - AXIOM_CANON_SUPREMACY

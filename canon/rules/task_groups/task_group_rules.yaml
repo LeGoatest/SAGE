@@ -1,0 +1,23 @@
+- id: TASK_GROUP_REQUIRED
+  type: rule
+  effect: require
+  condition: Every request must declare exactly one task group before execution
+  message: Request must be classified into a single task group prior to mode activation.
+
+- id: TASK_GROUP_SINGLE_SELECTION
+  type: rule
+  effect: deny
+  condition: Multiple task groups declared simultaneously
+  message: Exactly one task group may be active per request.
+
+- id: TASK_GROUP_NO_IMPLICIT_RECLASSIFICATION
+  type: rule
+  effect: deny
+  condition: Task group changes during execution without human validation
+  message: Task group reclassification requires HITL confirmation.
+
+- id: TASK_GROUP_MODE_ALIGNMENT
+  type: rule
+  effect: require
+  condition: Selected mode is compatible with declared task group
+  message: Mode must align with task group classification.

@@ -1,0 +1,29 @@
+- id: BOOTSTRAP_NO_LOCAL_CANON
+  type: rule
+  effect: deny
+  condition: Target Repository contains "canon/" or ".canon/"
+  message: Target Repository MUST NOT contain canonical documents.
+
+- id: BOOTSTRAP_PINNED_REF_REQUIRED
+  type: rule
+  effect: require
+  condition: governance.yaml exists AND sage.ref is a commit SHA
+  message: governance.yaml must specify a pinned commit SHA. Branch references are forbidden.
+
+- id: BOOTSTRAP_CANON_CACHE_RESOLUTION
+  type: rule
+  effect: require
+  condition: Canon resolved from pinned ref via read-only Jules cache
+  message: Canon must be resolved from pinned external ref via read-only Jules cache.
+
+- id: BOOTSTRAP_NO_PROMPT_CANON_OVERRIDE
+  type: rule
+  effect: deny
+  condition: Prompt specifies canon path OR overrides canon entrypoint
+  message: Prompts MUST NOT override canon resolution. governance.yaml is authoritative.
+
+- id: BOOTSTRAP_HITL_REQUIRED
+  type: rule
+  effect: require
+  condition: Bootstrap completed AND DECISIONS_NEEDED.md generated
+  message: Bootstrap must end with [AWAIT_HUMAN_VALIDATION] before any implementation.

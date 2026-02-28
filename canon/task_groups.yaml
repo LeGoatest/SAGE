@@ -1,26 +1,27 @@
-# canon/task_groups.yaml
-
 task_groups:
-  MUTATION:
-    requires_spec: false
-    requires_security_review: false
+  - id: architecture
+    modes_allowed:
+      - ENTER_DEEP_GOVERNANCE_MODE
+    skills_allowed: false
 
-  FEATURE:
-    requires_spec: true
-    requires_security_review: false
+  - id: development
+    modes_allowed:
+      - ENTER_SPEC_MODE
+      - ENTER_EXEC_MODE
+    skills_allowed: true
 
-  BUGFIX:
-    requires_spec: false
-    requires_security_review: false
+  - id: operations
+    modes_allowed:
+      - ENTER_SPEC_MODE
+      - ENTER_EXEC_MODE
+    skills_allowed: true
 
-  REFACTOR:
-    requires_spec: true
-    requires_security_review: false
+  - id: docs
+    modes_allowed:
+      - ENTER_SPEC_MODE
+    skills_allowed: true
 
-  ARCHITECTURE_CHANGE:
-    requires_spec: true
-    requires_security_review: false
-
-  GOVERNANCE_CHANGE:
-    requires_spec: true
-    requires_security_review: true
+  - id: audit
+    modes_allowed:
+      - ENTER_DEEP_GOVERNANCE_MODE
+    skills_allowed: true
