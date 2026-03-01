@@ -23,6 +23,22 @@ Self-contained MCP-style server for the Sovereign Agent Governance Engine (SAGE)
 | SAGE_MCP_WORKERS | 2 | Number of concurrent workers |
 | SAGE_MCP_DATA_DIR | /data | SQLite data directory |
 
+## Build
+
+### Local Build
+Ensure you have Go 1.24+ and a C compiler (gcc) installed for CGO.
+```bash
+cd sage-mcp
+# Build binary
+CGO_ENABLED=1 go build -o sage-mcp .
+```
+
+### Makefile
+```bash
+cd sage-mcp
+make build
+```
+
 ## Deployment
 ```bash
 docker-compose up -d
