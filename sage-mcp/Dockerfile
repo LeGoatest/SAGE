@@ -17,7 +17,11 @@ RUN go build -o sage-mcp .
 # Runtime image
 FROM alpine:3.19
 
-RUN apk add --no-cache sqlite-libs ca-certificates
+# Install Python 3, patch utility, and dependencies for governance validator
+RUN apk add --no-cache python3 py3-pip sqlite-libs ca-certificates patch
+
+# Install Python packages required by .governance/
+RUN pip install --break-system-packages PyYAML jsonschema
 
 WORKDIR /app
 COPY --from=builder /app/sage-mcp .

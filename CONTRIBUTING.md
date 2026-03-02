@@ -1,12 +1,6 @@
 # Contributing
 
-## Rules
-- Follow \`docs/ARCHITECTURE_RULES.md\`.
-- Update \`docs/DECISIONS.md\` for material decisions.
-- Do not add new task groups without canonical approval.
-- Skills are procedural only.
-
-## Pull Requests
-- Provide a short summary
-- List affected task group
-- Reference any skill used
+- Follow `.docs/canon/ARCHITECTURE_RULES.md`.
+- Update `.docs/canon/DECISIONS.md` for material decisions.
+- Do not introduce new governance outside of canon.
+- Do not reference nonexistent directories (`src/`, `docs/`).

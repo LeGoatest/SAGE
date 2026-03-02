@@ -4,6 +4,7 @@ Self-contained MCP-style server for the Sovereign Agent Governance Engine (SAGE)
 
 ## Features
 - Persistent cognitive memory via SQLite + `sqlite-vec`.
+- **Repository File API**: Safe list, read, search, and patch.
 - Semantic recall and context injection.
 - Worker-queued SAGE engine execution.
 - Real-time event streaming via SSE.
@@ -11,6 +12,7 @@ Self-contained MCP-style server for the Sovereign Agent Governance Engine (SAGE)
 
 ## Architecture
 - **Adapter**: Interfaces with the SAGE Python/Bash engine.
+- **Repo**: SAGE-governed repository file interface.
 - **Queue**: Asynchronous job processing with worker pool.
 - **Memory**: Vector-enabled long-term storage.
 - **Transport**: HTTP API with Bearer token auth.
@@ -22,6 +24,37 @@ Self-contained MCP-style server for the Sovereign Agent Governance Engine (SAGE)
 | SAGE_MCP_TOKEN | (required) | Bearer auth token |
 | SAGE_MCP_WORKERS | 2 | Number of concurrent workers |
 | SAGE_MCP_DATA_DIR | /data | SQLite data directory |
+
+## API Methods
+
+### `repo.list`
+Lists files and directories.
+```json
+{ "dir": ".", "recursive": false, "max_items": 5000 }
+```
+
+### `repo.read`
+Reads file content with binary detection and truncation support.
+```json
+{ "path": "README.md", "max_bytes": 1048576 }
+```
+
+### `repo.search`
+Pure-Go deterministic file content search.
+```json
+{ "query": "TODO", "dir": ".", "globs": ["*.go"], "max_hits": 200 }
+```
+
+### `repo.patch` (Queued)
+Applies a unified diff atomically with SAGE protection gates.
+```json
+{
+  "path": "main.go",
+  "unified_diff": "...",
+  "create_if_missing": false,
+  "task_group": "FEATURE"
+}
+```
 
 ## Build
 

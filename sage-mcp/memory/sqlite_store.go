@@ -19,7 +19,7 @@ type SQLiteStore struct {
 }
 
 func NewSQLiteStore(dbPath string) (*SQLiteStore, error) {
-	db, err := sql.Open("sqlite3", dbPath+"?_journal=WAL&_auth")
+	db, err := sql.Open("sqlite3", dbPath+"?_journal=WAL")
 	if err != nil {
 		return nil, err
 	}
