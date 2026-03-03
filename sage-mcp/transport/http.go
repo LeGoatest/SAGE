@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"time"
 
+	"sage-mcp/audit"
 	"sage-mcp/memory"
 	"sage-mcp/queue"
 	"sage-mcp/repo"
@@ -17,6 +18,7 @@ type Server struct {
 	pool    *queue.WorkerPool
 	sse     *SSEServer
 	maxToks int
+	audit   *audit.Logger
 }
 
 func NewServer(store memory.MemoryStore, pool *queue.WorkerPool, sse *SSEServer, maxToks int) *Server {
@@ -26,6 +28,10 @@ func NewServer(store memory.MemoryStore, pool *queue.WorkerPool, sse *SSEServer,
 		sse:     sse,
 		maxToks: maxToks,
 	}
+}
+
+func (s *Server) WithAuditLogger(l *audit.Logger) {
+	s.audit = l
 }
 
 func (s *Server) HandleHealth(w http.ResponseWriter, r *http.Request) {
@@ -57,7 +63,12 @@ func (s *Server) HandleRequest(w http.ResponseWriter, r *http.Request) {
 		req.ID = uuid.New().String()
 	}
 
-	// Persist (Audit Logging)
+	// Audit Logging
+	if s.audit != nil {
+		s.audit.LogRequest(req.ID, req.Method, "incoming request")
+	}
+
+	// Persist
 	if err := s.store.SaveRequest(r.Context(), req.ID, req.Method, req.Params); err != nil {
 		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
 		return
