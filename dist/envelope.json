@@ -1,0 +1,120 @@
+{
+  "version": 1,
+  "resolved_nodes": [
+    "canon:architecture_rules",
+    "canon:architecture_rules:human"
+  ],
+  "policy_files": [
+    {
+      "id": "canon:architecture_rules",
+      "path": "canon/ARCHITECTURE_RULES.md",
+      "content": "# ARCHITECTURE_RULES\n\nThis document defines the highest-precedence invariants for SAGE.\n\nThese rules are binding.\nAgents must refuse when these rules are violated or when compliance is ambiguous.\n\nThis document governs governance. It does not govern downstream application architecture.\n\n---\n\n## 0) Supreme Authority\n\n```yaml sagrule\nid: ARCH-SUPREME-AUTHORITY\nstatement: \"This file overrides all other docs and comments.\"\noperator: MUST\ncontext: all\nseverity: CRITICAL\nenforcement: REFUSAL\nsource: \".docs/canon/ARCHITECTURE_RULES.md \u00a70\"\n```\n\n- This file overrides all other docs and comments.\n- If ambiguity exists, prefer: [Isolation > Reliability > Resilience] (Placeholder).\n\n---\n\n## 1) System Boundaries\n\n```yaml sagrule\nid: ARCH-SYSTEM-BOUNDARIES\nstatement: \"Agents MUST strictly adhere to system boundaries: canon/ and .docs/ for governance, agents/Jules/ for agent OS, .jtasks/ for planning.\"\noperator: MUST\ncontext: all\nseverity: CRITICAL\nenforcement: REFUSAL\nsource: \".docs/canon/ARCHITECTURE_RULES.md \u00a71\"\n```\n\n- `canon/` and `.docs/` only when explicitly updating governance/canon.\n- `agents/Jules/` for agent governance and skills.\n- `.jtasks/` for planning and execution workspaces.\n\n---\n\n## Rule A1 \u2014 Canon Precedence Is Mandatory\n\n```yaml sagrule\nid: A1\nstatement: \"Canonical precedence order must be followed as declared in ARCHITECTURE_INDEX.md.\"\noperator: MUST\ncontext: all\nseverity: CRITICAL\nenforcement: REFUSAL\nsource: \".docs/canon/ARCHITECTURE_RULES.md \u00a7Rule A1\"\n```\n\nCanonical precedence order must be followed as declared in `ARCHITECTURE_INDEX.md`.\n\nAgents must not reinterpret precedence or \u201cmerge\u201d conflicting rules.\n\nIf precedence does not resolve a conflict, the agent must halt and emit:\n\n[AWAIT_HUMAN_VALIDATION]\n\n---\n\n## Rule A2 \u2014 One Task Group per Execution\n\n```yaml sagrule\nid: A2\nstatement: \"Every request must be classified into exactly one task group.\"\noperator: MUST\ncontext: all\nseverity: CRITICAL\nenforcement: REFUSAL\nsource: \".docs/canon/ARCHITECTURE_RULES.md \u00a7Rule A2\"\n```\n\nEvery request must be classified into exactly one task group.\n\nMixed task groups are forbidden.\n\nIf classification is ambiguous, execution must halt and require human validation.\n\n---\n\n## Rule A3 \u2014 Skills Are Procedural Only\n\n```yaml sagrule\nid: A3\nstatement: \"Skills may execute only deterministic procedures and MUST NOT introduce architecture or modify canon.\"\noperator: MUST\ncontext: all\nseverity: CRITICAL\nenforcement: REFUSAL\nsource: \".docs/canon/ARCHITECTURE_RULES.md \u00a7Rule A3\"\n```\n\nSkills may execute only deterministic procedures.\n\nSkills must not:\n- Introduce architecture\n- Modify canon\n- Modify invariants\n- Fill missing security boundaries\n- Interpret ambiguous canon\n\nIf a skill requires design judgment, it must stop.\n\n---\n\n## Rule A4 \u2014 Spec-First for Non-Trivial Work\n\n```yaml sagrule\nid: A4\nstatement: \"Non-trivial work requires spec artifacts (requirements, design, tasks) and explicit human approval.\"\noperator: MUST\ncontext: all\nseverity: CRITICAL\nenforcement: REFUSAL\nsource: \".docs/canon/ARCHITECTURE_RULES.md \u00a7Rule A4\"\n```\n\nNon-trivial work requires spec artifacts:\n- requirements.md\n- design.md\n- tasks.md\n\nExecution begins only after explicit human instruction.\n\nIf a request is non-trivial and no spec exists, the agent must halt and require spec generation.\n\n---\n\n## Rule A5 \u2014 Refusal Is Enforced\n\n```yaml sagrule\nid: A5\nstatement: \"Refusal is required when canon conflicts exist, task groups are ambiguous, or security model lacks evidence.\"\noperator: MUST\ncontext: all\nseverity: CRITICAL\nenforcement: REFUSAL\nsource: \".docs/canon/ARCHITECTURE_RULES.md \u00a7Rule A5\"\n```\n\nRefusal is required when:\n- Canon conflicts exist\n- Task group classification is ambiguous\n- Protected zones would be modified without mutation\n- Security model is undefined or lacks evidence\n- Determinism cannot be guaranteed\n- Compiler validation fails (if enabled)\n\nRefusal must be explicit and must stop execution.\n\n---\n\n## Rule A6 \u2014 Protected Zones Are Immutable Without Mutation\n\n```yaml sagrule\nid: A6\nstatement: \"Protected zones (governance, canon) cannot be modified without formal Canon Mutation.\"\noperator: MUST_NOT\ncontext: all\nseverity: CRITICAL\nenforcement: REFUSAL\nsource: \".docs/canon/ARCHITECTURE_RULES.md \u00a7Rule A6\"\n```\n\nProtected zones define structural invariants and security boundaries.\n\nProtected zones cannot be modified by:\n- Skills\n- Implementation tasks\n- Routine documentation updates\n\nAny modification requires Canon Mutation and human validation.\n\n---\n\n## Rule A7 \u2014 Mutation Is the Only Legal Canon Change\n\n```yaml sagrule\nid: A7\nstatement: \"Canon may only change through formal mutation process involving human validation.\"\noperator: MUST\ncontext: all\nseverity: CRITICAL\nenforcement: REFUSAL\nsource: \".docs/canon/ARCHITECTURE_RULES.md \u00a7Rule A7\"\n```\n\nCanon may only change through formal mutation.\n\nMutation must include:\n- Proposal\n- Impact analysis\n- Human validation\n- Version traceability\n\nAny attempt to \u201cjust update the docs\u201d that modifies authority is a violation.\n\n---\n\n## Rule A8 \u2014 No Shadow Architecture\n\n```yaml sagrule\nid: A8\nstatement: \"Agents MUST NOT introduce structural patterns not authorized by canon.\"\noperator: MUST_NOT\ncontext: all\nseverity: CRITICAL\nenforcement: REFUSAL\nsource: \".docs/canon/ARCHITECTURE_RULES.md \u00a7Rule A8\"\n```\n\nAgents must not introduce structural patterns not authorized by canon.\n\nIf a pattern is needed:\n- remove it, or\n- initiate a canon mutation to authorize it\n\nSilent adoption is prohibited.\n\n---\n\n## Rule A9 \u2014 Determinism Is Required\n\n```yaml sagrule\nid: A9\nstatement: \"Outputs MUST converge structurally given the same canon version, spec, and inputs.\"\noperator: MUST\ncontext: all\nseverity: CRITICAL\nenforcement: REFUSAL\nsource: \".docs/canon/ARCHITECTURE_RULES.md \u00a7Rule A9\"\n```\n\nGiven the same canon version, spec, and inputs, outputs must converge structurally.\n\nIf determinism cannot be guaranteed due to ambiguity or missing authority, execution must halt.\n\n---\n\n## Rule A10 \u2014 HITL Break-Glass Marker Is Mandatory\n\n```yaml sagrule\nid: A10\nstatement: \"When execution pauses for validation, the agent MUST emit [AWAIT_HUMAN_VALIDATION] on its own line.\"\noperator: MUST\ncontext: all\nseverity: CRITICAL\nenforcement: REFUSAL\nsource: \".docs/canon/ARCHITECTURE_RULES.md \u00a7Rule A10\"\n```\n\nWhen execution must pause for validation, the agent must emit:\n\n[AWAIT_HUMAN_VALIDATION]\n\nThe marker must appear on its own line.\nAfter emitting it, the agent must not continue execution.\n\n---\n\n## Rule A11 \u2014 Governance State Machine Is Mandatory\n\nRefer to `.docs/canon/rule-schema-v2.governance.yaml` for structured definition.\n\nSAGE governance operates as a deterministic state machine with explicit states and transitions.\n\nStates include:\n- Normal\n- Deep Governance Mode\n- Spec Mode\n- Execution Mode\n- HITL Pause\n\nIf a request attempts to combine outputs from multiple states (e.g., planning + execution), governance must halt.\n\nState transitions must be explicit and must follow the transition rules documented in governance.\n\n---\n\n## Rule A12 \u2014 Deep Governance Mode\n\nRefer to `.docs/canon/rule-schema-v2.governance.yaml` for structured definition.\n\nDeep Governance Mode is a governance validation state used before planning or execution.\n\nDeep Mode must:\n- run up to 3 validation passes\n- converge only when two consecutive passes find no new risks\n- evaluate precedence, protected zones, security implications, task group, determinism, shadow patterns, and mutation necessity\n- output only risks, citations, and a safety verdict\n\n---\n\n## Rule A13 \u2014 Mode Transition Invariants\n\nRefer to `.docs/canon/rule-schema-v2.governance.yaml` for structured definition.\n\nThe following invariants are binding:\n\n- Deep Governance Mode MUST NOT transition directly to Execution Mode.\n- Spec Mode MUST NOT perform execution.\n- Execution Mode MUST NOT start without an approved tasks.md.\n- Any ambiguity in transition legality requires HITL.\n"
+    },
+    {
+      "id": "canon:architecture_rules:human",
+      "path": ".docs/canon/ARCHITECTURE_RULES.md",
+      "content": "# ARCHITECTURE_RULES\n\nThis document defines the highest-precedence invariants for SAGE.\n\nThese rules are binding.\nAgents must refuse when these rules are violated or when compliance is ambiguous.\n\nThis document governs governance. It does not govern downstream application architecture.\n\n---\n\n## 0) Supreme Authority\n\n```yaml sagrule\nid: ARCH-SUPREME-AUTHORITY\nstatement: \"This file overrides all other docs and comments.\"\noperator: MUST\ncontext: all\nseverity: CRITICAL\nenforcement: REFUSAL\nsource: \".docs/canon/ARCHITECTURE_RULES.md \u00a70\"\n```\n\n- This file overrides all other docs and comments.\n- If ambiguity exists, prefer: [Isolation > Reliability > Resilience] (Placeholder).\n\n---\n\n## 1) System Boundaries\n\n```yaml sagrule\nid: ARCH-SYSTEM-BOUNDARIES\nstatement: \"Agents MUST strictly adhere to system boundaries: canon/ and .docs/ for governance, agents/Jules/ for agent OS, .jtasks/ for planning.\"\noperator: MUST\ncontext: all\nseverity: CRITICAL\nenforcement: REFUSAL\nsource: \".docs/canon/ARCHITECTURE_RULES.md \u00a71\"\n```\n\n- `canon/` and `.docs/` only when explicitly updating governance/canon.\n- `agents/Jules/` for agent governance and skills.\n- `.jtasks/` for planning and execution workspaces.\n\n---\n\n## Rule A1 \u2014 Canon Precedence Is Mandatory\n\n```yaml sagrule\nid: A1\nstatement: \"Canonical precedence order must be followed as declared in ARCHITECTURE_INDEX.md.\"\noperator: MUST\ncontext: all\nseverity: CRITICAL\nenforcement: REFUSAL\nsource: \".docs/canon/ARCHITECTURE_RULES.md \u00a7Rule A1\"\n```\n\nCanonical precedence order must be followed as declared in `ARCHITECTURE_INDEX.md`.\n\nAgents must not reinterpret precedence or \u201cmerge\u201d conflicting rules.\n\nIf precedence does not resolve a conflict, the agent must halt and emit:\n\n[AWAIT_HUMAN_VALIDATION]\n\n---\n\n## Rule A2 \u2014 One Task Group per Execution\n\n```yaml sagrule\nid: A2\nstatement: \"Every request must be classified into exactly one task group.\"\noperator: MUST\ncontext: all\nseverity: CRITICAL\nenforcement: REFUSAL\nsource: \".docs/canon/ARCHITECTURE_RULES.md \u00a7Rule A2\"\n```\n\nEvery request must be classified into exactly one task group.\n\nMixed task groups are forbidden.\n\nIf classification is ambiguous, execution must halt and require human validation.\n\n---\n\n## Rule A3 \u2014 Skills Are Procedural Only\n\n```yaml sagrule\nid: A3\nstatement: \"Skills may execute only deterministic procedures and MUST NOT introduce architecture or modify canon.\"\noperator: MUST\ncontext: all\nseverity: CRITICAL\nenforcement: REFUSAL\nsource: \".docs/canon/ARCHITECTURE_RULES.md \u00a7Rule A3\"\n```\n\nSkills may execute only deterministic procedures.\n\nSkills must not:\n- Introduce architecture\n- Modify canon\n- Modify invariants\n- Fill missing security boundaries\n- Interpret ambiguous canon\n\nIf a skill requires design judgment, it must stop.\n\n---\n\n## Rule A4 \u2014 Spec-First for Non-Trivial Work\n\n```yaml sagrule\nid: A4\nstatement: \"Non-trivial work requires spec artifacts (requirements, design, tasks) and explicit human approval.\"\noperator: MUST\ncontext: all\nseverity: CRITICAL\nenforcement: REFUSAL\nsource: \".docs/canon/ARCHITECTURE_RULES.md \u00a7Rule A4\"\n```\n\nNon-trivial work requires spec artifacts:\n- requirements.md\n- design.md\n- tasks.md\n\nExecution begins only after explicit human instruction.\n\nIf a request is non-trivial and no spec exists, the agent must halt and require spec generation.\n\n---\n\n## Rule A5 \u2014 Refusal Is Enforced\n\n```yaml sagrule\nid: A5\nstatement: \"Refusal is required when canon conflicts exist, task groups are ambiguous, or security model lacks evidence.\"\noperator: MUST\ncontext: all\nseverity: CRITICAL\nenforcement: REFUSAL\nsource: \".docs/canon/ARCHITECTURE_RULES.md \u00a7Rule A5\"\n```\n\nRefusal is required when:\n- Canon conflicts exist\n- Task group classification is ambiguous\n- Protected zones would be modified without mutation\n- Security model is undefined or lacks evidence\n- Determinism cannot be guaranteed\n- Compiler validation fails (if enabled)\n\nRefusal must be explicit and must stop execution.\n\n---\n\n## Rule A6 \u2014 Protected Zones Are Immutable Without Mutation\n\n```yaml sagrule\nid: A6\nstatement: \"Protected zones (governance, canon) cannot be modified without formal Canon Mutation.\"\noperator: MUST_NOT\ncontext: all\nseverity: CRITICAL\nenforcement: REFUSAL\nsource: \".docs/canon/ARCHITECTURE_RULES.md \u00a7Rule A6\"\n```\n\nProtected zones define structural invariants and security boundaries.\n\nProtected zones cannot be modified by:\n- Skills\n- Implementation tasks\n- Routine documentation updates\n\nAny modification requires Canon Mutation and human validation.\n\n---\n\n## Rule A7 \u2014 Mutation Is the Only Legal Canon Change\n\n```yaml sagrule\nid: A7\nstatement: \"Canon may only change through formal mutation process involving human validation.\"\noperator: MUST\ncontext: all\nseverity: CRITICAL\nenforcement: REFUSAL\nsource: \".docs/canon/ARCHITECTURE_RULES.md \u00a7Rule A7\"\n```\n\nCanon may only change through formal mutation.\n\nMutation must include:\n- Proposal\n- Impact analysis\n- Human validation\n- Version traceability\n\nAny attempt to \u201cjust update the docs\u201d that modifies authority is a violation.\n\n---\n\n## Rule A8 \u2014 No Shadow Architecture\n\n```yaml sagrule\nid: A8\nstatement: \"Agents MUST NOT introduce structural patterns not authorized by canon.\"\noperator: MUST_NOT\ncontext: all\nseverity: CRITICAL\nenforcement: REFUSAL\nsource: \".docs/canon/ARCHITECTURE_RULES.md \u00a7Rule A8\"\n```\n\nAgents must not introduce structural patterns not authorized by canon.\n\nIf a pattern is needed:\n- remove it, or\n- initiate a canon mutation to authorize it\n\nSilent adoption is prohibited.\n\n---\n\n## Rule A9 \u2014 Determinism Is Required\n\n```yaml sagrule\nid: A9\nstatement: \"Outputs MUST converge structurally given the same canon version, spec, and inputs.\"\noperator: MUST\ncontext: all\nseverity: CRITICAL\nenforcement: REFUSAL\nsource: \".docs/canon/ARCHITECTURE_RULES.md \u00a7Rule A9\"\n```\n\nGiven the same canon version, spec, and inputs, outputs must converge structurally.\n\nIf determinism cannot be guaranteed due to ambiguity or missing authority, execution must halt.\n\n---\n\n## Rule A10 \u2014 HITL Break-Glass Marker Is Mandatory\n\n```yaml sagrule\nid: A10\nstatement: \"When execution pauses for validation, the agent MUST emit [AWAIT_HUMAN_VALIDATION] on its own line.\"\noperator: MUST\ncontext: all\nseverity: CRITICAL\nenforcement: REFUSAL\nsource: \".docs/canon/ARCHITECTURE_RULES.md \u00a7Rule A10\"\n```\n\nWhen execution must pause for validation, the agent must emit:\n\n[AWAIT_HUMAN_VALIDATION]\n\nThe marker must appear on its own line.\nAfter emitting it, the agent must not continue execution.\n\n---\n\n## Rule A11 \u2014 Governance State Machine Is Mandatory\n\nRefer to `.docs/canon/rule-schema-v2.governance.yaml` for structured definition.\n\nSAGE governance operates as a deterministic state machine with explicit states and transitions.\n\nStates include:\n- Normal\n- Deep Governance Mode\n- Spec Mode\n- Execution Mode\n- HITL Pause\n\nIf a request attempts to combine outputs from multiple states (e.g., planning + execution), governance must halt.\n\nState transitions must be explicit and must follow the transition rules documented in governance.\n\n---\n\n## Rule A12 \u2014 Deep Governance Mode\n\nRefer to `.docs/canon/rule-schema-v2.governance.yaml` for structured definition.\n\nDeep Governance Mode is a governance validation state used before planning or execution.\n\nDeep Mode must:\n- run up to 3 validation passes\n- converge only when two consecutive passes find no new risks\n- evaluate precedence, protected zones, security implications, task group, determinism, shadow patterns, and mutation necessity\n- output only risks, citations, and a safety verdict\n\n---\n\n## Rule A13 \u2014 Mode Transition Invariants\n\nRefer to `.docs/canon/rule-schema-v2.governance.yaml` for structured definition.\n\nThe following invariants are binding:\n\n- Deep Governance Mode MUST NOT transition directly to Execution Mode.\n- Spec Mode MUST NOT perform execution.\n- Execution Mode MUST NOT start without an approved tasks.md.\n- Any ambiguity in transition legality requires HITL.\n"
+    }
+  ],
+  "skills": [
+    {
+      "id": "spec-mode",
+      "path": "/app/skills/spec-mode",
+      "description": "---"
+    },
+    {
+      "id": "audit-governance",
+      "path": "/app/skills/audit-governance",
+      "description": "---"
+    },
+    {
+      "id": "bootstrap-project",
+      "path": "/app/skills/bootstrap-project",
+      "description": "---"
+    },
+    {
+      "id": "constitutional-check",
+      "path": "/app/skills/constitutional-check",
+      "description": "---"
+    },
+    {
+      "id": "context-pruning",
+      "path": "/app/skills/context-pruning",
+      "description": "---"
+    },
+    {
+      "id": "doc-maintainer",
+      "path": "/app/skills/doc-maintainer",
+      "description": "---"
+    },
+    {
+      "id": "test-enforcer",
+      "path": "/app/skills/test-enforcer",
+      "description": "---"
+    },
+    {
+      "id": "cicd-ops",
+      "path": "/app/skills/cicd-ops",
+      "description": "---"
+    },
+    {
+      "id": "nsad",
+      "path": "/app/skills/nsad",
+      "description": "---"
+    },
+    {
+      "id": "tailwindcss-cli",
+      "path": "/app/skills/tailwindcss-cli",
+      "description": "---"
+    },
+    {
+      "id": "wdbasic-frontend",
+      "path": "/app/skills/wdbasic-frontend",
+      "description": "---"
+    }
+  ],
+  "task_groups": [
+    {
+      "id": "architecture",
+      "modes_allowed": [
+        "ENTER_DEEP_GOVERNANCE_MODE"
+      ],
+      "skills_allowed": false
+    },
+    {
+      "id": "development",
+      "modes_allowed": [
+        "ENTER_SPEC_MODE",
+        "ENTER_EXEC_MODE"
+      ],
+      "skills_allowed": true
+    },
+    {
+      "id": "operations",
+      "modes_allowed": [
+        "ENTER_SPEC_MODE",
+        "ENTER_EXEC_MODE"
+      ],
+      "skills_allowed": true
+    },
+    {
+      "id": "docs",
+      "modes_allowed": [
+        "ENTER_SPEC_MODE"
+      ],
+      "skills_allowed": true
+    },
+    {
+      "id": "audit",
+      "modes_allowed": [
+        "ENTER_DEEP_GOVERNANCE_MODE"
+      ],
+      "skills_allowed": true
+    }
+  ],
+  "metadata": {
+    "seed_node": "agent:jules",
+    "token_limit": 4000,
+    "pruned": true
+  }
+}

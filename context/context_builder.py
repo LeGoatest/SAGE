@@ -32,7 +32,9 @@ class ContextBuilder:
             visit(seed)
         return resolved
 
-    def build_context(self, seed_nodes: list[str]) -> dict:
+    def build_context(self, seed_nodes: list[str] = None) -> dict:
+        if seed_nodes is None:
+            seed_nodes = [self.graph.get("root", "canon:constitution")]
         resolved_ids = self.resolve_dependencies(seed_nodes)
         files = []
         missing = []

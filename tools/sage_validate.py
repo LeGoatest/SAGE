@@ -6,8 +6,9 @@ from pathlib import Path
 
 try:
     import yaml  # type: ignore
+    import jsonschema # type: ignore
 except Exception as e:
-    print("SAGE-VALIDATE: PyYAML is required (pip install pyyaml).", file=sys.stderr)
+    print("SAGE-VALIDATE: PyYAML and jsonschema are required (pip install pyyaml jsonschema).", file=sys.stderr)
     raise
 
 ROOT = Path(sys.argv[1]) if len(sys.argv) > 1 else Path(".")
@@ -30,6 +31,13 @@ def load_yaml(path: Path) -> dict:
         die(f"Missing YAML: {path.as_posix()}")
     with path.open("r", encoding="utf-8") as f:
         return yaml.safe_load(f) or {}
+
+def load_json(path: Path) -> dict:
+    import json
+    if not path.exists():
+        die(f"Missing JSON: {path.as_posix()}")
+    with path.open("r", encoding="utf-8") as f:
+        return json.load(f)
 
 def validate_semantic_layer() -> None:
     if not SemanticEngine:
@@ -213,33 +221,26 @@ def validate_skill_registry() -> None:
 
 def validate_task_groups() -> None:
     tg_path = ROOT / "canon/task_groups.yaml"
+    schema_path = ROOT / "canon/schema/task_groups.schema.json"
+
     if not tg_path.exists():
         die("Missing canon/task_groups.yaml")
+    if not schema_path.exists():
+        die("Missing canon/schema/task_groups.schema.json")
 
     data = load_yaml(tg_path)
+    schema = load_json(schema_path)
+
+    try:
+        jsonschema.validate(instance=data, schema=schema)
+    except jsonschema.ValidationError as e:
+        die(f"Task group schema validation failed: {e.message}")
+
     task_groups = data.get("task_groups", [])
+    ids = [tg.get("id") for tg in task_groups]
+    if len(ids) != len(set(ids)):
+        die("Task group ids must be unique")
 
-    errors = []
-    ids = set()
-    import re
-
-    for tg in task_groups:
-        tg_id = tg.get("id")
-        if not tg_id:
-            errors.append("Task group missing id")
-            continue
-
-        if tg_id in ids:
-            errors.append(f"Duplicate task group id: {tg_id}")
-        ids.add(tg_id)
-
-        if not re.match(r"^[a-z][a-z0-9_]*$", tg_id):
-            errors.append(f"Task group id '{tg_id}' must follow lowercase slug format")
-
-    if errors:
-        for err in errors:
-            print(f"SAGE-VALIDATE: Task Group Error: {err}", file=sys.stderr)
-        die("Task group validation failed.")
     print("SAGE-VALIDATE: Task Groups OK")
 
 def validate_jtasks_folders() -> None:
@@ -250,11 +251,40 @@ def validate_jtasks_folders() -> None:
     errors = []
     required_files = ["requirements.md", "design.md", "tasks.md", "state.yaml"]
 
+    # Load valid task groups for state validation
+    tg_path = ROOT / "canon/task_groups.yaml"
+    valid_groups = []
+    if tg_path.exists():
+        tg_data = load_yaml(tg_path)
+        valid_groups = [tg["id"] for tg in tg_data.get("task_groups", [])]
+
+    import re
+    iso_pattern = re.compile(r"^\d{4}-\d{2}-\d{2}T\d{2}-\d{2}-\d{2}$")
+
     for folder in jtasks_path.iterdir():
-        if folder.is_dir() and folder.name != "_template":
-            for rf in required_files:
-                if not (folder / rf).exists():
-                    errors.append(f"Folder {folder.name}: Missing required file {rf}")
+        if not folder.is_dir() or folder.name.startswith("_"):
+            continue
+
+        if not iso_pattern.match(folder.name):
+            errors.append(f"Folder {folder.name}: Name must follow ISO-8601 format YYYY-MM-DDTHH-MM-SS")
+            continue
+
+        for rf in required_files:
+            if not (folder / rf).exists():
+                errors.append(f"Folder {folder.name}: Missing required file {rf}")
+
+        # State validation
+        state_path = folder / "state.yaml"
+        if state_path.exists():
+            state = load_yaml(state_path)
+            if "version" not in state:
+                errors.append(f"Folder {folder.name}: state.yaml missing version")
+            if "task_group" not in state:
+                errors.append(f"Folder {folder.name}: state.yaml missing task_group")
+            elif valid_groups and state["task_group"] not in valid_groups:
+                errors.append(f"Folder {folder.name}: state.yaml has invalid task_group '{state['task_group']}'")
+            if "tasks" not in state or not isinstance(state["tasks"], list):
+                errors.append(f"Folder {folder.name}: state.yaml missing tasks array")
 
     if errors:
         for err in errors:

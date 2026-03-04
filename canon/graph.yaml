@@ -1,6 +1,16 @@
 version: 1
 
+root: canon:constitution
+
 nodes:
+  - id: canon:constitution
+    kind: root
+    machine: canon/ARCHITECTURE_INDEX.md
+    depends_on:
+      - canon:architecture_rules
+      - canon:task_groups
+      - skills:registry
+
   - id: canon:architecture_index
     kind: index
     machine: canon/ARCHITECTURE_INDEX.md

@@ -1,0 +1,32 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "version": { "type": "integer" },
+    "resolved_nodes": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "policy_files": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "path": { "type": "string" },
+          "content": { "type": "string" }
+        }
+      }
+    },
+    "skills": {
+      "type": "array",
+      "items": { "type": "object" }
+    },
+    "task_groups": {
+      "type": "array",
+      "items": { "type": "object" }
+    },
+    "metadata": { "type": "object" }
+  },
+  "required": ["version", "resolved_nodes", "policy_files"]
+}
