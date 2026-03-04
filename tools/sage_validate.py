@@ -139,6 +139,7 @@ def main() -> None:
     validate_semantic_layer()
     validate_canon_graph()
     validate_skill_registry()
+    validate_task_groups()
 
     # Demonstration of the reasoning engine if a rule is passed as arg
     if len(sys.argv) > 2:
@@ -207,6 +208,37 @@ def validate_skill_registry() -> None:
             print(f"SAGE-VALIDATE: Skill Error: {err}", file=sys.stderr)
         die("Skill registry validation failed.")
     print("SAGE-VALIDATE: Skill Registry OK")
+
+def validate_task_groups() -> None:
+    tg_path = ROOT / "canon/task_groups.yaml"
+    if not tg_path.exists():
+        die("Missing canon/task_groups.yaml")
+
+    data = load_yaml(tg_path)
+    task_groups = data.get("task_groups", [])
+
+    errors = []
+    ids = set()
+    import re
+
+    for tg in task_groups:
+        tg_id = tg.get("id")
+        if not tg_id:
+            errors.append("Task group missing id")
+            continue
+
+        if tg_id in ids:
+            errors.append(f"Duplicate task group id: {tg_id}")
+        ids.add(tg_id)
+
+        if not re.match(r"^[a-z][a-z0-9_]*$", tg_id):
+            errors.append(f"Task group id '{tg_id}' must follow lowercase slug format")
+
+    if errors:
+        for err in errors:
+            print(f"SAGE-VALIDATE: Task Group Error: {err}", file=sys.stderr)
+        die("Task group validation failed.")
+    print("SAGE-VALIDATE: Task Groups OK")
 
 if __name__ == "__main__":
     main()
