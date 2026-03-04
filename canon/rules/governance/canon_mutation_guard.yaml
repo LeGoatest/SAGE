@@ -1,0 +1,26 @@
+rule: canon_mutation_guard
+id: GOV-CANON-MUTATION-GUARD
+
+description: >
+  Canonical governance artifacts must not be modified during
+  normal task execution.
+
+restricted_paths:
+  - canon/
+  - canon/axioms/
+  - canon/intents/
+  - canon/invariants/
+  - canon/rules/
+  - canon/task_groups.yaml
+  - canon/graph.yaml
+
+allowed_task_groups:
+  - architecture
+  - governance
+
+violation_behavior:
+  action: refuse
+  severity: CRITICAL
+  message: >
+    Canon mutation is restricted. Canon may only be modified
+    through explicit governance tasks.

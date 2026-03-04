@@ -140,6 +140,8 @@ def main() -> None:
     validate_canon_graph()
     validate_skill_registry()
     validate_task_groups()
+    validate_jtasks_folders()
+    validate_mutation_guard()
 
     # Demonstration of the reasoning engine if a rule is passed as arg
     if len(sys.argv) > 2:
@@ -239,6 +241,72 @@ def validate_task_groups() -> None:
             print(f"SAGE-VALIDATE: Task Group Error: {err}", file=sys.stderr)
         die("Task group validation failed.")
     print("SAGE-VALIDATE: Task Groups OK")
+
+def validate_jtasks_folders() -> None:
+    jtasks_path = ROOT / ".jtasks"
+    if not jtasks_path.exists():
+        return
+
+    errors = []
+    required_files = ["requirements.md", "design.md", "tasks.md", "state.yaml"]
+
+    for folder in jtasks_path.iterdir():
+        if folder.is_dir() and folder.name != "_template":
+            for rf in required_files:
+                if not (folder / rf).exists():
+                    errors.append(f"Folder {folder.name}: Missing required file {rf}")
+
+    if errors:
+        for err in errors:
+            print(f"SAGE-VALIDATE: JTasks Error: {err}", file=sys.stderr)
+        die("JTasks validation failed.")
+    print("SAGE-VALIDATE: JTasks Folders OK")
+
+def validate_mutation_guard() -> None:
+    import subprocess
+
+    try:
+        # Get modified files in the current commit or staging area
+        result = subprocess.run(
+            ["git", "diff", "--name-only", "HEAD"],
+            capture_output=True, text=True, cwd=str(ROOT)
+        )
+        modified_files = result.stdout.splitlines()
+        # Also check staged files
+        result_staged = subprocess.run(
+            ["git", "diff", "--cached", "--name-only"],
+            capture_output=True, text=True, cwd=str(ROOT)
+        )
+        modified_files.extend(result_staged.stdout.splitlines())
+    except Exception:
+        # If not a git repo or other git error, skip mutation guard check
+        return
+
+    canon_modified = any(f.startswith("canon/") for f in modified_files)
+    if not canon_modified:
+        return
+
+    # Find the latest .jtasks folder to determine active task group
+    jtasks_path = ROOT / ".jtasks"
+    if not jtasks_path.exists():
+        return
+
+    subfolders = [f for f in jtasks_path.iterdir() if f.is_dir() and f.name != "_template"]
+    if not subfolders:
+        return
+
+    latest_folder = max(subfolders, key=lambda f: f.name)
+    state_file = latest_folder / "state.yaml"
+    if not state_file.exists():
+        return
+
+    state = load_yaml(state_file)
+    active_group = state.get("task_group")
+
+    if active_group not in ["architecture", "governance"]:
+        die(f"Canon mutation is restricted outside architecture/governance tasks. Active group: {active_group}")
+
+    print("SAGE-VALIDATE: Mutation Guard OK")
 
 if __name__ == "__main__":
     main()
