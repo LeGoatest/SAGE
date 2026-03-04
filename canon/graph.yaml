@@ -13,19 +13,19 @@ nodes:
 
   - id: canon:architecture_index
     kind: index
-    machine: canon/ARCHITECTURE_INDEX.md
+    machine: canon/architecture/index.yaml
     human: .docs/canon/ARCHITECTURE_INDEX.md
     tags: [foundation]
 
   - id: canon:architecture_rules
     kind: rules
-    machine: canon/ARCHITECTURE_RULES.md
+    machine: canon/rules/architecture_rules.yaml
     human: .docs/canon/ARCHITECTURE_RULES.md
     depends_on: [canon:architecture_index]
 
   - id: canon:security_model
     kind: rules
-    machine: canon/SECURITY_MODEL.md
+    machine: canon/security/model.yaml
     human: .docs/canon/SECURITY_MODEL.md
     depends_on: [canon:architecture_rules]
 

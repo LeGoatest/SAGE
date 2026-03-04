@@ -29,8 +29,8 @@ rules:
     references:
       canon_files:
         - "canon/governance/state-machine.md"
-        - "canon/canon/ENFORCEMENT_MATRIX.md"
-        - "canon/canon/TERMINOLOGY.md"
+        - "canon/ENFORCEMENT_MATRIX.md"
+        - "canon/TERMINOLOGY.md"
 
   - id: "A12"
     title: "Deep Governance Mode"
@@ -76,8 +76,8 @@ rules:
     references:
       canon_files:
         - "canon/governance/deep-governance-mode.md"
-        - "canon/canon/ARCHITECTURE_RULES.md"
-        - "canon/canon/ENFORCEMENT_MATRIX.md"
+        - "canon/ARCHITECTURE_RULES.md"
+        - "canon/ENFORCEMENT_MATRIX.md"
 
   - id: "A13"
     title: "Mode Transition Invariants"
@@ -131,5 +131,5 @@ rules:
         - "deep_attempts_exec"
     references:
       canon_files:
-        - "canon/canon/state-schema-v2.yaml"
+        - "canon/state-schema-v2.yaml"
         - "canon/governance/state-machine.md"

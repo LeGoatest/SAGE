@@ -1,0 +1,53 @@
+id: canon:architecture_rules
+kind: rule_set
+version: 1
+
+description: >
+  Core architectural invariants governing the structure and technology
+  choices of the SAGE system.
+
+rules:
+
+  - id: language_primary
+    domain: architecture
+    component: language
+    description: The primary implementation language must be Go.
+    effect: deny
+    condition:
+      field: project.primary_language
+      operator: not_equals
+      value: go
+
+  - id: service_modularity
+    domain: architecture
+    component: services
+    description: Services must be modular and isolated by responsibility.
+    effect: deny
+    condition:
+      field: services.structure
+      operator: equals
+      value: monolith
+
+  - id: api_boundary_required
+    domain: architecture
+    component: services
+    description: Services must expose explicit API boundaries.
+    effect: warn
+    condition:
+      field: services.api_boundary
+      operator: equals
+      value: false
+
+  - id: default_database_sqlite
+    domain: architecture
+    component: database
+    description: SQLite is the default persistence layer.
+    effect: warn
+    condition:
+      field: database.engine
+      operator: not_equals
+      value: sqlite
+
+metadata:
+  enforcement_stage: planning
+  priority: high

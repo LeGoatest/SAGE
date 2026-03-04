@@ -1,0 +1,31 @@
+id: canon:architecture_index
+kind: index
+version: 1
+
+description: >
+  Top-level architecture index defining the canonical architecture components
+  and references for the SAGE system.
+
+components:
+
+  - id: architecture.language
+    name: Primary Implementation Language
+    description: Defines the primary programming language used in the system.
+
+  - id: architecture.services
+    name: Service Architecture
+    description: Defines how services are structured and interact.
+
+  - id: architecture.database
+    name: Persistence Layer
+    description: Defines database and storage architecture.
+
+references:
+
+  - canon:architecture_rules
+  - canon:security_model
+  - canon:task_groups
+
+metadata:
+  maintained_by: canon
+  priority: high
