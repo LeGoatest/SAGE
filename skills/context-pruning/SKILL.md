@@ -1,48 +1,25 @@
 ---
 name: context-pruning
-description: Produces a non-canonical MINI_CANON.md to reduce token bloat while preserving essential governance context.
-metadata:
-  category: operations
-  authority: procedural
+description: Reduce context bloat while preserving canonical authority and task-critical facts.
+task_groups:
+  - GOVERNANCE
+  - DOCUMENTATION
 ---
 
-# Skill: context-pruning
+# CONTEXT PRUNING
 
-## Authority boundary
-- This skill MUST NOT modify canonical documents in `docs/` or `Jules/`.
-- `docs/MINI_CANON.md` is informational only and has NO canonical authority.
-- If a conflict exists between `MINI_CANON.md` and the `/docs` folder, the latter prevails.
+## Purpose
+Produce a minimal context pack that preserves canon precedence.
 
-## When to use
-- When the conversation context becomes large.
-- When token efficiency is required for complex execution.
-- To provide a "quick reference" for the Agent's core operating rules.
+## Sources of Truth
+- `.docs/canon/` (human)
+- `canon/` (machine)
 
-## Procedure
-
-### Step 1: Data Gathering
-1. Read the Absolute Precedence List from `docs/ARCHITECTURE_INDEX.md`.
-2. Extract all Refusal Triggers from `Jules/JULES.md`, `docs/ARCHITECTURE_RULES.md`, and `docs/SECURITY_MODEL.md`.
-3. Extract Task Group rules from `Jules/TASK_GROUPS.md`.
-4. Summarize the Spec-First workflow from `.jtasks/`.
-
-### Step 2: Generate MINI_CANON.md
-Produce `docs/MINI_CANON.md` following these strict constraints:
-- **Max length**: 250 lines.
-- **Format**: Bullet-heavy, high information density.
-- **Mandatory Disclaimer**:
-  > "MINI_CANON.md is not canonical; canon in /docs prevails."
-- **Content MUST include**:
-  - Precedence list (ordered).
-  - Consolidated Refusal Triggers.
-  - Task Group definitions.
-  - Skill execution constraints.
-  - Spec-first lifecycle summary.
-
-### Step 3: Verification
-- Ensure NO new rules were introduced.
-- Ensure NO ambiguous canon was "interpreted" to fill gaps.
-- Ensure NO security assumptions were added.
+## Workflow
+1. Extract only what is required to complete the task.
+2. Preserve precedence statements and refusal logic.
+3. Remove repetition and non-binding narrative.
+4. Output a compact context summary.
 
 ## Output
-- `docs/MINI_CANON.md`
+- A compact “context pack” suitable for agent sessions.

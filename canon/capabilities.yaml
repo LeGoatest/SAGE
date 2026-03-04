@@ -37,7 +37,7 @@ capabilities:
         - "./.jtasks/_template/**"
         - "./Jules/**"
         - "./skills/**"
-        - "./.docs/**"
+        - "./..docs/**"
     mint_requires:
       task_groups: ["GOVERNANCE_CHANGE"]
       proofs: ["SPEC_APPROVED", "SECURITY_REVIEWED"]

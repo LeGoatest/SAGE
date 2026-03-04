@@ -12,7 +12,7 @@ operator: MUST_NOT
 context: architecture
 severity: CRITICAL
 enforcement: REFUSAL
-source: "docs/SECURITY_MODEL.md §2"
+source: ".docs/SECURITY_MODEL.md §2"
 ```
 
 - [Define where trust begins and ends]

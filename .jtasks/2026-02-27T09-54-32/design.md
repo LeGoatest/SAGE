@@ -19,7 +19,7 @@ Canon: canon/ (prevails)
 - `.jtasks/`: Will be used for task records as per SAGE standards.
 
 ### 2.2 Unaffected Components
-- `.docs/`, `canon/`, `.governance/`: Must remain untouched but will be referenced/called.
+- `..docs/`, `canon/`, `.governance/`: Must remain untouched but will be referenced/called.
 
 ---
 

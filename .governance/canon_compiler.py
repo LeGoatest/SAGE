@@ -95,7 +95,7 @@ def main():
     # Determine SAGE root for injection awareness
     sage_root = get_sage_root()
 
-    # Prefer canon/ over .docs/
+    # Prefer canon/ over ..docs/
     search_dirs = [
         sage_root / 'canon',
         sage_root / 'Jules',

@@ -6,6 +6,8 @@ import (
 	_ "embed"
 	"encoding/json"
 	"fmt"
+	"os"
+	"path/filepath"
 	"time"
 
 	_ "github.com/mattn/go-sqlite3"
@@ -19,7 +21,13 @@ type SQLiteStore struct {
 }
 
 func NewSQLiteStore(dbPath string) (*SQLiteStore, error) {
-	db, err := sql.Open("sqlite3", dbPath+"?_journal=WAL&_auth")
+	// Ensure directory exists for the db
+	dir := filepath.Dir(dbPath)
+	if err := os.MkdirAll(dir, 0755); err != nil {
+		return nil, fmt.Errorf("failed to create db directory: %w", err)
+	}
+
+	db, err := sql.Open("sqlite3", dbPath+"?_journal=WAL")
 	if err != nil {
 		return nil, err
 	}
@@ -38,10 +46,11 @@ func (s *SQLiteStore) Init(ctx context.Context) error {
 }
 
 func (s *SQLiteStore) SaveRequest(ctx context.Context, id, method string, paramsJSON []byte) error {
+	safeParams := CleanseJSON(paramsJSON)
 	now := time.Now().Format(time.RFC3339)
 	_, err := s.db.ExecContext(ctx,
 		"INSERT INTO requests (id, method, params_json, status, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?)",
-		id, method, string(paramsJSON), "received", now, now)
+		id, method, string(safeParams), "received", now, now)
 	return err
 }
 
@@ -54,18 +63,21 @@ func (s *SQLiteStore) UpdateStatus(ctx context.Context, id, status string) error
 }
 
 func (s *SQLiteStore) AppendEvent(ctx context.Context, requestID, eventType string, payloadJSON []byte) error {
+	safePayload := CleanseJSON(payloadJSON)
 	now := time.Now().Format(time.RFC3339)
 	_, err := s.db.ExecContext(ctx,
 		"INSERT INTO request_events (request_id, event_type, payload_json, created_at) VALUES (?, ?, ?, ?)",
-		requestID, eventType, string(payloadJSON), now)
+		requestID, eventType, string(safePayload), now)
 	return err
 }
 
 func (s *SQLiteStore) SaveResult(ctx context.Context, id string, resultJSON, errorJSON []byte) error {
+	safeResult := CleanseJSON(resultJSON)
+	safeError := CleanseJSON(errorJSON)
 	now := time.Now().Format(time.RFC3339)
 	_, err := s.db.ExecContext(ctx,
 		"UPDATE requests SET result_json = ?, error_json = ?, status = ?, updated_at = ? WHERE id = ?",
-		string(resultJSON), string(errorJSON), "done", now, id)
+		string(safeResult), string(safeError), "done", now, id)
 	return err
 }
 
@@ -78,6 +90,7 @@ func (s *SQLiteStore) SaveMemoryEntry(ctx context.Context, entry MemoryEntry) er
 }
 
 func (s *SQLiteStore) VectorUpsert(ctx context.Context, vectorID string, embedding []float32) error {
+	// Not cleanseable (binary/float)
 	blob, err := json.Marshal(embedding)
 	if err != nil {
 		return err
@@ -155,4 +168,15 @@ func (s *SQLiteStore) GetBootstrapSnapshot(ctx context.Context, topic string, qu
 		}
 	}
 	return snap, nil
+}
+
+// LogToolExecution records a tool trace with safe guards.
+func (s *SQLiteStore) LogToolExecution(ctx context.Context, id, requestID, toolName string, inputJSON, outputJSON []byte, status string) error {
+	safeInput := CleanseJSON(inputJSON)
+	safeOutput := CleanseJSON(outputJSON)
+	now := time.Now().Format(time.RFC3339)
+	_, err := s.db.ExecContext(ctx,
+		"INSERT INTO tool_executions (id, request_id, tool_name, input_json, output_json, status, created_at) VALUES (?, ?, ?, ?, ?, ?, ?)",
+		id, requestID, toolName, string(safeInput), string(safeOutput), status, now)
+	return err
 }

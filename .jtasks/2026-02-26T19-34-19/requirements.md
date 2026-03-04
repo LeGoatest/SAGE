@@ -4,7 +4,7 @@ Status: DRAFT
 Task Group: GOVERNANCE_CHANGE
 Modes: ENTER_DEEP_GOVERNANCE_MODE → ENTER_SPEC_MODE → ENTER_EXEC_MODE
 Canon: canon/ (prevails)
-Docs: .docs/ (must not be deleted)
+Docs: ..docs/ (must not be deleted)
 
 ---
 

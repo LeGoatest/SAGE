@@ -6,10 +6,12 @@ import (
 	"net/http"
 	"os"
 	"os/signal"
+	"path/filepath"
 	"syscall"
 	"time"
 
 	"sage-mcp/adapter"
+	"sage-mcp/audit"
 	"sage-mcp/auth"
 	"sage-mcp/config"
 	"sage-mcp/memory"
@@ -26,11 +28,21 @@ func main() {
 	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM)
 	defer stop()
 
-	// Persistence
+	// Persistence Initialization
 	if err := os.MkdirAll(cfg.DataDir, 0755); err != nil {
 		log.Fatalf("failed to create data dir: %v", err)
 	}
-	store, err := memory.NewSQLiteStore(cfg.DataDir + "/sage.db")
+	if err := os.MkdirAll(cfg.EventsDir, 0755); err != nil {
+		log.Fatalf("failed to create events dir: %v", err)
+	}
+
+	// Audit Logger
+	auditLogger, err := audit.NewLogger(cfg.EventsDir)
+	if err != nil {
+		log.Fatalf("failed to create audit logger: %v", err)
+	}
+
+	store, err := memory.NewSQLiteStore(filepath.Join(cfg.DataDir, "sage.db"))
 	if err != nil {
 		log.Fatalf("failed to open store: %v", err)
 	}
@@ -41,6 +53,7 @@ func main() {
 	// Queue & Adapter
 	engine := &adapter.SAGEAdapter{}
 	pool := queue.NewWorkerPool(cfg.Workers, engine, store)
+	pool.WithAuditLogger(auditLogger)
 	pool.Start(ctx)
 
 	// Transport
@@ -48,6 +61,7 @@ func main() {
 	go sse.Broadcast(ctx, pool.Events())
 
 	srv := transport.NewServer(store, pool, sse, cfg.MaxContextTokens)
+	srv.WithAuditLogger(auditLogger)
 
 	mux := http.NewServeMux()
 	mux.HandleFunc("/healthz", srv.HandleHealth)
@@ -63,6 +77,8 @@ func main() {
 
 	go func() {
 		log.Printf("SAGE MCP serving on %s", cfg.Addr)
+		log.Printf("State stored in %s", cfg.DataDir)
+		log.Printf("Events stored in %s", cfg.EventsDir)
 		if err := httpSrv.ListenAndServe(); err != nil && err != http.ErrServerClosed {
 			log.Fatalf("listen: %s\n", err)
 		}

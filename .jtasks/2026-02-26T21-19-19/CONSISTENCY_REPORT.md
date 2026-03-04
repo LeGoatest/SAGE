@@ -9,7 +9,7 @@ Audit Date: 2026-02-26
 - Governance Rules (Session): ✅ 2/2 present.
 - CI Validators: ✅ 2/2 present.
 - GitHub Workflows: ✅ 2/2 present.
-- Narrative Constitution: ✅ `.docs/` present.
+- Narrative Constitution: ✅ `..docs/` present.
 
 ## 2. Integrity Issues
 - Foundational spec rules (A4 alignment) are missing machine-readable definitions.

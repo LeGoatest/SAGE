@@ -10,7 +10,7 @@ This is a **binding constitutional contract**, not guidance.
 
 The Agent MUST comply with the constitutional hierarchy defined in the SAGE root (defaulting to the project root, or `.sage/` if injected). Authoritative paths:
 
-- `<SAGE_ROOT>/.docs/` (human-readable constitution)
+- `<SAGE_ROOT>/..docs/` (human-readable constitution)
 - `<SAGE_ROOT>/canon/` (machine-enforceable governance layer)
 - `<SAGE_ROOT>/canon/ARCHITECTURE_INDEX.md`
 
@@ -31,7 +31,7 @@ Silently “fixing” or bypassing rules is forbidden.
 
 SAGE operates under a dual-layer model:
 
-- Narrative Constitution = Authoritative intent (located in `<SAGE_ROOT>/.docs/`)
+- Narrative Constitution = Authoritative intent (located in `<SAGE_ROOT>/..docs/`)
 - Machine Canon = Executable enforcement (located in `<SAGE_ROOT>/canon/`)
 
 The Agent MUST:
@@ -77,7 +77,7 @@ When generating output:
 - Include file paths at the top of each file
 - Do NOT include explanations, essays, or commentary unless explicitly requested
 - Respect project-defined formatting standards
-- Follow `.docs/DOC_STYLE.md` including escaping inline backticks as \`.
+- Follow `..docs/DOC_STYLE.md` including escaping inline backticks as \`.
 - If Go code is written, it must be gofmt clean.
 
 ---
@@ -140,7 +140,7 @@ When a critical decision or validation is required, the Agent MUST use the **Bre
 - Spec approval required
 - STOP in any workflow
 - Encountering "Unknown / Needs Decision" during bootstrap
-- Illegal mode transition (see `.docs/governance/state-machine.md`)
+- Illegal mode transition (see `..docs/governance/state-machine.md`)
 
 ---
 

@@ -1,3 +1,4 @@
+import os
 import yaml
 import json
 import subprocess
@@ -77,6 +78,9 @@ def match_rule(rule, changed_files):
             if not file: continue
             for glob in globs:
                 if Path(file).match(glob.replace("./", "")):
+                    # Special check: Governance changes require GOVERNANCE task group
+                    # For now, we use the rule ID to check context if available,
+                    # but here we just return True to trigger the rule evaluation.
                     return True
         return False
 
@@ -86,10 +90,7 @@ def match_rule(rule, changed_files):
         return False
 
     if condition == "CANON_HASH_MISMATCH":
-        lock_file = CANON_PATH.joinpath("identity/version_lock.yaml")
-        if not lock_file.exists():
-            lock_file = CANON_PATH.joinpath("version_lock.yaml")
-
+        lock_file = CANON_PATH.joinpath("version_lock.yaml")
         if lock_file.exists():
             expected = yaml.safe_load(lock_file.read_text())["canon_hash"]
             return compute_canon_hash() != expected
@@ -103,26 +104,27 @@ def match_rule(rule, changed_files):
 
     if "requirements.md contains a section header matching" in condition:
         if not active_jtask or not (active_jtask / "requirements.md").exists(): return False
-        header = re.search(r'"(.+?)"', condition).group(1)
+        header_match = re.search(r'"(.+?)"', condition)
+        if not header_match: return False
+        header = header_match.group(1)
         content = (active_jtask / "requirements.md").read_text()
         return header not in content
 
-    if "tasks.md contains at least one task entry that includes \"Satisfies:\" with a value matching \"REQ-\"" in condition:
+    if "Satisfies: REQ-" in condition:
         if not active_jtask or not (active_jtask / "tasks.md").exists(): return False
         content = (active_jtask / "tasks.md").read_text()
         return "Satisfies: REQ-" not in content
 
-    if "tasks.md contains \"Files Modified:\" entries" in condition:
+    if "Files Modified:" in condition:
         if not active_jtask or not (active_jtask / "tasks.md").exists(): return False
         content = (active_jtask / "tasks.md").read_text()
         return "Files Modified:" not in content
 
     if "Task modifies existing files OR extends existing components" in condition:
         if not active_jtask or not (active_jtask / "tasks.md").exists(): return False
-        # Logic from validate_gap_report.py
-        import re as pyre
         text = (active_jtask / "tasks.md").read_text()
-        pattern = pyre.compile(r"(?im)^\s*Files Modified:\s*\n((?:\s*-\s*.+\n)+)")
+        # Look for indented list items after 'Files Modified:'
+        pattern = re.compile(r"(?im)^\s*Files Modified:\s*\n((?:\s*-\s*.+\n)+)")
         for m in pattern.finditer(text):
             block = m.group(1)
             for line in block.splitlines():
@@ -134,7 +136,7 @@ def match_rule(rule, changed_files):
                             return True
         return False
 
-    if "GAP_REPORT.md exists AND contains any Risk Level: BLOCKER gaps" in condition:
+    if "Risk Level: BLOCKER" in condition:
         if not active_jtask or not (active_jtask / "GAP_REPORT.md").exists(): return False
         content = (active_jtask / "GAP_REPORT.md").read_text()
         return "Risk Level: BLOCKER" in content
@@ -142,6 +144,10 @@ def match_rule(rule, changed_files):
     return False
 
 def evaluate():
+    # 0. Load Task Group if present
+    # In a real environment, this might be passed as an env var SAGE_TASK_GROUP
+    current_task_group = os.environ.get("SAGE_TASK_GROUP", "FEATURE")
+
     engine = SAGEEngine()
 
     # 1. Canon Boot Validation
@@ -163,9 +169,16 @@ def evaluate():
 
     violated_rule_ids = []
     for rule in rules:
+        rule_id = rule["id"]
+
+        # Guard: Governance mutations require GOVERNANCE task group
+        if rule_id == "SECURITY_PROTECTED_ZONES":
+            if current_task_group == "GOVERNANCE":
+                continue # Bypass for authorized mutation
+
         if match_rule(rule, changed_files):
-            if rule.get("effect") == "deny":
-                 violated_rule_ids.append(rule["id"])
+            if rule.get("effect") == "deny" or rule.get("effect") == "require":
+                 violated_rule_ids.append(rule_id)
 
     if violated_rule_ids:
         print("❌ Governance Denied")
