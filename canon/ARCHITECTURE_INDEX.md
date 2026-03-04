@@ -53,7 +53,7 @@ In the event of a conflict between documents, the document appearing **higher in
 23. `.docs/AGENT_OPERATING_INSTRUCTIONS.md`
 24. `agents/Jules/JULES.md`
 25. `agents/Jules/modes.md`
-26. `.docs/TASK_GROUPS.md`
+26. `.docs/canon/TASK_GROUPS.md`
 
 ### V. Procedural Skills & Work Orders
 27. `skills/` (SKILL.md files)

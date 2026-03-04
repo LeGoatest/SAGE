@@ -137,6 +137,8 @@ def main() -> None:
         die("A12.mode.algorithm.max_passes must be 3")
 
     validate_semantic_layer()
+    validate_canon_graph()
+    validate_skill_registry()
 
     # Demonstration of the reasoning engine if a rule is passed as arg
     if len(sys.argv) > 2:
@@ -150,6 +152,61 @@ def main() -> None:
                 print("--------------------------------\n")
 
     print("SAGE-VALIDATE: OK")
+
+def validate_canon_graph() -> None:
+    graph_path = ROOT / "canon/graph.yaml"
+    if not graph_path.exists():
+        die("Missing canon/graph.yaml")
+
+    graph = load_yaml(graph_path)
+    nodes = graph.get("nodes", [])
+    node_ids = {n.get("id") for n in nodes}
+
+    errors = []
+    for node in nodes:
+        node_id = node.get("id")
+        # Check machine path exists
+        machine = node.get("machine")
+        if not (ROOT / machine).exists():
+            errors.append(f"Node {node_id}: Machine path {machine} does not exist.")
+
+        # Check human path exists if defined
+        human = node.get("human")
+        if human and not (ROOT / human).exists():
+            errors.append(f"Node {node_id}: Human path {human} does not exist.")
+
+        # Check dependencies exist
+        for dep in node.get("depends_on", []):
+            if dep not in node_ids:
+                errors.append(f"Node {node_id}: Unknown dependency {dep}")
+
+    if errors:
+        for err in errors:
+            print(f"SAGE-VALIDATE: Graph Error: {err}", file=sys.stderr)
+        die("Canon graph validation failed.")
+    print("SAGE-VALIDATE: Canon Graph OK")
+
+def validate_skill_registry() -> None:
+    registry_path = ROOT / "skills_registry.yaml"
+    if not registry_path.exists():
+        die("Missing skills_registry.yaml")
+
+    registry = load_yaml(registry_path)
+    skills = registry.get("skills", [])
+
+    errors = []
+    for skill_id in skills:
+        skill_dir = ROOT / "skills" / skill_id
+        if not skill_dir.exists():
+            errors.append(f"Skill {skill_id}: Directory skills/{skill_id} does not exist.")
+        elif not (skill_dir / "SKILL.md").exists():
+            errors.append(f"Skill {skill_id}: Missing SKILL.md in skills/{skill_id}")
+
+    if errors:
+        for err in errors:
+            print(f"SAGE-VALIDATE: Skill Error: {err}", file=sys.stderr)
+        die("Skill registry validation failed.")
+    print("SAGE-VALIDATE: Skill Registry OK")
 
 if __name__ == "__main__":
     main()

@@ -43,8 +43,8 @@ In the event of a conflict between documents, the document appearing **higher in
 
 ### III. Agent Operating Instructions (Zone: agents/Jules/)
 16. [agents/Jules/JULES.md](../../agents/Jules/JULES.md)
-17. [agents/Jules/TASK_GROUPS.md](../../agents/Jules/TASK_GROUPS.md)
-18. [agents/Jules/SKILLS_INDEX.md](../../agents/Jules/SKILLS_INDEX.md)
+17. [.docs/canon/TASK_GROUPS.md](./TASK_GROUPS.md)
+18. [skills/SKILLS_INDEX.md](../../skills/SKILLS_INDEX.md)
 
 ### IV. Procedural Skills & Work Orders
 19. [SKILL.md files](../../skills/)

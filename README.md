@@ -113,8 +113,8 @@ SAGE defines a strict **Governance Hierarchy**. All work must comply with the hi
 14. **.docs/governance/state-machine.md**: Deterministic agent states.
 15. **.docs/governance/deep-governance-mode.md**: High-risk validation loop.
 16. **agents/Jules/JULES.md**: Agent operating instructions.
-17. **agents/Jules/TASK_GROUPS.md**: Permission registry.
-18. **agents/Jules/SKILLS_INDEX.md**: Procedural registry.
+17. **.docs/canon/TASK_GROUPS.md**: Permission registry.
+18. **skills/SKILLS_INDEX.md**: Procedural registry.
 19. **SKILL.md files**: Approved playbooks.
 20. **Spec files (.jtasks)**: Specific iteration work orders.
 

@@ -53,7 +53,7 @@ Unless explicitly instructed otherwise by canon:
    Validate authority, scope, and invariants.
 
 2. **Classify the request into exactly one task group**
-   Task groups are defined in `.docs/TASK_GROUPS.md` and/or canon-backed definitions.
+   Task groups are defined in `.docs/canon/TASK_GROUPS.md` and/or canon-backed definitions.
 
 3. **ENTER_SPEC_MODE** (required for non-trivial work)
    Produce spec artifacts (requirements/design/tasks).
