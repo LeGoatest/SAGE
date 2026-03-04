@@ -1,9 +1,0 @@
-version: 1
-task_group: architecture
-status: running
-current_task: 1
-tasks:
-  - id: 1
-    title: apply governance updates
-    skill: none
-    status: running

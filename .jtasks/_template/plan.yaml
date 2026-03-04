@@ -1,0 +1,13 @@
+steps:
+
+- id: S1
+  title: "<step>"
+  outputs:
+  - "<artifact>"
+    verification:
+  - "<check>"
+
+definition_of_done:
+
+- id: D1
+  description: "<condition>"

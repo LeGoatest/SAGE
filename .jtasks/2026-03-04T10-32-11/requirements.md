@@ -1,2 +1,0 @@
-# Requirements
-Apply governance updates.

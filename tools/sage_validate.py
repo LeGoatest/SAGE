@@ -249,7 +249,6 @@ def validate_jtasks_folders() -> None:
         return
 
     errors = []
-    required_files = ["requirements.md", "design.md", "tasks.md", "state.yaml"]
 
     # Load valid task groups for state validation
     tg_path = ROOT / "canon/task_groups.yaml"
@@ -259,32 +258,41 @@ def validate_jtasks_folders() -> None:
         valid_groups = [tg["id"] for tg in tg_data.get("task_groups", [])]
 
     import re
-    iso_pattern = re.compile(r"^\d{4}-\d{2}-\d{2}T\d{2}-\d{2}-\d{2}$")
+    iso_pattern = re.compile(r"^\d{4}-\d{2}-\d{2}T\d{2}-\d{2}-\d{2}Z$")
 
     for folder in jtasks_path.iterdir():
         if not folder.is_dir() or folder.name.startswith("_"):
             continue
 
         if not iso_pattern.match(folder.name):
-            errors.append(f"Folder {folder.name}: Name must follow ISO-8601 format YYYY-MM-DDTHH-MM-SS")
+            errors.append(f"Folder {folder.name}: Name must follow ISO-8601 format YYYY-MM-DDTHH-MM-SSZ")
             continue
 
-        for rf in required_files:
-            if not (folder / rf).exists():
-                errors.append(f"Folder {folder.name}: Missing required file {rf}")
+        # Validate run folder structure
+        for sub in ["specs", "runtime", "runtime/state"]:
+            if not (folder / sub).exists():
+                errors.append(f"Folder {folder.name}: Missing subdirectory {sub}")
 
-        # State validation
-        state_path = folder / "state.yaml"
-        if state_path.exists():
-            state = load_yaml(state_path)
-            if "version" not in state:
-                errors.append(f"Folder {folder.name}: state.yaml missing version")
-            if "task_group" not in state:
-                errors.append(f"Folder {folder.name}: state.yaml missing task_group")
-            elif valid_groups and state["task_group"] not in valid_groups:
-                errors.append(f"Folder {folder.name}: state.yaml has invalid task_group '{state['task_group']}'")
-            if "tasks" not in state or not isinstance(state["tasks"], list):
-                errors.append(f"Folder {folder.name}: state.yaml missing tasks array")
+        # Validate specs
+        specs_dir = folder / "specs"
+        if specs_dir.exists():
+            for task_dir in specs_dir.iterdir():
+                if not task_dir.is_dir(): continue
+                for rf in ["requirements.yaml", "plan.yaml"]:
+                    if not (task_dir / rf).exists():
+                        errors.append(f"Task {task_dir.name}: Missing {rf}")
+
+        # State validation via current_task.yaml or iteration
+        state_dir = folder / "runtime/state"
+        if state_dir.exists():
+            for state_file in state_dir.glob("*.yaml"):
+                state = load_yaml(state_file)
+                if "task_id" not in state:
+                    errors.append(f"State {state_file.name}: missing task_id")
+                if "status" not in state:
+                    errors.append(f"State {state_file.name}: missing status")
+                if "progress" not in state:
+                    errors.append(f"State {state_file.name}: missing progress")
 
     if errors:
         for err in errors:

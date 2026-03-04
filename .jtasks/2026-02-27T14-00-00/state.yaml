@@ -1,9 +1,0 @@
-version: 1
-task_group: docs
-status: complete
-current_task: 1
-tasks:
-  - id: 1
-    title: setup initial docs
-    skill: none
-    status: complete

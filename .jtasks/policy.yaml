@@ -1,0 +1,16 @@
+version: 1
+
+execution_rules:
+working_set_enforcement:
+enabled: true
+
+canon_protection:
+protected_paths:
+- canon/
+- .docs/
+
+context_rules:
+inject_task_context: true
+ignore:
+- .jtasks/_template/
+- GAP_REPORT.md

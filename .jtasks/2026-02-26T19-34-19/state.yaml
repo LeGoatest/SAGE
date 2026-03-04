@@ -1,9 +1,0 @@
-version: 1
-task_group: development
-status: complete
-current_task: 1
-tasks:
-  - id: 1
-    title: setup initial dev
-    skill: none
-    status: complete

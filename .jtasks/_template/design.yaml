@@ -1,0 +1,24 @@
+overview: "<design summary>"
+
+components:
+
+- name: "<component>"
+  change: "<add|modify|remove>"
+
+interfaces:
+
+- name: "<interface>"
+  change: "<add|modify|remove>"
+
+decisions:
+
+- id: D1
+  topic: "<topic>"
+  choice: "<decision>"
+  reason: "<why>"
+
+risks:
+
+- id: R1
+  risk: "<risk>"
+  mitigation: "<mitigation>"

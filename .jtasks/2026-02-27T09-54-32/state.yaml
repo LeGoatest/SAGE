@@ -1,9 +1,0 @@
-version: 1
-task_group: development
-status: complete
-current_task: 1
-tasks:
-  - id: 1
-    title: generic development
-    skill: none
-    status: complete

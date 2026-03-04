@@ -1,0 +1,28 @@
+version: 1
+
+id_format: "T-{increment_3}"
+
+iso_run_format: "YYYY-MM-DDTHH-MM-SSZ"
+
+template_dir: ".jtasks/_template"
+
+spec_root: ".jtasks/<iso>/specs"
+runtime_root: ".jtasks/<iso>/runtime"
+runtime_state_root: ".jtasks/<iso>/runtime/state"
+
+required_spec_files:
+
+- requirements.yaml
+- plan.yaml
+
+optional_spec_files:
+
+- design.yaml
+
+state_file_name: "<task-id>.yaml"
+
+notes:
+
+- generator creates one ISO run folder per task request
+- inside run folder, generator creates specs/<task-id>/ and runtime/state/<task-id>.yaml
+- generator must populate specs and state by copying templates and replacing placeholders
