@@ -86,7 +86,7 @@ When generating output:
 
 For every request, the Agent MUST:
 
-1) Classify the request using `canon/task_groups.yaml` (defined in the `canon:task_groups` node). Task groups are defined in `canon/task_groups.yaml`.
+1) Classify the request using `canon/task_groups.yaml` (authoritative) and `.docs/canon/TASK_GROUPS.md` (informational).
 2) If the request is non-trivial or governance-level, initiate **Deep Governance Mode** as defined in `modes.md`.
 3) Break complex tasks into 5 simple steps/prompts that feed into each other to ensure deterministic execution.
 4) Identify the affected system components.
