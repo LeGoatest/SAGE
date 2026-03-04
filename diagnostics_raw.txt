@@ -1,0 +1,30 @@
+=== IDENTITY & PRIVILEGES ===
+uid=1001(jules) gid=1001(jules) groups=1001(jules),27(sudo),103(docker)
+uid=0(root) gid=0(root) groups=0(root)
+
+=== INTERNET CONNECTIVITY ===
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0   220    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+HTTP/2 301
+location: https://www.google.com/
+content-type: text/html; charset=UTF-8
+content-security-policy-report-only: object-src 'none';base-uri 'self';script-src 'nonce-Kl-RPP21n0R9GDrVmvdsDw' 'strict-dynamic' 'report-sample' 'unsafe-eval' 'unsafe-inline' https: http:;report-uri https://csp.withgoogle.com/csp/gws/other-hp
+reporting-endpoints: default="//www.google.com/httpservice/retry/jserror?ei=Z4WoaZSpMNbs0PEPmYntwA8&cad=crash&error=Page%20Crash&jsel=1&bver=2389&dpf=BJ7GNpRQPatSCyrye5wV5AF78A1waNXXwe1ygoYk8h0"
+date: Wed, 04 Mar 2026 19:17:59 GMT
+expires: Fri, 03 Apr 2026 19:17:59 GMT
+cache-control: public, max-age=2592000
+server: gws
+content-length: 220
+x-xss-protection: 0
+x-frame-options: SAMEORIGIN
+
+
+=== PACKAGE MANAGEMENT (PIP) ===
+pip 25.3 from /home/jules/.pyenv/versions/3.12.12/lib/python3.12/site-packages/pip (python 3.12)
+
+=== NETWORKING (LOCAL BIND) ===
+Port 8081 binding successful
+
+=== STORAGE (WRITE TESTS) ===
+Write to /tmp success
