@@ -12,7 +12,7 @@ task_groups:
 Produce grounded diagnostics and corrections without inventing structure.
 
 ## Hard Rules
-- Do not reference nonexistent directories like `src/` or `docs/`.
+- Do not reference nonexistent directories like `canon/` or `docs/`.
 - Use `.docs/` for human docs, `canon/` for machine rules, `.governance/` for validators.
 
 ## Workflow

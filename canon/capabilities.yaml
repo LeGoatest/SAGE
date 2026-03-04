@@ -4,7 +4,7 @@ capabilities:
     allows:
       actions: [WRITE_FILE, PATCH_FILE]
       path_globs:
-        - "./src/**"
+        - "./canon/**"
         - "./internal/**"
         - "./cmd/**"
         - "./tools/**"
@@ -35,9 +35,9 @@ capabilities:
         - "./canon/**"
         - "./constitution/**"
         - "./.jtasks/_template/**"
-        - "./Jules/**"
+        - "./agents/Jules/**"
         - "./skills/**"
-        - "./..docs/**"
+        - "./.docs/**"
     mint_requires:
       task_groups: ["GOVERNANCE_CHANGE"]
       proofs: ["SPEC_APPROVED", "SECURITY_REVIEWED"]

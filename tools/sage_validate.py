@@ -103,31 +103,31 @@ def validate_semantic_layer() -> None:
     print("SAGE-VALIDATE: Semantic Layer OK")
 
 def main() -> None:
-    state_schema = load_yaml(ROOT / "..docs/canon/state-schema-v2.yaml")
-    rules_schema = load_yaml(ROOT / "..docs/canon/rule-schema-v2.governance.yaml")
+    state_schema = load_yaml(ROOT / ".docs/canon/state-schema-v2.yaml")
+    rules_schema = load_yaml(ROOT / ".docs/canon/rule-schema-v2.governance.yaml")
 
     # Basic schema sanity
     if state_schema.get("type") != "governance_state_machine":
-        die("..docs/canon/state-schema-v2.yaml: type must be governance_state_machine")
+        die(".docs/canon/state-schema-v2.yaml: type must be governance_state_machine")
 
     states = {s.get("id") for s in state_schema.get("states", [])}
     if not {"normal", "deep", "spec", "exec", "hitl"}.issubset(states):
-        die(f"..docs/canon/state-schema-v2.yaml: missing required states. Found: {sorted(states)}")
+        die(f".docs/canon/state-schema-v2.yaml: missing required states. Found: {sorted(states)}")
 
     forbidden = state_schema.get("forbidden_transitions", [])
     if not any(ft.get("from") == "deep" and ft.get("to") == "exec" for ft in forbidden):
-        die("..docs/canon/state-schema-v2.yaml: must forbid deep -> exec transition")
+        die(".docs/canon/state-schema-v2.yaml: must forbid deep -> exec transition")
 
     # Check rule schema references state ids
     rules = rules_schema.get("rules", [])
     ids = {r.get("id") for r in rules}
     if not {"A11", "A12", "A13"}.issubset(ids):
-        die(f"..docs/canon/rule-schema-v2.governance.yaml: missing required rules A11/A12/A13. Found: {sorted(ids)}")
+        die(f".docs/canon/rule-schema-v2.governance.yaml: missing required rules A11/A12/A13. Found: {sorted(ids)}")
 
     # Validate that A12 references state_id deep
     a12 = next((r for r in rules if r.get("id") == "A12"), None)
     if not a12:
-        die("..docs/canon/rule-schema-v2.governance.yaml: missing A12")
+        die(".docs/canon/rule-schema-v2.governance.yaml: missing A12")
     mode = a12.get("mode", {})
     if mode.get("state_id") != "deep":
         die("A12.mode.state_id must be 'deep'")

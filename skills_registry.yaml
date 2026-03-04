@@ -1,0 +1,13 @@
+# canon/skill_registry.yaml
+skills:
+  - spec-mode
+  - audit-governance
+  - bootstrap-project
+  - constitutional-check
+  - context-pruning
+  - doc-maintainer
+  - test-enforcer
+  - cicd-ops
+  - nsad
+  - tailwindcss-cli
+  - wdbasic-frontend

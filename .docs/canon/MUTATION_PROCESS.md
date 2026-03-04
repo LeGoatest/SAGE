@@ -1,6 +1,6 @@
 # MUTATION PROCESS (Canon Evolution)
 
-The Project Canon (files in `docs/` and `Jules/`) defines the project's constitution. This document establishes how this constitution is amended.
+The Project Canon (files in `docs/` and `agents/Jules/`) defines the project's constitution. This document establishes how this constitution is amended.
 
 ## 1. Triggering an Amendment
 Amendments are required when:

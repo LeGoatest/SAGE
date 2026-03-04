@@ -5,8 +5,8 @@ effect: deny
 match:
   actions: [WRITE_FILE, PATCH_FILE, DELETE_FILE]
   path_globs:
-    - "./..docs/**"
-    - "./Jules/**"
+    - "./.docs/**"
+    - "./agents/Jules/**"
     - "./skills/**"
     - "./canon/**"
     - "./.jtasks/_template/**"

@@ -28,9 +28,9 @@ rules:
         - "state_ambiguity"
     references:
       canon_files:
-        - "src/governance/state-machine.md"
-        - "src/canon/ENFORCEMENT_MATRIX.md"
-        - "src/canon/TERMINOLOGY.md"
+        - "canon/governance/state-machine.md"
+        - "canon/canon/ENFORCEMENT_MATRIX.md"
+        - "canon/canon/TERMINOLOGY.md"
 
   - id: "A12"
     title: "Deep Governance Mode"
@@ -75,9 +75,9 @@ rules:
         - "precedence_ambiguity"
     references:
       canon_files:
-        - "src/governance/deep-governance-mode.md"
-        - "src/canon/ARCHITECTURE_RULES.md"
-        - "src/canon/ENFORCEMENT_MATRIX.md"
+        - "canon/governance/deep-governance-mode.md"
+        - "canon/canon/ARCHITECTURE_RULES.md"
+        - "canon/canon/ENFORCEMENT_MATRIX.md"
 
   - id: "A13"
     title: "Mode Transition Invariants"
@@ -131,5 +131,5 @@ rules:
         - "deep_attempts_exec"
     references:
       canon_files:
-        - "src/canon/state-schema-v2.yaml"
-        - "src/governance/state-machine.md"
+        - "canon/canon/state-schema-v2.yaml"
+        - "canon/governance/state-machine.md"

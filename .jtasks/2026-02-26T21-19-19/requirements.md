@@ -37,7 +37,7 @@ reasoning_context:
   situation:
     - SAGE v5.0 narrative docs and templates are present, but core spec-governance rules are missing or redundant.
   constraints:
-    - MUST NOT delete narrative docs (..docs/).
+    - MUST NOT delete narrative docs (.docs/).
     - MUST update canon version lock.
     - MUST NOT invent new governance concepts.
   true_goal:
