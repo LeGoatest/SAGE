@@ -1,0 +1,88 @@
+# Google Jules Environment Runtime Profile
+# Generated for SAGE Agent Governance System
+---
+runtime_profile:
+  - capability: os_kernel
+    detection_method: uname -a
+    command: uname -a
+    result: "Linux devbox 6.8.0 #1 SMP PREEMPT_DYNAMIC Wed Jan 14 23:11:35 UTC 2026 x86_64"
+
+  - capability: os_distribution
+    detection_method: os-release check
+    command: cat /etc/os-release | grep PRETTY_NAME
+    result: "Ubuntu 24.04.3 LTS"
+
+  - capability: cpu_count
+    detection_method: lscpu
+    command: lscpu | grep \"CPU(s):\" | head -n 1
+    result: "4"
+
+  - capability: memory_capacity
+    detection_method: free -h
+    command: free -h
+    result: "Total: 7.8Gi, Available: 7.4Gi"
+
+  - capability: python_runtime
+    detection_method: version check
+    command: python3 --version
+    result: "Python 3.12.12"
+
+  - capability: node_runtime
+    detection_method: version check
+    command: node --version
+    result: "v22.22.0"
+
+  - capability: go_runtime
+    detection_method: version check
+    command: go version
+    result: "go1.24.3 linux/amd64"
+
+  - capability: rust_runtime
+    detection_method: version check
+    command: rustc --version
+    result: "rustc 1.92.0"
+
+  - capability: java_runtime
+    detection_method: version check
+    command: java --version
+    result: "openjdk 21.0.9"
+
+  - capability: bun_runtime
+    detection_method: version check
+    command: bun --version
+    result: "1.2.14"
+
+  - capability: build_tools
+    detection_method: tool check
+    command: gcc --version && make --version
+    result: "gcc 13.3.0, GNU Make 4.3"
+
+  - capability: container_runtime
+    detection_method: docker client check
+    command: docker --version
+    result: "Docker version 29.1.5"
+
+  - capability: docker_daemon
+    detection_method: docker info
+    command: docker info
+    result: "accessible"
+
+  - capability: internet_access
+    detection_method: outbound http check
+    command: curl -I https://google.com
+    result: "connected (HTTP 301)"
+
+  - capability: privilege_level
+    detection_method: id check
+    command: id
+    result: "uid=1001(jules), groups: sudo, docker"
+
+  - capability: sudo_access
+    detection_method: passwordless sudo check
+    command: sudo -n id
+    result: "uid=0(root) available"
+
+  - capability: writable_locations
+    detection_method: write probe
+    command: mkdir probe
+    result: "/tmp, /app, /var/tmp (root / is readonly)"
