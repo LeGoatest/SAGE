@@ -324,21 +324,18 @@ def validate_mutation_guard() -> None:
     if not canon_modified:
         return
 
-    # Find the latest .jtasks folder to determine active task group
-    jtasks_path = ROOT / ".jtasks"
-    if not jtasks_path.exists():
-        return
+    # Use .jtasks/current_task.yaml to determine active task group
+    current_task_path = ROOT / ".jtasks/current_task.yaml"
+    if not current_task_path.exists():
+        die("Canon mutation detected but no active task (.jtasks/current_task.yaml) found.")
 
-    subfolders = [f for f in jtasks_path.iterdir() if f.is_dir() and f.name != "_template"]
-    if not subfolders:
-        return
+    current = load_yaml(current_task_path)
+    state_path = ROOT / current.get("state_path", "")
 
-    latest_folder = max(subfolders, key=lambda f: f.name)
-    state_file = latest_folder / "state.yaml"
-    if not state_file.exists():
-        return
+    if not state_path.exists():
+        die(f"Canon mutation detected but active state file {state_path} does not exist.")
 
-    state = load_yaml(state_file)
+    state = load_yaml(state_path)
     active_group = state.get("task_group")
 
     if active_group not in ["architecture", "governance"]:

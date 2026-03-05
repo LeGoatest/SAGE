@@ -44,8 +44,8 @@ class ContextBuilder:
             node = self.nodes[node_id]
             machine_path = Path(node["machine"])
             if machine_path.exists():
-                # Hard exclusion for templates, GAP_REPORT and specified patterns
-                if "GAP_REPORT.md" in machine_path.name or ".jtasks/_template/" in str(machine_path):
+                # Hard exclusion for templates, GAP_REPORT, HANDOVER and specified patterns
+                if machine_path.name in ["GAP_REPORT.md", "HANDOVER.md"] or ".jtasks/_template/" in str(machine_path):
                     continue
                 with open(machine_path, "r") as f:
                     files.append({
@@ -59,7 +59,7 @@ class ContextBuilder:
             if "human" in node:
                 human_path = Path(node["human"])
                 if human_path.exists():
-                    if "GAP_REPORT.md" in human_path.name or ".jtasks/_template/" in str(human_path):
+                    if human_path.name in ["GAP_REPORT.md", "HANDOVER.md"] or ".jtasks/_template/" in str(human_path):
                         continue
                     with open(human_path, "r") as f:
                         files.append({
@@ -150,7 +150,7 @@ class ContextBuilder:
                 paths.append((design_file, "task:design"))
 
             for path, node_id in paths:
-                if "GAP_REPORT.md" in path.name or ".jtasks/_template/" in str(path):
+                if path.name in ["GAP_REPORT.md", "HANDOVER.md"] or ".jtasks/_template/" in str(path):
                     continue
                 with open(path, "r") as f:
                     files_to_inject.append({

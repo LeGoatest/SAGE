@@ -17,6 +17,11 @@ def find_latest_jtask(root: Path):
 
 def main(argv):
     root = Path(argv[1]).resolve() if len(argv) > 1 else Path.cwd().resolve()
+
+    if (root / ".jtasks/current_task.yaml").exists():
+        print("OK: HANDOVER deprecated; skipping legacy validator.")
+        return 0
+
     latest = find_latest_jtask(root)
 
     if latest is None:

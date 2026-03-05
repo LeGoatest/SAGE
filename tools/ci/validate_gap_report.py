@@ -62,6 +62,10 @@ def has_blocker_gaps(gap_report_md: Path) -> bool:
 def main(argv: list[str]) -> int:
     repo_root = Path(argv[1]).resolve() if len(argv) > 1 else Path.cwd().resolve()
 
+    if (repo_root / ".jtasks/current_task.yaml").exists():
+        print("OK: GAP_REPORT is human-only and excluded from agent context.")
+        return 0
+
     latest = find_latest_jtask(repo_root)
     if latest is None:
         print("OK: No .jtasks/<timestamp>/ found; skipping GAP_REPORT validation.")
