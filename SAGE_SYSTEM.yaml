@@ -15,6 +15,7 @@ architecture:
     iso_run:
       specs: specs/
       runtime_state: runtime/state/
+      gap_report: runtime/GAP_REPORT.md
   agent_interface:
     entry_layer: .jules/
   context_engine:

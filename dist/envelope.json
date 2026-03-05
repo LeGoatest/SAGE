@@ -43,7 +43,7 @@
     {
       "id": "system:manifest",
       "path": "SAGE_SYSTEM.yaml",
-      "content": "version: 1\n\nsystem: SAGE\n\narchitecture:\n  governance:\n    machine: canon/\n    human: .docs/\n  task_system:\n    root: .jtasks/\n    active_pointer: .jtasks/current_task.yaml\n    scheduler: .jtasks/scheduler.yaml\n    event_log: .jtasks/events.log\n  task_structure:\n    iso_run:\n      specs: specs/\n      runtime_state: runtime/state/\n  agent_interface:\n    entry_layer: .jules/\n  context_engine:\n    builder: context/context_builder.py\n    index: canon/context/context_index.yaml\n"
+      "content": "version: 1\n\nsystem: SAGE\n\narchitecture:\n  governance:\n    machine: canon/\n    human: .docs/\n  task_system:\n    root: .jtasks/\n    active_pointer: .jtasks/current_task.yaml\n    scheduler: .jtasks/scheduler.yaml\n    event_log: .jtasks/events.log\n  task_structure:\n    iso_run:\n      specs: specs/\n      runtime_state: runtime/state/\n      gap_report: runtime/GAP_REPORT.md\n  agent_interface:\n    entry_layer: .jules/\n  context_engine:\n    builder: context/context_builder.py\n    index: canon/context/context_index.yaml\n"
     },
     {
       "id": "task:scheduler",
@@ -53,7 +53,7 @@
     {
       "id": "task:events",
       "path": ".jtasks/events.log",
-      "content": ""
+      "content": "{\"time\": \"2026-03-05T01:03:02.242393+00:00Z\", \"event\": \"context_loaded\", \"task\": \"T-001\"}\n"
     },
     {
       "id": "task:state",
