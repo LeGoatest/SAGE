@@ -53,26 +53,26 @@
     {
       "id": "task:events",
       "path": ".jtasks/events.log",
-      "content": "{\"time\": \"2026-03-05T01:03:02.242393+00:00Z\", \"event\": \"context_loaded\", \"task\": \"T-001\"}\n"
+      "content": "{\"time\": \"2026-03-05T01:03:02.242393+00:00Z\", \"event\": \"context_loaded\", \"task\": \"T-001\"}\n{\"time\": \"2026-03-05T01:20:27.914861+00:00Z\", \"event\": \"context_loaded\", \"task\": \"T-001\"}\n"
     },
     {
       "id": "task:state",
-      "path": ".jtasks/2026-03-04T21-00-00Z/runtime/state/T-001.yaml",
-      "content": "task_id: \"<task-id>\"\n\nstatus: not_started\n\ncurrent_step_id: \"\"\n\nprogress:\ncompleted_steps: []\n\nworking_set:\nallowed_paths: []\nforbidden_paths:\n- canon/\n- .docs/\n- .jtasks/_template/\n\ndecisions: []\n\nlast_update: \"<ISO-8601 timestamp>\"\n"
+      "path": ".jtasks/2026-03-04T21-00-00/runtime/state/T-001.yaml",
+      "content": "task_id: \"T-001\"\nstatus: not_started\ncurrent_step_id: \"\"\nprogress:\n  completed_steps: []\nworking_set:\n  allowed_paths: []\n  forbidden_paths:\n    - canon/\n    - .docs/\n    - .jtasks/_template/\ndecisions: []\nlast_update: \"2026-03-04T21-00-00Z\"\ntask_group: architecture\n"
     },
     {
       "id": "task:plan",
-      "path": ".jtasks/2026-03-04T21-00-00Z/specs/T-001/plan.yaml",
+      "path": ".jtasks/2026-03-04T21-00-00/specs/T-001/plan.yaml",
       "content": "steps:\n\n- id: S1\n  title: \"<step>\"\n  outputs:\n  - \"<artifact>\"\n    verification:\n  - \"<check>\"\n\ndefinition_of_done:\n\n- id: D1\n  description: \"<condition>\"\n"
     },
     {
       "id": "task:requirements",
-      "path": ".jtasks/2026-03-04T21-00-00Z/specs/T-001/requirements.yaml",
+      "path": ".jtasks/2026-03-04T21-00-00/specs/T-001/requirements.yaml",
       "content": "task_id: \"<task-id>\"\n\nobjective: \"<goal>\"\n\nscope:\nin:\n- \"<included>\"\nout:\n- \"<excluded>\"\n\nconstraints:\n\n- \"<constraint>\"\n\nacceptance_criteria:\n\n- id: AC1\n  description: \"<condition>\"\n"
     },
     {
       "id": "task:design",
-      "path": ".jtasks/2026-03-04T21-00-00Z/specs/T-001/design.yaml",
+      "path": ".jtasks/2026-03-04T21-00-00/specs/T-001/design.yaml",
       "content": "overview: \"<design summary>\"\n\ncomponents:\n\n- name: \"<component>\"\n  change: \"<add|modify|remove>\"\n\ninterfaces:\n\n- name: \"<interface>\"\n  change: \"<add|modify|remove>\"\n\ndecisions:\n\n- id: D1\n  topic: \"<topic>\"\n  choice: \"<decision>\"\n  reason: \"<why>\"\n\nrisks:\n\n- id: R1\n  risk: \"<risk>\"\n  mitigation: \"<mitigation>\"\n"
     }
   ],

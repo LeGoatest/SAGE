@@ -258,14 +258,14 @@ def validate_jtasks_folders() -> None:
         valid_groups = [tg["id"] for tg in tg_data.get("task_groups", [])]
 
     import re
-    iso_pattern = re.compile(r"^\d{4}-\d{2}-\d{2}T\d{2}-\d{2}-\d{2}Z$")
+    iso_pattern = re.compile(r"^\d{4}-\d{2}-\d{2}T\d{2}-\d{2}-\d{2}$")
 
     for folder in jtasks_path.iterdir():
         if not folder.is_dir() or folder.name.startswith("_"):
             continue
 
         if not iso_pattern.match(folder.name):
-            errors.append(f"Folder {folder.name}: Name must follow ISO-8601 format YYYY-MM-DDTHH-MM-SSZ")
+            errors.append(f"Folder {folder.name}: Name must follow ISO-8601 format YYYY-MM-DDTHH-MM-SS")
             continue
 
         # Validate run folder structure
