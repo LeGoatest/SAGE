@@ -48,8 +48,10 @@ nodes:
   - id: canon:modes_contract
     kind: governance
     machine: canon/rules/modes/modes_contract.yaml
-    human: .docs/reference/modes.md
-    tags: [governance, determinism]
+    human: agents/Jules/modes.md
+    tags:
+      - governance
+      - agent_runtime
 
   - id: skills:registry
     kind: registry

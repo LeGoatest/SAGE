@@ -168,7 +168,7 @@ The Agent MUST:
 
 ---
 
-## 11) Mode Governance
+## Mode Governance
 
 Jules behavior is governed by:
 
