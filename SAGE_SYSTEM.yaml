@@ -9,6 +9,8 @@ architecture:
   task_system:
     root: .jtasks/
     active_pointer: .jtasks/current_task.yaml
+    scheduler: .jtasks/scheduler.yaml
+    event_log: .jtasks/events.log
   task_structure:
     iso_run:
       specs: specs/
@@ -17,3 +19,4 @@ architecture:
     entry_layer: .jules/
   context_engine:
     builder: context/context_builder.py
+    index: canon/context/context_index.yaml

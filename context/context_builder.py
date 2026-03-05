@@ -80,10 +80,24 @@ class ContextBuilder:
         else:
             missing.append("SAGE_SYSTEM.yaml")
 
-        # 4. Active task context (.jtasks)
+        # 4. Scheduler and Event Log
+        for extra in [".jtasks/scheduler.yaml", ".jtasks/events.log"]:
+            extra_path = Path(extra)
+            if extra_path.exists():
+                with open(extra_path, "r") as f:
+                    files.append({
+                        "id": f"task:{extra_path.stem}",
+                        "path": extra,
+                        "content": f.read()
+                    })
+
+        # 5. Active task context (.jtasks)
         task_files, task_missing = self._load_active_task_context()
         files.extend(task_files)
         missing.extend(task_missing)
+
+        # 6. Record context loaded event
+        self._record_context_loaded_event()
 
         return {
             "resolved_nodes": resolved_ids,
@@ -146,6 +160,32 @@ class ContextBuilder:
             if "missing required spec/state files" in str(e):
                 raise
             return [], []
+
+    def _record_context_loaded_event(self):
+        current_task_path = Path(".jtasks/current_task.yaml")
+        if not current_task_path.exists():
+            return
+
+        try:
+            with open(current_task_path, "r") as f:
+                current = yaml.safe_load(f)
+
+            if not current or not current.get("task_id"):
+                return
+
+            import json
+            import datetime
+            event = {
+                "time": datetime.datetime.now(datetime.UTC).isoformat() + "Z",
+                "event": "context_loaded",
+                "task": current["task_id"]
+            }
+
+            log_path = Path(".jtasks/events.log")
+            with open(log_path, "a") as f:
+                f.write(json.dumps(event) + "\n")
+        except Exception:
+            pass
 
     def _write_context_manifest(self, current: dict, files: list[dict]):
         try:

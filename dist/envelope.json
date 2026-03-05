@@ -7,6 +7,8 @@
     "canon:architecture_index",
     "canon:architecture_index:human",
     "system:manifest",
+    "task:scheduler",
+    "task:events",
     "task:state",
     "task:plan",
     "task:requirements",
@@ -41,7 +43,17 @@
     {
       "id": "system:manifest",
       "path": "SAGE_SYSTEM.yaml",
-      "content": "version: 1\n\nsystem: SAGE\n\narchitecture:\n  governance:\n    machine: canon/\n    human: .docs/\n  task_system:\n    root: .jtasks/\n    active_pointer: .jtasks/current_task.yaml\n  task_structure:\n    iso_run:\n      specs: specs/\n      runtime_state: runtime/state/\n  agent_interface:\n    entry_layer: .jules/\n  context_engine:\n    builder: context/context_builder.py\n"
+      "content": "version: 1\n\nsystem: SAGE\n\narchitecture:\n  governance:\n    machine: canon/\n    human: .docs/\n  task_system:\n    root: .jtasks/\n    active_pointer: .jtasks/current_task.yaml\n    scheduler: .jtasks/scheduler.yaml\n    event_log: .jtasks/events.log\n  task_structure:\n    iso_run:\n      specs: specs/\n      runtime_state: runtime/state/\n  agent_interface:\n    entry_layer: .jules/\n  context_engine:\n    builder: context/context_builder.py\n    index: canon/context/context_index.yaml\n"
+    },
+    {
+      "id": "task:scheduler",
+      "path": ".jtasks/scheduler.yaml",
+      "content": "version: 1\n\nstrategy: dependency_first\n\nrules:\n  allow_parallel: false\n  priority_order:\n    - blocked\n    - executing\n    - ready\n    - pending\n\nselection:\n  source: .jtasks/current_task.yaml\n\nfallback:\n  behavior: select_next_ready\n"
+    },
+    {
+      "id": "task:events",
+      "path": ".jtasks/events.log",
+      "content": ""
     },
     {
       "id": "task:state",
