@@ -10,6 +10,7 @@ nodes:
       - canon:architecture_rules
       - canon:task_groups
       - skills:registry
+      - canon:modes_contract
 
   - id: canon:architecture_index
     kind: index
@@ -43,6 +44,12 @@ nodes:
     kind: modes
     machine: agents/Jules/modes.md
     depends_on: [agent:jules]
+
+  - id: canon:modes_contract
+    kind: governance
+    machine: canon/rules/modes/modes_contract.yaml
+    human: .docs/reference/modes.md
+    tags: [governance, determinism]
 
   - id: skills:registry
     kind: registry

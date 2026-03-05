@@ -168,7 +168,19 @@ The Agent MUST:
 
 ---
 
-## 11) Enforcement Philosophy
+## 11) Mode Governance
+
+Jules behavior is governed by:
+
+canon/rules/modes/modes_contract.yaml
+
+Machine rules in canon/ are authoritative.
+
+Markdown documentation is descriptive only.
+
+---
+
+## 12) Enforcement Philosophy
 
 SAGE is:
 
