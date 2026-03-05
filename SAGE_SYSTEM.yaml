@@ -1,0 +1,19 @@
+version: 1
+
+system: SAGE
+
+architecture:
+  governance:
+    machine: canon/
+    human: .docs/
+  task_system:
+    root: .jtasks/
+    active_pointer: .jtasks/current_task.yaml
+  task_structure:
+    iso_run:
+      specs: specs/
+      runtime_state: runtime/state/
+  agent_interface:
+    entry_layer: .jules/
+  context_engine:
+    builder: context/context_builder.py

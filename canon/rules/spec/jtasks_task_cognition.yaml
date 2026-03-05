@@ -1,0 +1,23 @@
+id: SPEC_JTASKS_TASK_COGNITION
+layer: spec
+effect: require
+reason_code: JTASKS_TASK_COGNITION_INVARIANT
+message: "JTASKS task cognition invariants must be enforced."
+
+requirements:
+  active_pointer:
+    path: ".jtasks/current_task.yaml"
+    must_exist: true
+  no_scanning:
+    rule: "Agents must not scan .jtasks to discover tasks."
+  iso_run_structure:
+    required_subdirs:
+      - specs
+      - runtime
+      - runtime/state
+  task_spec_requirements:
+    required_files:
+      - requirements.yaml
+      - plan.yaml
+  runtime_state_requirements:
+    required: true

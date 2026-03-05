@@ -65,11 +65,22 @@ class ContextBuilder:
                 else:
                     missing.append(node["human"])
 
-        # 2. Add skills registry (in this specific assembly order)
-        # Note: skills metadata loading is handled by skill_loader but for context bundle,
-        # we ensure files are injected here or by the tool calling build_context.
+        # 2. Add skills registry
+        # (Implemented by external callers using skill_loader)
 
-        # 3. Active task context (.jtasks)
+        # 3. SAGE_SYSTEM.yaml
+        manifest_path = Path("SAGE_SYSTEM.yaml")
+        if manifest_path.exists():
+            with open(manifest_path, "r") as f:
+                files.append({
+                    "id": "system:manifest",
+                    "path": "SAGE_SYSTEM.yaml",
+                    "content": f.read()
+                })
+        else:
+            missing.append("SAGE_SYSTEM.yaml")
+
+        # 4. Active task context (.jtasks)
         task_files, task_missing = self._load_active_task_context()
         files.extend(task_files)
         missing.extend(task_missing)
@@ -127,11 +138,45 @@ class ContextBuilder:
                         "content": f.read()
                     })
 
+            # 5. Record injected files in context_manifest.yaml
+            self._write_context_manifest(current, files_to_inject)
+
             return files_to_inject, []
         except Exception as e:
             if "missing required spec/state files" in str(e):
                 raise
             return [], []
+
+    def _write_context_manifest(self, current: dict, files: list[dict]):
+        try:
+            iso_run = current["iso_run"]
+            manifest_path = Path(".jtasks") / iso_run / "runtime" / "context_manifest.yaml"
+
+            # Ensure directory exists
+            manifest_path.parent.mkdir(parents=True, exist_ok=True)
+
+            import datetime
+            manifest = {
+                "version": 1,
+                "iso_run": iso_run,
+                "active_task_id": current["task_id"],
+                "context_loaded": {
+                    "canon_nodes": [], # Placeholder for actual resolved nodes
+                    "task_files": [f["path"] for f in files],
+                    "repository_files": []
+                },
+                "hashes": {},
+                "agent": {
+                    "name": "Jules",
+                    "version": "1.0"
+                },
+                "timestamp": datetime.datetime.now(datetime.UTC).isoformat() + "Z"
+            }
+
+            with open(manifest_path, "w") as f:
+                yaml.dump(manifest, f)
+        except Exception:
+            pass
 
 if __name__ == "__main__":
     builder = ContextBuilder()

@@ -1,0 +1,13 @@
+version: 1
+
+system_entry:
+  canon_root: canon/graph.yaml
+
+task_runtime:
+  pointer: .jtasks/current_task.yaml
+
+task_system:
+  root: .jtasks/
+  ignore:
+    - .jtasks/_template/
+    - GAP_REPORT.md

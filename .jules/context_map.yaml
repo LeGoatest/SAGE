@@ -1,0 +1,20 @@
+version: 1
+
+repository_structure:
+  governance:
+    path: canon/
+  documentation:
+    path: .docs/
+  task_system:
+    path: .jtasks/
+  agent_interface:
+    path: .jules/
+
+context_priority:
+  - SAGE_SYSTEM.yaml
+  - canon/graph.yaml
+  - .jtasks/current_task.yaml
+
+ignore_paths:
+  - .jtasks/_template/
+  - GAP_REPORT.md

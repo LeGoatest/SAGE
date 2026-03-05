@@ -1,3 +1,6 @@
+# DO NOT MODIFY FIELD NAMES
+# Replace placeholder values only
+
 task_id: "<task-id>"
 
 status: not_started

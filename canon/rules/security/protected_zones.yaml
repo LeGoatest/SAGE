@@ -10,5 +10,10 @@ match:
     - "./skills/**"
     - "./canon/**"
     - "./.jtasks/_template/**"
+    - "./.jtasks/schema.yaml"
+    - "./.jtasks/policy.yaml"
+    - "./.jtasks/generator.yaml"
+    - "./.jules/**"
+    - "./SAGE_SYSTEM.yaml"
 reason_code: PROTECTED_ZONE_MUTATION
 message: "Protected zones cannot be modified."
