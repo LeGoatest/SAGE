@@ -1,3 +1,13 @@
+# Jules Modes Contract (Reference)
+
+Canonical machine rules are defined in:
+
+canon/rules/modes/modes_contract.yaml
+
+If conflict exists, canon rules prevail.
+
+---
+
 # Jules Modes Contract
 
 This document defines how Jules must behave when a mode is requested.

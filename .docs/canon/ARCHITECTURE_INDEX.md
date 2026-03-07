@@ -1,7 +1,7 @@
 # Sovereign Agent | Architectural Index (Precedence & Governance)
 
 This document defines the **canonical order of precedence** for all documentation in this project.
-It is the secondary authority for resolving conflicts, as defined in `Jules/JULES.md`.
+It is the secondary authority for resolving conflicts, as defined in `agents/Jules/JULES.md`.
 
 ---
 
@@ -41,10 +41,10 @@ In the event of a conflict between documents, the document appearing **higher in
 14. [.docs/governance/state-machine.md](../governance/state-machine.md)
 15. [.docs/governance/deep-governance-mode.md](../governance/deep-governance-mode.md)
 
-### III. Agent Operating Instructions (Zone: Jules/)
-16. [Jules/JULES.md](../../Jules/JULES.md)
-17. [Jules/TASK_GROUPS.md](../../Jules/TASK_GROUPS.md)
-18. [Jules/SKILLS_INDEX.md](../../Jules/SKILLS_INDEX.md)
+### III. Agent Operating Instructions (Zone: agents/Jules/)
+16. [agents/Jules/JULES.md](../../agents/Jules/JULES.md)
+17. [canon/task_groups.yaml](../../canon/task_groups.yaml)
+18. [skills/SKILLS_INDEX.md](../../skills/SKILLS_INDEX.md)
 
 ### IV. Procedural Skills & Work Orders
 19. [SKILL.md files](../../skills/)

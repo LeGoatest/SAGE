@@ -15,9 +15,9 @@
   <p align="center">
     A formalized contract-governed multi-plane execution constitution for AI coding agents.
     <br />
-    <a href="..docs/canon/ARCHITECTURE_INDEX.md"><strong>Explore the docs »</strong></a>
+    <a href=".docs/canon/ARCHITECTURE_INDEX.md"><strong>Explore the docs »</strong></a>
     &middot;
-    <a href="..docs/reference/SAGE_OVERVIEW.md">View Handbook</a>
+    <a href=".docs/reference/SAGE_OVERVIEW.md">View Handbook</a>
     <br />
     <br />
     <a href="BOOTSTRAP.md">Bootstrap Project</a>
@@ -54,7 +54,7 @@ SAGE is an **operating doctrine** that provides a deterministic, repository-cont
 
 ### Core Philosophy: Sovereign Systems Axioms
 
-The framework is built on six constitutional axioms defined in `..docs/canon/SYSTEM_AXIOMS.md`:
+The framework is built on six constitutional axioms defined in `.docs/canon/SYSTEM_AXIOMS.md`:
 
 1.  **Rule Governance**: All behavior is constrained by explicit written rules.
 2.  **Spec Primacy**: Specification always precedes execution.
@@ -88,33 +88,33 @@ To implement SAGE in your project:
 
 1. Refer to [BOOTSTRAP.md](BOOTSTRAP.md) to initialize governance in an existing repository.
 2. Follow [NEW_PROJECT.md](NEW_PROJECT.md) if starting from scratch.
-3. Ensure your agent is configured to follow the instructions in `Jules/JULES.md`.
+3. Ensure your agent is configured to follow the instructions in `agents/Jules/JULES.md`.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-SAGE defines a strict **Governance Hierarchy**. All work must comply with the hierarchy defined in `..docs/canon/ARCHITECTURE_INDEX.md`.
+SAGE defines a strict **Governance Hierarchy**. All work must comply with the hierarchy defined in `.docs/canon/ARCHITECTURE_INDEX.md`.
 
-1.  **..docs/canon/ARCHITECTURE_RULES.md**: The supreme law of the project.
-2.  **..docs/canon/SYSTEM_AXIOMS.md**: The philosophical invariants.
-3.  **..docs/reference/SAGE_OVERVIEW.md**: The Handbook. Complete structural guide.
-4.  **..docs/canon/SECURITY_MODEL.md**: The trust and safety boundary.
-5.  **..docs/canon/INVARIANT_MODEL.md**: The immutability layer.
-6.  **..docs/canon/CONTRACT_MODEL.md**: Cross-plane communication.
-7.  **..docs/canon/ARCHITECTURE_INDEX.md**: The governance registry.
-8.  **..docs/canon/MUTATION_PROCESS.md**: Protocol for changing the law.
-9.  **..docs/canon/VERSION_LOCKING.md**: Anchoring to specific canon states.
-10. **..docs/canon/DECISIONS.md**: Architectural record.
-11. **..docs/canon/TERMINOLOGY.md**: Project glossary.
-12. **..docs/canon/DOC_STYLE.md**: Documentation standards.
-13. **..docs/canon/WDBASIC.md**: Frontend philosophy.
-14. **..docs/governance/state-machine.md**: Deterministic agent states.
-15. **..docs/governance/deep-governance-mode.md**: High-risk validation loop.
-16. **Jules/JULES.md**: Agent operating instructions.
-17. **Jules/TASK_GROUPS.md**: Permission registry.
-18. **Jules/SKILLS_INDEX.md**: Procedural registry.
+1.  **.docs/canon/ARCHITECTURE_RULES.md**: The supreme law of the project.
+2.  **.docs/canon/SYSTEM_AXIOMS.md**: The philosophical invariants.
+3.  **.docs/reference/SAGE_OVERVIEW.md**: The Handbook. Complete structural guide.
+4.  **.docs/canon/SECURITY_MODEL.md**: The trust and safety boundary.
+5.  **.docs/canon/INVARIANT_MODEL.md**: The immutability layer.
+6.  **.docs/canon/CONTRACT_MODEL.md**: Cross-plane communication.
+7.  **.docs/canon/ARCHITECTURE_INDEX.md**: The governance registry.
+8.  **.docs/canon/MUTATION_PROCESS.md**: Protocol for changing the law.
+9.  **.docs/canon/VERSION_LOCKING.md**: Anchoring to specific canon states.
+10. **.docs/canon/DECISIONS.md**: Architectural record.
+11. **.docs/canon/TERMINOLOGY.md**: Project glossary.
+12. **.docs/canon/DOC_STYLE.md**: Documentation standards.
+13. **.docs/canon/WDBASIC.md**: Frontend philosophy.
+14. **.docs/governance/state-machine.md**: Deterministic agent states.
+15. **.docs/governance/deep-governance-mode.md**: High-risk validation loop.
+16. **agents/Jules/JULES.md**: Agent operating instructions.
+17. **canon/task_groups.yaml**: Permission registry.
+18. **skills/SKILLS_INDEX.md**: Procedural registry.
 19. **SKILL.md files**: Approved playbooks.
 20. **Spec files (.jtasks)**: Specific iteration work orders.
 
@@ -125,10 +125,10 @@ The Agent MUST refuse any request that violates the canon or implies undocumente
 <!-- REPOSITORY STRUCTURE -->
 ## Repository Structure
 
-- `..docs/` -> Human-readable narrative constitution and task groups.
+- `.docs/` -> Human-readable narrative constitution and task groups.
 - `canon/` -> Machine-enforceable governance layer (Rules, Semantic, Schemas).
 - `.governance/` -> SAGE Constitutional Reasoning Engine and Validators.
-- `Jules/` -> Agent operating instructions and modes.
+- `agents/Jules/` -> Agent operating instructions and modes.
 - `skills/` -> Procedural skills (compliant with `agentskills.io`).
 - `tools/` -> Legacy validation tooling and vibe checks.
 - `.jtasks/` -> Deterministic planning and execution records.

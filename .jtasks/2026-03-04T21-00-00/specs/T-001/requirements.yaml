@@ -1,0 +1,18 @@
+task_id: "<task-id>"
+
+objective: "<goal>"
+
+scope:
+in:
+- "<included>"
+out:
+- "<excluded>"
+
+constraints:
+
+- "<constraint>"
+
+acceptance_criteria:
+
+- id: AC1
+  description: "<condition>"

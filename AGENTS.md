@@ -12,7 +12,7 @@ If any conflict exists, `canon/` prevails.
 
 SAGE (Sovereign Agent Governance Engine) provides a constitutional governance model for AI-assisted development.
 
-- `..docs/` is the human-readable constitution (must not be deleted).
+- `.docs/` is the human-readable constitution (must not be deleted).
 - `canon/` is the machine-enforceable governance layer.
 
 ---
@@ -53,7 +53,7 @@ Unless explicitly instructed otherwise by canon:
    Validate authority, scope, and invariants.
 
 2. **Classify the request into exactly one task group**
-   Task groups are defined in `..docs/TASK_GROUPS.md` and/or canon-backed definitions.
+   Task groups are defined in `canon/task_groups.yaml` (authoritative).
 
 3. **ENTER_SPEC_MODE** (required for non-trivial work)
    Produce spec artifacts (requirements/design/tasks).
@@ -80,7 +80,7 @@ If a skill conflicts with canon, the agent must refuse.
 ## Absolute Prohibitions
 
 The agent MUST NOT:
-- Delete `..docs/`
+- Delete `.docs/`
 - Create/modify canonical documents in a Target Repository under External Canon Model
 - Invent trust boundaries, threat models, or security properties without evidence
 - Mutate `canon/` unless explicitly authorized and HITL approved
@@ -91,7 +91,7 @@ The agent MUST NOT:
 ## Jules-Specific Notes
 
 Jules behavior conventions may be defined in:
-- `Jules/Jules.md`
-- `Jules/modes.md`
+- `agents/Jules/Jules.md`
+- `agents/Jules/modes.md`
 
 These are guidance documents unless canon references them.

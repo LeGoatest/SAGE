@@ -1,0 +1,21 @@
+# DO NOT MODIFY FIELD NAMES
+# Replace placeholder values only
+
+version: 1
+
+iso_run: "<iso-run>"
+
+active_task_id: "<task-id>"
+
+context_loaded:
+canon_nodes: []
+task_files: []
+repository_files: []
+
+hashes: {}
+
+agent:
+name: ""
+version: ""
+
+timestamp: "<ISO-8601 timestamp>"

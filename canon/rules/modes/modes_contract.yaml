@@ -1,0 +1,92 @@
+version: 1
+kind: modes_contract
+
+scope:
+  applies_to:
+    - agent:jules
+
+invocation:
+  tokens:
+    deep_governance: ENTER_DEEP_GOVERNANCE_MODE
+    planning: ENTER_PLANNING_MODE
+    spec: ENTER_SPEC_MODE
+    execution: ENTER_EXEC_MODE
+
+  precedence:
+    - deep_governance
+    - planning
+    - spec
+    - execution
+
+  default_pipeline:
+    enabled: true
+    order:
+      - deep_governance
+      - spec
+      - execution
+
+modes:
+
+  deep_governance:
+    purpose: constitutional_validation
+    allowed_outputs:
+      - risks
+      - rule_citations
+      - conflict_explanations
+      - structural_impact_analysis
+      - verdict
+    forbidden_outputs:
+      - implementation_steps
+      - file_edits
+      - speculative_architecture
+
+  planning:
+    purpose: interactive_repo_planning
+    allowed_actions:
+      - list_files
+      - read_file
+      - grep
+      - repo_analysis
+      - architecture_discussion
+      - planning
+      - ask_questions
+    forbidden_actions:
+      - file_edits
+      - write_file
+      - delete_file
+      - run_in_bash_session
+      - commit
+      - submit
+
+  spec:
+    purpose: deterministic_design
+    allowed_outputs:
+      - requirements.md
+      - design.md
+      - tasks.md
+      - HANDOVER.md
+    forbidden_outputs:
+      - file_edits
+      - execution_steps
+      - canon_mutation
+
+  execution:
+    purpose: deterministic_implementation
+    allowed_outputs:
+      - file_edits
+      - minimal_supporting_code
+    forbidden_outputs:
+      - altering_architecture_without_spec
+      - expanding_scope_beyond_tasks
+
+canon_mutation:
+  rule: canon_is_immutable_by_default
+
+hitl:
+  marker: "[AWAIT_HUMAN_VALIDATION]"
+
+determinism:
+  guarantees:
+    - prevent_cross_mode_leakage
+    - prevent_speculative_execution
+    - prevent_silent_governance_mutation

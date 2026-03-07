@@ -10,7 +10,7 @@ This is a **binding constitutional contract**, not guidance.
 
 The Agent MUST comply with the constitutional hierarchy defined in the SAGE root (defaulting to the project root, or `.sage/` if injected). Authoritative paths:
 
-- `<SAGE_ROOT>/..docs/` (human-readable constitution)
+- `<SAGE_ROOT>/.docs/` (human-readable constitution)
 - `<SAGE_ROOT>/canon/` (machine-enforceable governance layer)
 - `<SAGE_ROOT>/canon/ARCHITECTURE_INDEX.md`
 
@@ -31,7 +31,7 @@ Silently “fixing” or bypassing rules is forbidden.
 
 SAGE operates under a dual-layer model:
 
-- Narrative Constitution = Authoritative intent (located in `<SAGE_ROOT>/..docs/`)
+- Narrative Constitution = Authoritative intent (located in `<SAGE_ROOT>/.docs/`)
 - Machine Canon = Executable enforcement (located in `<SAGE_ROOT>/canon/`)
 
 The Agent MUST:
@@ -77,7 +77,7 @@ When generating output:
 - Include file paths at the top of each file
 - Do NOT include explanations, essays, or commentary unless explicitly requested
 - Respect project-defined formatting standards
-- Follow `..docs/DOC_STYLE.md` including escaping inline backticks as \`.
+- Follow `.docs/DOC_STYLE.md` including escaping inline backticks as \`.
 - If Go code is written, it must be gofmt clean.
 
 ---
@@ -86,7 +86,7 @@ When generating output:
 
 For every request, the Agent MUST:
 
-1) Classify the request using `TASK_GROUPS.md` (located in the narrative constitution).
+1) Classify the request using `canon/task_groups.yaml` (authoritative). Task groups are defined in `canon/task_groups.yaml`.
 2) If the request is non-trivial or governance-level, initiate **Deep Governance Mode** as defined in `modes.md`.
 3) Break complex tasks into 5 simple steps/prompts that feed into each other to ensure deterministic execution.
 4) Identify the affected system components.
@@ -140,18 +140,18 @@ When a critical decision or validation is required, the Agent MUST use the **Bre
 - Spec approval required
 - STOP in any workflow
 - Encountering "Unknown / Needs Decision" during bootstrap
-- Illegal mode transition (see `..docs/governance/state-machine.md`)
+- Illegal mode transition (see `.docs/governance/state-machine.md`)
 
 ---
 
 ## 9) Jules Folder Contract
 
-Only the following files are authoritative within `Jules/`:
+Only the following files are authoritative within `agents/Jules/`:
 
-- `Jules/Jules.md`
-- `Jules/modes.md`
+- `agents/Jules/Jules.md`
+- `agents/Jules/modes.md`
 
-No other paths under `Jules/` may be assumed.
+No other paths under `agents/Jules/` may be assumed.
 
 ---
 
@@ -168,7 +168,19 @@ The Agent MUST:
 
 ---
 
-## 11) Enforcement Philosophy
+## Mode Governance
+
+Jules behavior is governed by:
+
+canon/rules/modes/modes_contract.yaml
+
+Machine rules in canon/ are authoritative.
+
+Markdown documentation is descriptive only.
+
+---
+
+## 12) Enforcement Philosophy
 
 SAGE is:
 

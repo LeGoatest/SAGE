@@ -16,4 +16,4 @@ jobs:
           python-version: "3.11"
       - name: Validate HANDOVER for session continuity
         run: |
-          python tools/ci/validate_handover.py .
+          python tools/ci/validate_jtasks_integrity.py .

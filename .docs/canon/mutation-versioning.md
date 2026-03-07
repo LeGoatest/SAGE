@@ -27,9 +27,9 @@ Where:
 
 A version bump is REQUIRED when any of the following occurs:
 
-- Any change to `src/canon/ARCHITECTURE_RULES.md`
-- Any change to `src/canon/SECURITY_MODEL.md`
-- Any change to `src/canon/ENFORCEMENT_MATRIX.md`
+- Any change to `canon/ARCHITECTURE_RULES.md`
+- Any change to `canon/SECURITY_MODEL.md`
+- Any change to `canon/ENFORCEMENT_MATRIX.md`
 - Any change that alters protected zone definitions or semantics
 - Any change that introduces/changes rule-schema structured rules
 - Any change that changes governance state machine semantics
@@ -42,10 +42,10 @@ If a change is purely editorial and does not change meaning, it MAY avoid bumpin
 
 Version must be recorded in:
 
-- `src/canon/DECISIONS.md` (Decision entry must state the canon version impacted)
+- `canon/DECISIONS.md` (Decision entry must state the canon version impacted)
 
 Optionally:
-- a dedicated `src/canon/VERSION` file may be added later, but `DECISIONS.md` is authoritative for now.
+- a dedicated `canon/VERSION` file may be added later, but `DECISIONS.md` is authoritative for now.
 
 ---
 
@@ -53,7 +53,7 @@ Optionally:
 
 When a mutation occurs:
 
-1. Append a decision entry in `src/canon/DECISIONS.md`
+1. Append a decision entry in `canon/DECISIONS.md`
 2. The entry MUST include:
    - Date
    - New canon version

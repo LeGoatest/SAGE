@@ -1,0 +1,10 @@
+id: SPEC_GAP_REPORT_POLICY
+layer: spec
+effect: require
+message: "GAP_REPORT.md is allowed but must never be injected into agent context."
+
+requirements:
+  allowed_location: .jtasks/**/GAP_REPORT.md
+  context_injection: forbidden
+  execution_dependency: forbidden
+  manifest_presence: forbidden

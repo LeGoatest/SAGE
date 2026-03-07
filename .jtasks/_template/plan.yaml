@@ -1,0 +1,16 @@
+# DO NOT MODIFY FIELD NAMES
+# Replace placeholder values only
+
+steps:
+
+- id: S1
+  title: "<step>"
+  outputs:
+  - "<artifact>"
+    verification:
+  - "<check>"
+
+definition_of_done:
+
+- id: D1
+  description: "<condition>"

@@ -1,0 +1,16 @@
+active_task_id: T-001
+agent:
+  name: Jules
+  version: '1.0'
+context_loaded:
+  canon_nodes: []
+  repository_files: []
+  task_files:
+  - .jtasks/2026-03-04T21-00-00/runtime/state/T-001.yaml
+  - .jtasks/2026-03-04T21-00-00/specs/T-001/plan.yaml
+  - .jtasks/2026-03-04T21-00-00/specs/T-001/requirements.yaml
+  - .jtasks/2026-03-04T21-00-00/specs/T-001/design.yaml
+hashes: {}
+iso_run: 2026-03-04T21-00-00
+timestamp: 2026-03-05T18:19:58.146724+00:00Z
+version: 1

@@ -1,0 +1,40 @@
+version: 1
+
+iso_run_directory:
+required_directories:
+- specs/
+- runtime/
+- runtime/state/
+
+task_spec_directory:
+required_files:
+- requirements.yaml
+- plan.yaml
+optional_files:
+- design.yaml
+
+task_runtime_state_file:
+required_fields:
+- task_id
+- status
+- current_step_id
+- progress
+- working_set
+- decisions
+- last_update
+
+status_values:
+
+- not_started
+- executing
+- blocked
+- review
+- complete
+
+rules:
+
+- agents must resolve active task via .jtasks/current_task.yaml
+- agents must not scan .jtasks for tasks
+- agents must not modify canon/
+- agents must not modify .docs/
+- agents must ignore .jtasks/_template during execution

@@ -1,0 +1,22 @@
+# DO NOT MODIFY FIELD NAMES
+# Replace placeholder values only
+
+task_id: "<task-id>"
+
+status: not_started
+
+current_step_id: ""
+
+progress:
+completed_steps: []
+
+working_set:
+allowed_paths: []
+forbidden_paths:
+- canon/
+- .docs/
+- .jtasks/_template/
+
+decisions: []
+
+last_update: "<ISO-8601 timestamp>"

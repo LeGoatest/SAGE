@@ -18,7 +18,7 @@ operator: MUST
 context: all
 severity: CRITICAL
 enforcement: REFUSAL
-source: "src/canon/ARCHITECTURE_RULES.md §0"
+source: ".docs/canon/ARCHITECTURE_RULES.md §0"
 ```
 
 - This file overrides all other docs and comments.
@@ -30,16 +30,16 @@ source: "src/canon/ARCHITECTURE_RULES.md §0"
 
 ```yaml sagrule
 id: ARCH-SYSTEM-BOUNDARIES
-statement: "Agents MUST strictly adhere to system boundaries: src/** for governance, Jules/ for agent OS, .jtasks/ for planning."
+statement: "Agents MUST strictly adhere to system boundaries: canon/ and .docs/ for governance, agents/Jules/ for agent OS, .jtasks/ for planning."
 operator: MUST
 context: all
 severity: CRITICAL
 enforcement: REFUSAL
-source: "src/canon/ARCHITECTURE_RULES.md §1"
+source: ".docs/canon/ARCHITECTURE_RULES.md §1"
 ```
 
-- `src/**` only when explicitly updating governance/canon.
-- `Jules/` for agent governance and skills.
+- `canon/` and `.docs/` only when explicitly updating governance/canon.
+- `agents/Jules/` for agent governance and skills.
 - `.jtasks/` for planning and execution workspaces.
 
 ---
@@ -53,7 +53,7 @@ operator: MUST
 context: all
 severity: CRITICAL
 enforcement: REFUSAL
-source: "src/canon/ARCHITECTURE_RULES.md §Rule A1"
+source: ".docs/canon/ARCHITECTURE_RULES.md §Rule A1"
 ```
 
 Canonical precedence order must be followed as declared in `ARCHITECTURE_INDEX.md`.
@@ -75,7 +75,7 @@ operator: MUST
 context: all
 severity: CRITICAL
 enforcement: REFUSAL
-source: "src/canon/ARCHITECTURE_RULES.md §Rule A2"
+source: ".docs/canon/ARCHITECTURE_RULES.md §Rule A2"
 ```
 
 Every request must be classified into exactly one task group.
@@ -95,7 +95,7 @@ operator: MUST
 context: all
 severity: CRITICAL
 enforcement: REFUSAL
-source: "src/canon/ARCHITECTURE_RULES.md §Rule A3"
+source: ".docs/canon/ARCHITECTURE_RULES.md §Rule A3"
 ```
 
 Skills may execute only deterministic procedures.
@@ -120,7 +120,7 @@ operator: MUST
 context: all
 severity: CRITICAL
 enforcement: REFUSAL
-source: "src/canon/ARCHITECTURE_RULES.md §Rule A4"
+source: ".docs/canon/ARCHITECTURE_RULES.md §Rule A4"
 ```
 
 Non-trivial work requires spec artifacts:
@@ -143,7 +143,7 @@ operator: MUST
 context: all
 severity: CRITICAL
 enforcement: REFUSAL
-source: "src/canon/ARCHITECTURE_RULES.md §Rule A5"
+source: ".docs/canon/ARCHITECTURE_RULES.md §Rule A5"
 ```
 
 Refusal is required when:
@@ -167,7 +167,7 @@ operator: MUST_NOT
 context: all
 severity: CRITICAL
 enforcement: REFUSAL
-source: "src/canon/ARCHITECTURE_RULES.md §Rule A6"
+source: ".docs/canon/ARCHITECTURE_RULES.md §Rule A6"
 ```
 
 Protected zones define structural invariants and security boundaries.
@@ -190,7 +190,7 @@ operator: MUST
 context: all
 severity: CRITICAL
 enforcement: REFUSAL
-source: "src/canon/ARCHITECTURE_RULES.md §Rule A7"
+source: ".docs/canon/ARCHITECTURE_RULES.md §Rule A7"
 ```
 
 Canon may only change through formal mutation.
@@ -214,7 +214,7 @@ operator: MUST_NOT
 context: all
 severity: CRITICAL
 enforcement: REFUSAL
-source: "src/canon/ARCHITECTURE_RULES.md §Rule A8"
+source: ".docs/canon/ARCHITECTURE_RULES.md §Rule A8"
 ```
 
 Agents must not introduce structural patterns not authorized by canon.
@@ -236,7 +236,7 @@ operator: MUST
 context: all
 severity: CRITICAL
 enforcement: REFUSAL
-source: "src/canon/ARCHITECTURE_RULES.md §Rule A9"
+source: ".docs/canon/ARCHITECTURE_RULES.md §Rule A9"
 ```
 
 Given the same canon version, spec, and inputs, outputs must converge structurally.
@@ -254,7 +254,7 @@ operator: MUST
 context: all
 severity: CRITICAL
 enforcement: REFUSAL
-source: "src/canon/ARCHITECTURE_RULES.md §Rule A10"
+source: ".docs/canon/ARCHITECTURE_RULES.md §Rule A10"
 ```
 
 When execution must pause for validation, the agent must emit:
@@ -268,7 +268,7 @@ After emitting it, the agent must not continue execution.
 
 ## Rule A11 — Governance State Machine Is Mandatory
 
-Refer to `src/canon/rule-schema-v2.governance.yaml` for structured definition.
+Refer to `.docs/canon/rule-schema-v2.governance.yaml` for structured definition.
 
 SAGE governance operates as a deterministic state machine with explicit states and transitions.
 
@@ -287,7 +287,7 @@ State transitions must be explicit and must follow the transition rules document
 
 ## Rule A12 — Deep Governance Mode
 
-Refer to `src/canon/rule-schema-v2.governance.yaml` for structured definition.
+Refer to `.docs/canon/rule-schema-v2.governance.yaml` for structured definition.
 
 Deep Governance Mode is a governance validation state used before planning or execution.
 
@@ -301,7 +301,7 @@ Deep Mode must:
 
 ## Rule A13 — Mode Transition Invariants
 
-Refer to `src/canon/rule-schema-v2.governance.yaml` for structured definition.
+Refer to `.docs/canon/rule-schema-v2.governance.yaml` for structured definition.
 
 The following invariants are binding:
 

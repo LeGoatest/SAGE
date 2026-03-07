@@ -1,0 +1,35 @@
+id: canon:security_model
+kind: security_model
+version: 1
+
+description: >
+  Defines the security model and core trust boundaries for the SAGE system.
+
+principles:
+
+  - id: least_privilege
+    description: All components must operate under the principle of least privilege.
+
+  - id: explicit_trust_boundaries
+    description: System boundaries must be clearly defined and enforced.
+
+  - id: input_validation
+    description: All external input must be validated before processing.
+
+controls:
+
+  - id: auth_required
+    description: Authenticated access is required for privileged operations.
+    enforcement: mandatory
+
+  - id: secure_storage
+    description: Sensitive data must be stored securely.
+    enforcement: mandatory
+
+  - id: audit_logging
+    description: Security-relevant events must be logged for auditing.
+    enforcement: recommended
+
+metadata:
+  enforcement_stage: execution
+  priority: critical

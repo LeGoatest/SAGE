@@ -52,7 +52,7 @@ git -C "$SAGE_DIR" rev-parse HEAD > "$SAGE_DIR/.pinned_ref"
 
 # Validate core components
 test -d "$SAGE_DIR/canon"       || { echo "ERROR: Missing canon/ in SAGE"; exit 1; }
-test -d "$SAGE_DIR/.docs"       || { echo "ERROR: Missing ..docs/ in SAGE"; exit 1; }
+test -d "$SAGE_DIR/.docs"       || { echo "ERROR: Missing .docs/ in SAGE"; exit 1; }
 test -d "$SAGE_DIR/.governance" || { echo "ERROR: Missing .governance/ in SAGE"; exit 1; }
 
 # Initialize .jtasks if missing

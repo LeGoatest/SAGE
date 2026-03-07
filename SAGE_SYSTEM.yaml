@@ -1,0 +1,23 @@
+version: 1
+
+system: SAGE
+
+architecture:
+  governance:
+    machine: canon/
+    human: .docs/
+  task_system:
+    root: .jtasks/
+    active_pointer: .jtasks/current_task.yaml
+    scheduler: .jtasks/scheduler.yaml
+    event_log: .jtasks/events.log
+  task_structure:
+    iso_run:
+      specs: specs/
+      runtime_state: runtime/state/
+      gap_report: runtime/GAP_REPORT.md
+  agent_interface:
+    entry_layer: .jules/
+  context_engine:
+    builder: context/context_builder.py
+    index: canon/context/context_index.yaml

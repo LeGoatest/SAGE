@@ -1,0 +1,59 @@
+version: 1
+
+root: canon:constitution
+
+nodes:
+  - id: canon:constitution
+    kind: root
+    machine: canon/ARCHITECTURE_INDEX.md
+    depends_on:
+      - canon:architecture_rules
+      - canon:task_groups
+      - skills:registry
+      - canon:modes_contract
+
+  - id: canon:architecture_index
+    kind: index
+    machine: canon/architecture/index.yaml
+    human: .docs/canon/ARCHITECTURE_INDEX.md
+    tags: [foundation]
+
+  - id: canon:architecture_rules
+    kind: rules
+    machine: canon/rules/architecture_rules.yaml
+    human: .docs/canon/ARCHITECTURE_RULES.md
+    depends_on: [canon:architecture_index]
+
+  - id: canon:security_model
+    kind: rules
+    machine: canon/security/model.yaml
+    human: .docs/canon/SECURITY_MODEL.md
+    depends_on: [canon:architecture_rules]
+
+  - id: canon:task_groups
+    kind: taxonomy
+    machine: canon/task_groups.yaml
+    depends_on: [canon:architecture_rules]
+
+  - id: agent:jules
+    kind: agent
+    machine: agents/Jules/JULES.md
+    depends_on: [canon:task_groups]
+
+  - id: agent:jules:modes
+    kind: modes
+    machine: agents/Jules/modes.md
+    depends_on: [agent:jules]
+
+  - id: canon:modes_contract
+    kind: governance
+    machine: canon/rules/modes/modes_contract.yaml
+    human: agents/Jules/modes.md
+    tags:
+      - governance
+      - agent_runtime
+
+  - id: skills:registry
+    kind: registry
+    machine: skills_registry.yaml
+    depends_on: [canon:architecture_rules]

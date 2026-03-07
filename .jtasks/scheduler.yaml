@@ -1,0 +1,17 @@
+version: 1
+
+strategy: dependency_first
+
+rules:
+  allow_parallel: false
+  priority_order:
+    - blocked
+    - executing
+    - ready
+    - pending
+
+selection:
+  source: .jtasks/current_task.yaml
+
+fallback:
+  behavior: select_next_ready

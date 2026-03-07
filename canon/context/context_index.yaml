@@ -1,0 +1,22 @@
+context_order:
+  governance:
+    - canon/graph.yaml
+    - canon/rules/
+  architecture:
+    - SAGE_SYSTEM.yaml
+  task_cognition:
+    - .jtasks/current_task.yaml
+  task_scheduler:
+    - .jtasks/scheduler.yaml
+  task_spec:
+    - .jtasks/<iso>/specs/
+  task_runtime:
+    - .jtasks/<iso>/runtime/state/
+  task_events:
+    - .jtasks/events.log
+  documentation:
+    - .docs/
+
+ignore:
+  - .jtasks/_template/
+  - GAP_REPORT.md

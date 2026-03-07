@@ -1,0 +1,7 @@
+task_id: "T-001"
+iso_run: "2026-03-04T21-00-00"
+spec_path: ".jtasks/2026-03-04T21-00-00/specs/T-001"
+state_path: ".jtasks/2026-03-04T21-00-00/runtime/state/T-001.yaml"
+status: "executing"
+current_step_id: "S1"
+last_updated: "2026-03-04T21-00-00"

@@ -20,4 +20,4 @@ jobs:
 
       - name: Validate GAP_REPORT for brownfield specs
         run: |
-          python tools/ci/validate_gap_report.py .
+          python tools/ci/validate_jtasks_integrity.py .

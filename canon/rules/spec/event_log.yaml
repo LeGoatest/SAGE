@@ -1,0 +1,11 @@
+id: SPEC_EVENT_LOG_APPEND_ONLY
+layer: spec
+effect: require
+reason_code: EVENT_LOG_APPEND_ONLY
+message: "The SAGE event log must be append-only."
+
+requirements:
+  log_file:
+    path: ".jtasks/events.log"
+    append_only: true
+    format: json_lines

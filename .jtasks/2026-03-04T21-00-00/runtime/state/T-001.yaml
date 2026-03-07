@@ -1,0 +1,14 @@
+task_id: "T-001"
+status: not_started
+current_step_id: ""
+progress:
+  completed_steps: []
+working_set:
+  allowed_paths: []
+  forbidden_paths:
+    - canon/
+    - .docs/
+    - .jtasks/_template/
+decisions: []
+last_update: "2026-03-04T21-00-00Z"
+task_group: architecture

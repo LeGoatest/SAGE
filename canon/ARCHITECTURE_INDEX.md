@@ -1,7 +1,7 @@
 # SAGE | Architectural Index (Precedence & Governance)
 
 This document defines the **canonical order of precedence** for all documentation in this project.
-It is the secondary authority for resolving conflicts, as defined in `Jules/JULES.md`.
+It is the secondary authority for resolving conflicts, as defined in `agents/Jules/JULES.md`.
 
 ---
 
@@ -9,9 +9,9 @@ It is the secondary authority for resolving conflicts, as defined in `Jules/JULE
 
 The system is organized into functional zones:
 
-- `..docs/`: Human-readable narrative constitution.
+- `.docs/`: Human-readable narrative constitution.
 - `canon/`: Machine-enforceable governance layer.
-- `Jules/`: Agent operating instructions and modes.
+- `agents/Jules/`: Agent operating instructions and modes.
 - `skills/`: Procedural execution playbooks.
 - `.jtasks/`: Deterministic planning and execution records.
 
@@ -34,26 +34,26 @@ In the event of a conflict between documents, the document appearing **higher in
 8. `canon/rules/` (All YAML rules)
 
 ### III. Human Constitution (Narrative)
-9. `..docs/canon/ARCHITECTURE_RULES.md`
-10. `..docs/canon/SYSTEM_AXIOMS.md`
-11. `..docs/canon/SECURITY_MODEL.md`
-12. `..docs/canon/INVARIANT_MODEL.md`
-13. `..docs/canon/CONTRACT_MODEL.md`
+9. `.docs/canon/ARCHITECTURE_RULES.md`
+10. `.docs/canon/SYSTEM_AXIOMS.md`
+11. `.docs/canon/SECURITY_MODEL.md`
+12. `.docs/canon/INVARIANT_MODEL.md`
+13. `.docs/canon/CONTRACT_MODEL.md`
 14. `canon/ARCHITECTURE_INDEX.md`
-15. `..docs/canon/MUTATION_PROCESS.md`
-16. `..docs/canon/VERSION_LOCKING.md`
-17. `..docs/canon/DECISIONS.md`
-18. `..docs/canon/TERMINOLOGY.md`
-19. `..docs/canon/DOC_STYLE.md`
-20. `..docs/canon/ENFORCEMENT_MATRIX.md`
-21. `..docs/canon/WDBASIC.md`
-22. `..docs/DEEP_GOVERNANCE_CONTEXT.md`
+15. `.docs/canon/MUTATION_PROCESS.md`
+16. `.docs/canon/VERSION_LOCKING.md`
+17. `.docs/canon/DECISIONS.md`
+18. `.docs/canon/TERMINOLOGY.md`
+19. `.docs/canon/DOC_STYLE.md`
+20. `.docs/canon/ENFORCEMENT_MATRIX.md`
+21. `.docs/canon/WDBASIC.md`
+22. `.docs/DEEP_GOVERNANCE_CONTEXT.md`
 
 ### IV. Agent Operating Instructions
-23. `..docs/AGENT_OPERATING_INSTRUCTIONS.md`
-24. `Jules/JULES.md`
-25. `Jules/modes.md`
-26. `..docs/TASK_GROUPS.md`
+23. `.docs/AGENT_OPERATING_INSTRUCTIONS.md`
+24. `agents/Jules/JULES.md`
+25. `agents/Jules/modes.md`
+26. `canon/task_groups.yaml`
 
 ### V. Procedural Skills & Work Orders
 27. `skills/` (SKILL.md files)
@@ -66,10 +66,10 @@ In the event of a conflict between documents, the document appearing **higher in
 The following files are provided for token efficiency or quick reference. They carry NO canonical authority and are subordinate to all documents listed above.
 
 - `AGENTS.md`
-- `..docs/reference/MINI_CANON.md`
-- `..docs/reference/SAGE_OVERVIEW.md`
-- `..docs/BOOTSTRAP_EXTERNAL_CANON_MODEL.md`
-- `..docs/NEW_PROJECT_PROMPT.md`
+- `.docs/reference/MINI_CANON.md`
+- `.docs/reference/SAGE_OVERVIEW.md`
+- `.docs/BOOTSTRAP_EXTERNAL_CANON_MODEL.md`
+- `.docs/NEW_PROJECT_PROMPT.md`
 
 ---
 
