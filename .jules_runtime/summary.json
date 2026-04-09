@@ -1,0 +1,12 @@
+{
+  "timestamp_utc": "2026-03-05T16:42:43Z",
+  "hostname": "devbox",
+  "pwd": "/app",
+  "uid": 1001,
+  "gid": 1001,
+  "whoami": "jules",
+  "uname": "Linux devbox 6.8.0 #1 SMP PREEMPT_DYNAMIC Wed Jan 14 23:11:35 UTC 2026 x86_64 x86_64 x86_64 GNU/Linux",
+  "os_release": "PRETTY_NAME=\"Ubuntu 24.04.3 LTS\"\nNAME=\"Ubuntu\"\nVERSION_ID=\"24.04\"\nVERSION=\"24.04.3 LTS (Noble Numbat)\"\nVERSION_CODENAME=noble\nID=ubuntu\nID_LIKE=debian\nHOME_URL=\"https://www.ubuntu.com/\"\nSUPPORT_URL=\"https://help.ubuntu.com/\"\nBUG_REPORT_URL=\"https://bugs.launchpad.net/ubuntu/\"\nPRIVACY_POLICY_URL=\"https://www.ubuntu.com/legal/terms-and-policies/privacy-policy\"\nUBUNTU_CODENAME=noble\nLOGO=ubuntu-logo\n",
+  "proc_count": 90,
+  "notes": "env_keys only; no env values captured to avoid leaking secrets"
+}

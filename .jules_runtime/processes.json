@@ -1,0 +1,944 @@
+[
+  {
+    "pid": 1,
+    "ppid": 0,
+    "comm": "systemd",
+    "cmdline": "/usr/sbin/init",
+    "exe": "",
+    "cgroup": "0::/init.scope",
+    "env_keys": []
+  },
+  {
+    "pid": 2,
+    "ppid": 0,
+    "comm": "kthreadd",
+    "cmdline": "kthreadd",
+    "exe": "",
+    "cgroup": "0::/",
+    "env_keys": []
+  },
+  {
+    "pid": 438,
+    "ppid": 1,
+    "comm": "systemd-journal",
+    "cmdline": "/usr/lib/systemd/systemd-journald",
+    "exe": "",
+    "cgroup": "0::/system.slice/systemd-journald.service",
+    "env_keys": []
+  },
+  {
+    "pid": 794,
+    "ppid": 1,
+    "comm": "systemd-udevd",
+    "cmdline": "/usr/lib/systemd/systemd-udevd",
+    "exe": "",
+    "cgroup": "0::/system.slice/systemd-udevd.service/udev",
+    "env_keys": []
+  },
+  {
+    "pid": 837,
+    "ppid": 1,
+    "comm": "dbus-daemon",
+    "cmdline": "@dbus-daemon --system --address=systemd: --nofork --nopidfile --systemd-activation --syslog-only",
+    "exe": "",
+    "cgroup": "0::/system.slice/dbus.service",
+    "env_keys": []
+  },
+  {
+    "pid": 845,
+    "ppid": 1,
+    "comm": "systemd-logind",
+    "cmdline": "/usr/lib/systemd/systemd-logind",
+    "exe": "",
+    "cgroup": "0::/system.slice/systemd-logind.service",
+    "env_keys": []
+  },
+  {
+    "pid": 848,
+    "ppid": 1,
+    "comm": "agetty",
+    "cmdline": "/sbin/agetty -o -p -- \\u --noclear - linux",
+    "exe": "",
+    "cgroup": "0::/system.slice/system-getty.slice/getty@tty1.service",
+    "env_keys": []
+  },
+  {
+    "pid": 849,
+    "ppid": 1,
+    "comm": "agetty",
+    "cmdline": "/sbin/agetty -o -p -- \\u --keep-baud 115200,57600,38400,9600 - vt220",
+    "exe": "",
+    "cgroup": "0::/system.slice/system-serial\\x2dgetty.slice/serial-getty@ttyS0.service",
+    "env_keys": []
+  },
+  {
+    "pid": 878,
+    "ppid": 1,
+    "comm": "containerd",
+    "cmdline": "/usr/bin/containerd",
+    "exe": "",
+    "cgroup": "0::/system.slice/containerd.service",
+    "env_keys": []
+  },
+  {
+    "pid": 880,
+    "ppid": 1,
+    "comm": "sshd",
+    "cmdline": "sshd: /usr/sbin/sshd -D [listener] 0 of 10-100 startups",
+    "exe": "",
+    "cgroup": "0::/system.slice/ssh.service",
+    "env_keys": []
+  },
+  {
+    "pid": 883,
+    "ppid": 1,
+    "comm": "socat",
+    "cmdline": "/usr/bin/socat -d VSOCK-LISTEN:22,fork TCP4:127.0.0.1:22",
+    "exe": "",
+    "cgroup": "0::/system.slice/devbox-ssh-over-vsock.service",
+    "env_keys": []
+  },
+  {
+    "pid": 892,
+    "ppid": 1,
+    "comm": "systemd",
+    "cmdline": "/usr/lib/systemd/systemd --user",
+    "exe": "",
+    "cgroup": "0::/user.slice/user-1001.slice/user@1001.service/init.scope",
+    "env_keys": []
+  },
+  {
+    "pid": 925,
+    "ppid": 1,
+    "comm": "dockerd",
+    "cmdline": "/usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock",
+    "exe": "",
+    "cgroup": "0::/system.slice/docker.service",
+    "env_keys": []
+  },
+  {
+    "pid": 3,
+    "ppid": 2,
+    "comm": "pool_workqueue_release",
+    "cmdline": "pool_workqueue_release",
+    "exe": "",
+    "cgroup": "0::/",
+    "env_keys": []
+  },
+  {
+    "pid": 4,
+    "ppid": 2,
+    "comm": "kworker/R-rcu_g",
+    "cmdline": "kworker/R-rcu_g",
+    "exe": "",
+    "cgroup": "0::/",
+    "env_keys": []
+  },
+  {
+    "pid": 5,
+    "ppid": 2,
+    "comm": "kworker/R-rcu_p",
+    "cmdline": "kworker/R-rcu_p",
+    "exe": "",
+    "cgroup": "0::/",
+    "env_keys": []
+  },
+  {
+    "pid": 6,
+    "ppid": 2,
+    "comm": "kworker/R-slub_",
+    "cmdline": "kworker/R-slub_",
+    "exe": "",
+    "cgroup": "0::/",
+    "env_keys": []
+  },
+  {
+    "pid": 7,
+    "ppid": 2,
+    "comm": "kworker/R-netns",
+    "cmdline": "kworker/R-netns",
+    "exe": "",
+    "cgroup": "0::/",
+    "env_keys": []
+  },
+  {
+    "pid": 9,
+    "ppid": 2,
+    "comm": "kworker/0:0H-events_highpri",
+    "cmdline": "kworker/0:0H-events_highpri",
+    "exe": "",
+    "cgroup": "0::/",
+    "env_keys": []
+  },
+  {
+    "pid": 12,
+    "ppid": 2,
+    "comm": "kworker/R-mm_pe",
+    "cmdline": "kworker/R-mm_pe",
+    "exe": "",
+    "cgroup": "0::/",
+    "env_keys": []
+  },
+  {
+    "pid": 13,
+    "ppid": 2,
+    "comm": "rcu_tasks_kthread",
+    "cmdline": "rcu_tasks_kthread",
+    "exe": "",
+    "cgroup": "0::/",
+    "env_keys": []
+  },
+  {
+    "pid": 14,
+    "ppid": 2,
+    "comm": "rcu_tasks_trace_kthread",
+    "cmdline": "rcu_tasks_trace_kthread",
+    "exe": "",
+    "cgroup": "0::/",
+    "env_keys": []
+  },
+  {
+    "pid": 15,
+    "ppid": 2,
+    "comm": "ksoftirqd/0",
+    "cmdline": "ksoftirqd/0",
+    "exe": "",
+    "cgroup": "0::/",
+    "env_keys": []
+  },
+  {
+    "pid": 16,
+    "ppid": 2,
+    "comm": "rcu_preempt",
+    "cmdline": "rcu_preempt",
+    "exe": "",
+    "cgroup": "0::/",
+    "env_keys": []
+  },
+  {
+    "pid": 17,
+    "ppid": 2,
+    "comm": "migration/0",
+    "cmdline": "migration/0",
+    "exe": "",
+    "cgroup": "0::/",
+    "env_keys": []
+  },
+  {
+    "pid": 18,
+    "ppid": 2,
+    "comm": "cpuhp/0",
+    "cmdline": "cpuhp/0",
+    "exe": "",
+    "cgroup": "0::/",
+    "env_keys": []
+  },
+  {
+    "pid": 19,
+    "ppid": 2,
+    "comm": "cpuhp/1",
+    "cmdline": "cpuhp/1",
+    "exe": "",
+    "cgroup": "0::/",
+    "env_keys": []
+  },
+  {
+    "pid": 20,
+    "ppid": 2,
+    "comm": "migration/1",
+    "cmdline": "migration/1",
+    "exe": "",
+    "cgroup": "0::/",
+    "env_keys": []
+  },
+  {
+    "pid": 21,
+    "ppid": 2,
+    "comm": "ksoftirqd/1",
+    "cmdline": "ksoftirqd/1",
+    "exe": "",
+    "cgroup": "0::/",
+    "env_keys": []
+  },
+  {
+    "pid": 23,
+    "ppid": 2,
+    "comm": "kworker/1:0H-kblockd",
+    "cmdline": "kworker/1:0H-kblockd",
+    "exe": "",
+    "cgroup": "0::/",
+    "env_keys": []
+  },
+  {
+    "pid": 24,
+    "ppid": 2,
+    "comm": "cpuhp/2",
+    "cmdline": "cpuhp/2",
+    "exe": "",
+    "cgroup": "0::/",
+    "env_keys": []
+  },
+  {
+    "pid": 25,
+    "ppid": 2,
+    "comm": "migration/2",
+    "cmdline": "migration/2",
+    "exe": "",
+    "cgroup": "0::/",
+    "env_keys": []
+  },
+  {
+    "pid": 26,
+    "ppid": 2,
+    "comm": "ksoftirqd/2",
+    "cmdline": "ksoftirqd/2",
+    "exe": "",
+    "cgroup": "0::/",
+    "env_keys": []
+  },
+  {
+    "pid": 28,
+    "ppid": 2,
+    "comm": "kworker/2:0H-kblockd",
+    "cmdline": "kworker/2:0H-kblockd",
+    "exe": "",
+    "cgroup": "0::/",
+    "env_keys": []
+  },
+  {
+    "pid": 29,
+    "ppid": 2,
+    "comm": "cpuhp/3",
+    "cmdline": "cpuhp/3",
+    "exe": "",
+    "cgroup": "0::/",
+    "env_keys": []
+  },
+  {
+    "pid": 30,
+    "ppid": 2,
+    "comm": "migration/3",
+    "cmdline": "migration/3",
+    "exe": "",
+    "cgroup": "0::/",
+    "env_keys": []
+  },
+  {
+    "pid": 31,
+    "ppid": 2,
+    "comm": "ksoftirqd/3",
+    "cmdline": "ksoftirqd/3",
+    "exe": "",
+    "cgroup": "0::/",
+    "env_keys": []
+  },
+  {
+    "pid": 33,
+    "ppid": 2,
+    "comm": "kworker/3:0H-kblockd",
+    "cmdline": "kworker/3:0H-kblockd",
+    "exe": "",
+    "cgroup": "0::/",
+    "env_keys": []
+  },
+  {
+    "pid": 34,
+    "ppid": 2,
+    "comm": "kdevtmpfs",
+    "cmdline": "kdevtmpfs",
+    "exe": "",
+    "cgroup": "0::/",
+    "env_keys": []
+  },
+  {
+    "pid": 35,
+    "ppid": 2,
+    "comm": "kworker/R-inet_",
+    "cmdline": "kworker/R-inet_",
+    "exe": "",
+    "cgroup": "0::/",
+    "env_keys": []
+  },
+  {
+    "pid": 36,
+    "ppid": 2,
+    "comm": "oom_reaper",
+    "cmdline": "oom_reaper",
+    "exe": "",
+    "cgroup": "0::/",
+    "env_keys": []
+  },
+  {
+    "pid": 37,
+    "ppid": 2,
+    "comm": "kworker/R-write",
+    "cmdline": "kworker/R-write",
+    "exe": "",
+    "cgroup": "0::/",
+    "env_keys": []
+  },
+  {
+    "pid": 38,
+    "ppid": 2,
+    "comm": "kcompactd0",
+    "cmdline": "kcompactd0",
+    "exe": "",
+    "cgroup": "0::/",
+    "env_keys": []
+  },
+  {
+    "pid": 39,
+    "ppid": 2,
+    "comm": "ksmd",
+    "cmdline": "ksmd",
+    "exe": "",
+    "cgroup": "0::/",
+    "env_keys": []
+  },
+  {
+    "pid": 40,
+    "ppid": 2,
+    "comm": "khugepaged",
+    "cmdline": "khugepaged",
+    "exe": "",
+    "cgroup": "0::/",
+    "env_keys": []
+  },
+  {
+    "pid": 41,
+    "ppid": 2,
+    "comm": "kworker/R-crypt",
+    "cmdline": "kworker/R-crypt",
+    "exe": "",
+    "cgroup": "0::/",
+    "env_keys": []
+  },
+  {
+    "pid": 42,
+    "ppid": 2,
+    "comm": "kworker/R-kbloc",
+    "cmdline": "kworker/R-kbloc",
+    "exe": "",
+    "cgroup": "0::/",
+    "env_keys": []
+  },
+  {
+    "pid": 44,
+    "ppid": 2,
+    "comm": "kworker/2:1-cgroup_destroy",
+    "cmdline": "kworker/2:1-cgroup_destroy",
+    "exe": "",
+    "cgroup": "0::/",
+    "env_keys": []
+  },
+  {
+    "pid": 45,
+    "ppid": 2,
+    "comm": "kworker/u8:1-events_unbound",
+    "cmdline": "kworker/u8:1-events_unbound",
+    "exe": "",
+    "cgroup": "0::/",
+    "env_keys": []
+  },
+  {
+    "pid": 49,
+    "ppid": 2,
+    "comm": "kworker/0:1H-kblockd",
+    "cmdline": "kworker/0:1H-kblockd",
+    "exe": "",
+    "cgroup": "0::/",
+    "env_keys": []
+  },
+  {
+    "pid": 80,
+    "ppid": 2,
+    "comm": "kswapd0",
+    "cmdline": "kswapd0",
+    "exe": "",
+    "cgroup": "0::/",
+    "env_keys": []
+  },
+  {
+    "pid": 83,
+    "ppid": 2,
+    "comm": "kworker/R-kthro",
+    "cmdline": "kworker/R-kthro",
+    "exe": "",
+    "cgroup": "0::/",
+    "env_keys": []
+  },
+  {
+    "pid": 88,
+    "ppid": 2,
+    "comm": "irq/24-ACPI:Ged",
+    "cmdline": "irq/24-ACPI:Ged",
+    "exe": "",
+    "cgroup": "0::/",
+    "env_keys": []
+  },
+  {
+    "pid": 91,
+    "ppid": 2,
+    "comm": "kworker/R-acpi_",
+    "cmdline": "kworker/R-acpi_",
+    "exe": "",
+    "cgroup": "0::/",
+    "env_keys": []
+  },
+  {
+    "pid": 177,
+    "ppid": 2,
+    "comm": "kworker/R-mld",
+    "cmdline": "kworker/R-mld",
+    "exe": "",
+    "cgroup": "0::/",
+    "env_keys": []
+  },
+  {
+    "pid": 178,
+    "ppid": 2,
+    "comm": "kworker/R-ipv6_",
+    "cmdline": "kworker/R-ipv6_",
+    "exe": "",
+    "cgroup": "0::/",
+    "env_keys": []
+  },
+  {
+    "pid": 182,
+    "ppid": 2,
+    "comm": "kworker/R-kstrp",
+    "cmdline": "kworker/R-kstrp",
+    "exe": "",
+    "cgroup": "0::/",
+    "env_keys": []
+  },
+  {
+    "pid": 320,
+    "ppid": 2,
+    "comm": "kworker/u8:5-events_unbound",
+    "cmdline": "kworker/u8:5-events_unbound",
+    "exe": "",
+    "cgroup": "0::/",
+    "env_keys": []
+  },
+  {
+    "pid": 408,
+    "ppid": 2,
+    "comm": "kworker/2:1H-kblockd",
+    "cmdline": "kworker/2:1H-kblockd",
+    "exe": "",
+    "cgroup": "0::/",
+    "env_keys": []
+  },
+  {
+    "pid": 410,
+    "ppid": 2,
+    "comm": "kworker/3:1H-kblockd",
+    "cmdline": "kworker/3:1H-kblockd",
+    "exe": "",
+    "cgroup": "0::/",
+    "env_keys": []
+  },
+  {
+    "pid": 412,
+    "ppid": 2,
+    "comm": "jbd2/vdb-8",
+    "cmdline": "jbd2/vdb-8",
+    "exe": "",
+    "cgroup": "0::/",
+    "env_keys": []
+  },
+  {
+    "pid": 413,
+    "ppid": 2,
+    "comm": "kworker/R-ext4-",
+    "cmdline": "kworker/R-ext4-",
+    "exe": "",
+    "cgroup": "0::/",
+    "env_keys": []
+  },
+  {
+    "pid": 427,
+    "ppid": 2,
+    "comm": "kworker/1:1H-kblockd",
+    "cmdline": "kworker/1:1H-kblockd",
+    "exe": "",
+    "cgroup": "0::/",
+    "env_keys": []
+  },
+  {
+    "pid": 467,
+    "ppid": 2,
+    "comm": "kworker/0:7-cgroup_destroy",
+    "cmdline": "kworker/0:7-cgroup_destroy",
+    "exe": "",
+    "cgroup": "0::/",
+    "env_keys": []
+  },
+  {
+    "pid": 783,
+    "ppid": 2,
+    "comm": "kworker/3:2",
+    "cmdline": "kworker/3:2",
+    "exe": "",
+    "cgroup": "0::/",
+    "env_keys": []
+  },
+  {
+    "pid": 788,
+    "ppid": 2,
+    "comm": "kworker/2:3-events",
+    "cmdline": "kworker/2:3-events",
+    "exe": "",
+    "cgroup": "0::/",
+    "env_keys": []
+  },
+  {
+    "pid": 827,
+    "ppid": 2,
+    "comm": "kworker/1:3-events",
+    "cmdline": "kworker/1:3-events",
+    "exe": "",
+    "cgroup": "0::/",
+    "env_keys": []
+  },
+  {
+    "pid": 4177,
+    "ppid": 2,
+    "comm": "kworker/0:0-events_power_efficient",
+    "cmdline": "kworker/0:0-events_power_efficient",
+    "exe": "",
+    "cgroup": "0::/",
+    "env_keys": []
+  },
+  {
+    "pid": 4206,
+    "ppid": 2,
+    "comm": "kworker/3:0-events",
+    "cmdline": "kworker/3:0-events",
+    "exe": "",
+    "cgroup": "0::/",
+    "env_keys": []
+  },
+  {
+    "pid": 4207,
+    "ppid": 2,
+    "comm": "kworker/1:0-events",
+    "cmdline": "kworker/1:0-events",
+    "exe": "",
+    "cgroup": "0::/",
+    "env_keys": []
+  },
+  {
+    "pid": 7791,
+    "ppid": 2,
+    "comm": "kworker/u8:2-events_unbound",
+    "cmdline": "kworker/u8:2-events_unbound",
+    "exe": "",
+    "cgroup": "0::/",
+    "env_keys": []
+  },
+  {
+    "pid": 8119,
+    "ppid": 2,
+    "comm": "kworker/u8:0-events_unbound",
+    "cmdline": "kworker/u8:0-events_unbound",
+    "exe": "",
+    "cgroup": "0::/",
+    "env_keys": []
+  },
+  {
+    "pid": 8405,
+    "ppid": 2,
+    "comm": "kworker/0:1-events",
+    "cmdline": "kworker/0:1-events",
+    "exe": "",
+    "cgroup": "0::/",
+    "env_keys": []
+  },
+  {
+    "pid": 882,
+    "ppid": 880,
+    "comm": "sshd",
+    "cmdline": "sshd: swebot [priv]",
+    "exe": "",
+    "cgroup": "0::/user.slice/user-1001.slice/session-c1.scope",
+    "env_keys": []
+  },
+  {
+    "pid": 921,
+    "ppid": 880,
+    "comm": "sshd",
+    "cmdline": "sshd: swebot [priv]",
+    "exe": "",
+    "cgroup": "0::/user.slice/user-1001.slice/session-c2.scope",
+    "env_keys": []
+  },
+  {
+    "pid": 4179,
+    "ppid": 880,
+    "comm": "sshd",
+    "cmdline": "sshd: swebot [priv]",
+    "exe": "",
+    "cgroup": "0::/user.slice/user-1001.slice/session-c3.scope",
+    "env_keys": []
+  },
+  {
+    "pid": 6459,
+    "ppid": 880,
+    "comm": "sshd",
+    "cmdline": "sshd: swebot [priv]",
+    "exe": "",
+    "cgroup": "0::/user.slice/user-1001.slice/session-c4.scope",
+    "env_keys": []
+  },
+  {
+    "pid": 8319,
+    "ppid": 880,
+    "comm": "sshd",
+    "cmdline": "sshd: swebot [priv]",
+    "exe": "",
+    "cgroup": "0::/user.slice/user-1001.slice/session-c5.scope",
+    "env_keys": []
+  },
+  {
+    "pid": 912,
+    "ppid": 882,
+    "comm": "sshd",
+    "cmdline": "sshd: swebot@notty",
+    "exe": "",
+    "cgroup": "0::/user.slice/user-1001.slice/session-c1.scope",
+    "env_keys": []
+  },
+  {
+    "pid": 893,
+    "ppid": 892,
+    "comm": "sd-pam",
+    "cmdline": "(sd-pam)",
+    "exe": "",
+    "cgroup": "0::/user.slice/user-1001.slice/user@1001.service/init.scope",
+    "env_keys": []
+  },
+  {
+    "pid": 934,
+    "ppid": 921,
+    "comm": "sshd",
+    "cmdline": "sshd: swebot@notty",
+    "exe": "",
+    "cgroup": "0::/user.slice/user-1001.slice/session-c2.scope",
+    "env_keys": []
+  },
+  {
+    "pid": 1252,
+    "ppid": 1251,
+    "comm": "bash",
+    "cmdline": "-bash",
+    "exe": "/usr/bin/bash",
+    "cgroup": "0::/user.slice/user-1001.slice/session-c2.scope",
+    "env_keys": [
+      "GIT_TERMINAL_PROMPT",
+      "HOME",
+      "JULES_SESSION_ID",
+      "LANG",
+      "LOGNAME",
+      "MAIL",
+      "PATH",
+      "PWD",
+      "SHELL",
+      "SHLVL",
+      "SUDO_COMMAND",
+      "SUDO_GID",
+      "SUDO_UID",
+      "SUDO_USER",
+      "TERM",
+      "TERM_PROGRAM",
+      "TERM_PROGRAM_VERSION",
+      "TMUX",
+      "TMUX_PANE",
+      "USER",
+      "_"
+    ]
+  },
+  {
+    "pid": 8752,
+    "ppid": 1252,
+    "comm": "python3",
+    "cmdline": "/home/jules/.pyenv/versions/3.12.12/bin/python3 diagnostics.py",
+    "exe": "/home/jules/.pyenv/versions/3.12.12/bin/python3.12",
+    "cgroup": "0::/user.slice/user-1001.slice/session-c2.scope",
+    "env_keys": [
+      "SHELL",
+      "PYENV_HOOK_PATH",
+      "SUDO_GID",
+      "NVM_INC",
+      "TERM_PROGRAM_VERSION",
+      "TMUX",
+      "JAVA_HOME",
+      "DOTNET_ROOT",
+      "SUDO_COMMAND",
+      "SUDO_USER",
+      "FLUTTER_HOME",
+      "PYENV_VERSION",
+      "PWD",
+      "LOGNAME",
+      "JULES_SESSION_ID",
+      "HOME",
+      "LANG",
+      "LS_COLORS",
+      "DOTNET_BUNDLE_EXTRACT_BASE_DIR",
+      "PYENV_DIR",
+      "NVM_DIR",
+      "LESSCLOSE",
+      "ANDROID_HOME",
+      "TERM",
+      "LESSOPEN",
+      "USER",
+      "TMUX_PANE",
+      "SHLVL",
+      "NVM_CD_FLAGS",
+      "CHROME_EXECUTABLE",
+      "_PYENV_INSTALL_PREFIX",
+      "PYENV_ROOT",
+      "DEBUGINFOD_URLS",
+      "BUN_INSTALL",
+      "PATH",
+      "SUDO_UID",
+      "MAIL",
+      "NVM_BIN",
+      "GIT_TERMINAL_PROMPT",
+      "OLDPWD",
+      "TERM_PROGRAM"
+    ]
+  },
+  {
+    "pid": 4190,
+    "ppid": 4179,
+    "comm": "sshd",
+    "cmdline": "sshd: swebot@notty",
+    "exe": "",
+    "cgroup": "0::/user.slice/user-1001.slice/session-c3.scope",
+    "env_keys": []
+  },
+  {
+    "pid": 6470,
+    "ppid": 6459,
+    "comm": "sshd",
+    "cmdline": "sshd: swebot@notty",
+    "exe": "",
+    "cgroup": "0::/user.slice/user-1001.slice/session-c4.scope",
+    "env_keys": []
+  },
+  {
+    "pid": 8330,
+    "ppid": 8319,
+    "comm": "sshd",
+    "cmdline": "sshd: swebot@notty",
+    "exe": "",
+    "cgroup": "0::/user.slice/user-1001.slice/session-c5.scope",
+    "env_keys": []
+  },
+  {
+    "pid": 8732,
+    "ppid": 8330,
+    "comm": "bash",
+    "cmdline": "bash -c echo \"${BASHPID}\"\n\nRUN_ROOT_DIR=/run/devbox-session/default\nPANE_PID=\"1252\"\n\n# sleep 1  # enable this to mimic very slow command start.\n# set -x\numask 0\nsudo mkdir -m777 -p \"${RUN_ROOT_DIR}\"\n\ncoproc inw {\n    LC_ALL=C exec inotifywait -e create,moved_to --include '/stamp$' \"${RUN_ROOT_DIR}\" 2>&1\n}\n\nset -m\n(\n    # If the pane has exited, also end the wait.\n    if ps -p ${PANE_PID} > /dev/null; then\n      tail --pid \"${PANE_PID}\" -f /dev/null\n    fi\n    touch \"${RUN_ROOT_DIR}/stamp\"\n) &\npane_waiter=$!\n\necho \"pane waiter is at $pane_waiter\"\n\nwhile IFS= read -r -u \"${inw[0]}\" line 2>/dev/null; do\n    if [ \"$line\" = \"Watches established.\" ]; then\n        break\n    fi\ndone\nif [ -e \"${RUN_ROOT_DIR}/stamp\" ]; then\n    echo \"stamp found\"\n    kill \"$inw_PID\"\nelse\n    echo \"waiting for stamp\"\n    wait -n\nfi\necho \"done\"\nkill -- \"-$pane_waiter\" || exit 0",
+    "exe": "/usr/bin/bash",
+    "cgroup": "0::/user.slice/user-1001.slice/session-c5.scope",
+    "env_keys": [
+      "SHELL",
+      "PWD",
+      "LOGNAME",
+      "XDG_SESSION_TYPE",
+      "HOME",
+      "LANG",
+      "SSH_CONNECTION",
+      "XDG_SESSION_CLASS",
+      "USER",
+      "SHLVL",
+      "XDG_SESSION_ID",
+      "XDG_RUNTIME_DIR",
+      "SSH_CLIENT",
+      "PATH",
+      "DBUS_SESSION_BUS_ADDRESS",
+      "_"
+    ]
+  },
+  {
+    "pid": 8738,
+    "ppid": 8732,
+    "comm": "inotifywait",
+    "cmdline": "inotifywait -e create,moved_to --include /stamp$ /run/devbox-session/default",
+    "exe": "/usr/bin/inotifywait",
+    "cgroup": "0::/user.slice/user-1001.slice/session-c5.scope",
+    "env_keys": [
+      "LC_ALL",
+      "SHELL",
+      "PWD",
+      "LOGNAME",
+      "XDG_SESSION_TYPE",
+      "HOME",
+      "LANG",
+      "SSH_CONNECTION",
+      "XDG_SESSION_CLASS",
+      "USER",
+      "SHLVL",
+      "XDG_SESSION_ID",
+      "XDG_RUNTIME_DIR",
+      "SSH_CLIENT",
+      "PATH",
+      "DBUS_SESSION_BUS_ADDRESS"
+    ]
+  },
+  {
+    "pid": 8739,
+    "ppid": 8732,
+    "comm": "bash",
+    "cmdline": "bash -c echo \"${BASHPID}\"\n\nRUN_ROOT_DIR=/run/devbox-session/default\nPANE_PID=\"1252\"\n\n# sleep 1  # enable this to mimic very slow command start.\n# set -x\numask 0\nsudo mkdir -m777 -p \"${RUN_ROOT_DIR}\"\n\ncoproc inw {\n    LC_ALL=C exec inotifywait -e create,moved_to --include '/stamp$' \"${RUN_ROOT_DIR}\" 2>&1\n}\n\nset -m\n(\n    # If the pane has exited, also end the wait.\n    if ps -p ${PANE_PID} > /dev/null; then\n      tail --pid \"${PANE_PID}\" -f /dev/null\n    fi\n    touch \"${RUN_ROOT_DIR}/stamp\"\n) &\npane_waiter=$!\n\necho \"pane waiter is at $pane_waiter\"\n\nwhile IFS= read -r -u \"${inw[0]}\" line 2>/dev/null; do\n    if [ \"$line\" = \"Watches established.\" ]; then\n        break\n    fi\ndone\nif [ -e \"${RUN_ROOT_DIR}/stamp\" ]; then\n    echo \"stamp found\"\n    kill \"$inw_PID\"\nelse\n    echo \"waiting for stamp\"\n    wait -n\nfi\necho \"done\"\nkill -- \"-$pane_waiter\" || exit 0",
+    "exe": "/usr/bin/bash",
+    "cgroup": "0::/user.slice/user-1001.slice/session-c5.scope",
+    "env_keys": [
+      "SHELL",
+      "PWD",
+      "LOGNAME",
+      "XDG_SESSION_TYPE",
+      "HOME",
+      "LANG",
+      "SSH_CONNECTION",
+      "XDG_SESSION_CLASS",
+      "USER",
+      "SHLVL",
+      "XDG_SESSION_ID",
+      "XDG_RUNTIME_DIR",
+      "SSH_CLIENT",
+      "PATH",
+      "DBUS_SESSION_BUS_ADDRESS",
+      "_"
+    ]
+  },
+  {
+    "pid": 8741,
+    "ppid": 8739,
+    "comm": "tail",
+    "cmdline": "tail --pid 1252 -f /dev/null",
+    "exe": "/usr/bin/tail",
+    "cgroup": "0::/user.slice/user-1001.slice/session-c5.scope",
+    "env_keys": [
+      "SHELL",
+      "PWD",
+      "LOGNAME",
+      "XDG_SESSION_TYPE",
+      "HOME",
+      "LANG",
+      "SSH_CONNECTION",
+      "XDG_SESSION_CLASS",
+      "USER",
+      "SHLVL",
+      "XDG_SESSION_ID",
+      "XDG_RUNTIME_DIR",
+      "SSH_CLIENT",
+      "PATH",
+      "DBUS_SESSION_BUS_ADDRESS",
+      "_"
+    ]
+  }
+]

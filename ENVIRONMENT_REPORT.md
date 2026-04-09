@@ -1,0 +1,2754 @@
+# VM Environment Capabilities & Limitations Report
+
+This report details the execution capabilities, identified limitations, and the internal file structure of the Google Jules VM environment.
+
+## 1. Execution Capabilities & Limitations
+
+The following findings are based on empirical diagnostic tests performed within the environment.
+
+### 1.1 Python Execution
+- **Status:** **PERMITTED**
+- **Version:** Python 3.12.12
+- **Capabilities:**
+    - Execution of `.py` scripts via `python3` is fully supported.
+    - Multi-line scripts and complex logic are permitted.
+    - Standard library modules (e.g., `socket`, `subprocess`, `os`) are available and functional.
+- **Limitations:** No significant limitations identified for basic script execution.
+
+### 1.2 Internet Connectivity
+- **Status:** **PERMITTED**
+- **Details:** The environment allows outbound HTTP/HTTPS requests to the public internet (verified via `curl` to google.com).
+
+### 1.3 Privileges & Permissions
+- **Status:** **ELEVATED ACCESS AVAILABLE**
+- **User:** `jules` (uid=1001)
+- **Sudo:** The user has `sudo` privileges and can execute commands as `root` without a password.
+- **File System Permissions:**
+    - **Write Permitted:** `/app` (project root), `/tmp`, and user home directories.
+    - **Write Denied:** Root system directories (e.g., `/`, `/usr`, `/etc`) unless using `sudo`.
+
+### 1.4 Package Management
+- **Status:** **PERMITTED (USER-SPACE)**
+- **Pip:** `pip install` works for installing packages in the user's local directory or virtual environments.
+- **Apt:** System-level package installation via `apt-get` is possible using `sudo`.
+
+### 1.5 Networking
+- **Status:** **LOCAL BINDING PERMITTED**
+- **Details:** Scripts can bind to local ports (e.g., 8080) for inter-process communication or local server testing.
+
+---
+
+## 2. Internal File Structure (Excluding Repository)
+
+The following is a hierarchical view of the VM's internal file system (excluding the project repository, `/proc`, `/sys`, and `/dev`).
+
+```text
+/
+├── bin -> usr/bin
+├── bin.usr-is-merged
+├── boot
+├── etc
+│   ├── .java
+│   │   └── .systemPrefs
+│   ├── .pwd.lock
+│   ├── .updated
+│   ├── PackageKit
+│   │   ├── PackageKit.conf
+│   │   └── Vendor.conf
+│   ├── X11
+│   │   ├── Xreset
+│   │   ├── Xreset.d
+│   │   ├── Xresources
+│   │   ├── Xsession
+│   │   ├── Xsession.d
+│   │   ├── Xsession.options
+│   │   ├── fonts
+│   │   ├── rgb.txt
+│   │   ├── xkb
+│   │   └── xorg.conf.d
+│   ├── adduser.conf
+│   ├── alternatives
+│   │   ├── README
+│   │   ├── aclocal -> /usr/bin/aclocal-1.16
+│   │   ├── aclocal.1.gz -> /usr/share/man/man1/aclocal-1.16.1.gz
+│   │   ├── arptables -> /usr/sbin/arptables-nft
+│   │   ├── arptables-restore -> /usr/sbin/arptables-nft-restore
+│   │   ├── arptables-save -> /usr/sbin/arptables-nft-save
+│   │   ├── automake -> /usr/bin/automake-1.16
+│   │   ├── automake.1.gz -> /usr/share/man/man1/automake-1.16.1.gz
+│   │   ├── awk -> /usr/bin/gawk
+│   │   ├── awk.1.gz -> /usr/share/man/man1/gawk.1.gz
+│   │   ├── babeljs -> /usr/bin/babeljs-7
+│   │   ├── babeljs-external-helpers -> /usr/bin/babeljs-7-external-helpers
+│   │   ├── babeljs-node -> /usr/bin/babeljs-7-node
+│   │   ├── babeljs-parser -> /usr/bin/babeljs-7-parser
+│   │   ├── builtins.7.gz -> /usr/share/man/man7/bash-builtins.7.gz
+│   │   ├── c++ -> /usr/bin/g++
+│   │   ├── c++.1.gz -> /usr/share/man/man1/g++.1.gz
+│   │   ├── c89 -> /usr/bin/c89-gcc
+│   │   ├── c89.1.gz -> /usr/share/man/man1/c89-gcc.1.gz
+│   │   ├── c99 -> /usr/bin/c99-gcc
+│   │   ├── c99.1.gz -> /usr/share/man/man1/c99-gcc.1.gz
+│   │   ├── cc -> /usr/bin/gcc
+│   │   ├── cc.1.gz -> /usr/share/man/man1/gcc.1.gz
+│   │   ├── cpp -> /usr/bin/cpp
+│   │   ├── default-GM.sf2 -> /usr/share/sounds/sf2/TimGM6mb.sf2
+│   │   ├── default-GM.sf3 -> /usr/share/sounds/sf2/TimGM6mb.sf2
+│   │   ├── ebtables -> /usr/sbin/ebtables-nft
+│   │   ├── ebtables-restore -> /usr/sbin/ebtables-nft-restore
+│   │   ├── ebtables-save -> /usr/sbin/ebtables-nft-save
+│   │   ├── editor -> /bin/nano
+│   │   ├── editor.1.gz -> /usr/share/man/man1/nano.1.gz
+│   │   ├── ex -> /usr/bin/vim.basic
+│   │   ├── fonts-japanese-gothic.ttf -> /usr/share/fonts/opentype/ipafont-gothic/ipag.ttf
+│   │   ├── gnome-www-browser -> /usr/bin/google-chrome-stable
+│   │   ├── google-chrome -> /usr/bin/google-chrome-stable
+│   │   ├── ip6tables -> /usr/sbin/ip6tables-nft
+│   │   ├── ip6tables-restore -> /usr/sbin/ip6tables-nft-restore
+│   │   ├── ip6tables-save -> /usr/sbin/ip6tables-nft-save
+│   │   ├── iptables -> /usr/sbin/iptables-nft
+│   │   ├── iptables-restore -> /usr/sbin/iptables-nft-restore
+│   │   ├── iptables-save -> /usr/sbin/iptables-nft-save
+│   │   ├── jar -> /usr/lib/jvm/java-21-openjdk-amd64/bin/jar
+│   │   ├── jar.1.gz -> /usr/lib/jvm/java-21-openjdk-amd64/man/man1/jar.1.gz
+│   │   ├── jarsigner -> /usr/lib/jvm/java-21-openjdk-amd64/bin/jarsigner
+│   │   ├── jarsigner.1.gz -> /usr/lib/jvm/java-21-openjdk-amd64/man/man1/jarsigner.1.gz
+│   │   ├── java -> /usr/lib/jvm/java-21-openjdk-amd64/bin/java
+│   │   ├── java.1.gz -> /usr/lib/jvm/java-21-openjdk-amd64/man/man1/java.1.gz
+│   │   ├── javac -> /usr/lib/jvm/java-21-openjdk-amd64/bin/javac
+│   │   ├── javac.1.gz -> /usr/lib/jvm/java-21-openjdk-amd64/man/man1/javac.1.gz
+│   │   ├── javadoc -> /usr/lib/jvm/java-21-openjdk-amd64/bin/javadoc
+│   │   ├── javadoc.1.gz -> /usr/lib/jvm/java-21-openjdk-amd64/man/man1/javadoc.1.gz
+│   │   ├── javap -> /usr/lib/jvm/java-21-openjdk-amd64/bin/javap
+│   │   ├── javap.1.gz -> /usr/lib/jvm/java-21-openjdk-amd64/man/man1/javap.1.gz
+│   │   ├── jcmd -> /usr/lib/jvm/java-21-openjdk-amd64/bin/jcmd
+│   │   ├── jcmd.1.gz -> /usr/lib/jvm/java-21-openjdk-amd64/man/man1/jcmd.1.gz
+│   │   ├── jconsole -> /usr/lib/jvm/java-21-openjdk-amd64/bin/jconsole
+│   │   ├── jconsole.1.gz -> /usr/lib/jvm/java-21-openjdk-amd64/man/man1/jconsole.1.gz
+│   │   ├── jdb -> /usr/lib/jvm/java-21-openjdk-amd64/bin/jdb
+│   │   ├── jdb.1.gz -> /usr/lib/jvm/java-21-openjdk-amd64/man/man1/jdb.1.gz
+│   │   ├── jdeprscan -> /usr/lib/jvm/java-21-openjdk-amd64/bin/jdeprscan
+│   │   ├── jdeprscan.1.gz -> /usr/lib/jvm/java-21-openjdk-amd64/man/man1/jdeprscan.1.gz
+│   │   ├── jdeps -> /usr/lib/jvm/java-21-openjdk-amd64/bin/jdeps
+│   │   ├── jdeps.1.gz -> /usr/lib/jvm/java-21-openjdk-amd64/man/man1/jdeps.1.gz
+│   │   ├── jexec -> /usr/lib/jvm/java-21-openjdk-amd64/lib/jexec
+│   │   ├── jexec-binfmt -> /usr/lib/jvm/java-21-openjdk-amd64/lib/jar.binfmt
+│   │   ├── jfr -> /usr/lib/jvm/java-21-openjdk-amd64/bin/jfr
+│   │   ├── jfr.1.gz -> /usr/lib/jvm/java-21-openjdk-amd64/man/man1/jfr.1.gz
+│   │   ├── jhsdb -> /usr/lib/jvm/java-21-openjdk-amd64/bin/jhsdb
+│   │   ├── jhsdb.1.gz -> /usr/lib/jvm/java-21-openjdk-amd64/man/man1/jhsdb.1.gz
+│   │   ├── jimage -> /usr/lib/jvm/java-21-openjdk-amd64/bin/jimage
+│   │   ├── jinfo -> /usr/lib/jvm/java-21-openjdk-amd64/bin/jinfo
+│   │   ├── jinfo.1.gz -> /usr/lib/jvm/java-21-openjdk-amd64/man/man1/jinfo.1.gz
+│   │   ├── jlink -> /usr/lib/jvm/java-21-openjdk-amd64/bin/jlink
+│   │   ├── jlink.1.gz -> /usr/lib/jvm/java-21-openjdk-amd64/man/man1/jlink.1.gz
+│   │   ├── jmap -> /usr/lib/jvm/java-21-openjdk-amd64/bin/jmap
+│   │   ├── jmap.1.gz -> /usr/lib/jvm/java-21-openjdk-amd64/man/man1/jmap.1.gz
+│   │   ├── jmod -> /usr/lib/jvm/java-21-openjdk-amd64/bin/jmod
+│   │   ├── jmod.1.gz -> /usr/lib/jvm/java-21-openjdk-amd64/man/man1/jmod.1.gz
+│   │   ├── jpackage -> /usr/lib/jvm/java-21-openjdk-amd64/bin/jpackage
+│   │   ├── jpackage.1.gz -> /usr/lib/jvm/java-21-openjdk-amd64/man/man1/jpackage.1.gz
+│   │   ├── jps -> /usr/lib/jvm/java-21-openjdk-amd64/bin/jps
+│   │   ├── jps.1.gz -> /usr/lib/jvm/java-21-openjdk-amd64/man/man1/jps.1.gz
+│   │   ├── jrunscript -> /usr/lib/jvm/java-21-openjdk-amd64/bin/jrunscript
+│   │   ├── jrunscript.1.gz -> /usr/lib/jvm/java-21-openjdk-amd64/man/man1/jrunscript.1.gz
+│   │   ├── js -> /usr/bin/nodejs
+│   │   ├── js.1.gz -> /usr/share/man/man1/nodejs.1.gz
+│   │   ├── jshell -> /usr/lib/jvm/java-21-openjdk-amd64/bin/jshell
+│   │   ├── jshell.1.gz -> /usr/lib/jvm/java-21-openjdk-amd64/man/man1/jshell.1.gz
+│   │   ├── jstack -> /usr/lib/jvm/java-21-openjdk-amd64/bin/jstack
+│   │   ├── jstack.1.gz -> /usr/lib/jvm/java-21-openjdk-amd64/man/man1/jstack.1.gz
+│   │   ├── jstat -> /usr/lib/jvm/java-21-openjdk-amd64/bin/jstat
+│   │   ├── jstat.1.gz -> /usr/lib/jvm/java-21-openjdk-amd64/man/man1/jstat.1.gz
+│   │   ├── jstatd -> /usr/lib/jvm/java-21-openjdk-amd64/bin/jstatd
+│   │   ├── jstatd.1.gz -> /usr/lib/jvm/java-21-openjdk-amd64/man/man1/jstatd.1.gz
+│   │   ├── jwebserver -> /usr/lib/jvm/java-21-openjdk-amd64/bin/jwebserver
+│   │   ├── jwebserver.1.gz -> /usr/lib/jvm/java-21-openjdk-amd64/man/man1/jwebserver.1.gz
+│   │   ├── keytool -> /usr/lib/jvm/java-21-openjdk-amd64/bin/keytool
+│   │   ├── keytool.1.gz -> /usr/lib/jvm/java-21-openjdk-amd64/man/man1/keytool.1.gz
+│   │   ├── libblas.so.3-x86_64-linux-gnu -> /usr/lib/x86_64-linux-gnu/blas/libblas.so.3
+│   │   ├── liblapack.so.3-x86_64-linux-gnu -> /usr/lib/x86_64-linux-gnu/lapack/liblapack.so.3
+│   │   ├── lzcat -> /usr/bin/xzcat
+│   │   ├── lzcat.1.gz -> /usr/share/man/man1/xzcat.1.gz
+│   │   ├── lzcmp -> /usr/bin/xzcmp
+│   │   ├── lzcmp.1.gz -> /usr/share/man/man1/xzcmp.1.gz
+│   │   ├── lzdiff -> /usr/bin/xzdiff
+│   │   ├── lzdiff.1.gz -> /usr/share/man/man1/xzdiff.1.gz
+│   │   ├── lzegrep -> /usr/bin/xzegrep
+│   │   ├── lzegrep.1.gz -> /usr/share/man/man1/xzegrep.1.gz
+│   │   ├── lzfgrep -> /usr/bin/xzfgrep
+│   │   ├── lzfgrep.1.gz -> /usr/share/man/man1/xzfgrep.1.gz
+│   │   ├── lzgrep -> /usr/bin/xzgrep
+│   │   ├── lzgrep.1.gz -> /usr/share/man/man1/xzgrep.1.gz
+│   │   ├── lzless -> /usr/bin/xzless
+│   │   ├── lzless.1.gz -> /usr/share/man/man1/xzless.1.gz
+│   │   ├── lzma -> /usr/bin/xz
+│   │   ├── lzma.1.gz -> /usr/share/man/man1/xz.1.gz
+│   │   ├── lzmore -> /usr/bin/xzmore
+│   │   ├── lzmore.1.gz -> /usr/share/man/man1/xzmore.1.gz
+│   │   ├── nawk -> /usr/bin/gawk
+│   │   ├── nawk.1.gz -> /usr/share/man/man1/gawk.1.gz
+│   │   ├── open -> /usr/bin/xdg-open
+│   │   ├── open.1.gz -> /usr/share/man/man1/xdg-open.1.gz
+│   │   ├── pager -> /usr/bin/less
+│   │   ├── pager.1.gz -> /usr/share/man/man1/less.1.gz
+│   │   ├── phar -> /usr/bin/phar.default
+│   │   ├── phar.1.gz -> /usr/share/man/man1/phar.default.1.gz
+│   │   ├── phar.phar -> /usr/bin/phar.phar.default
+│   │   ├── phar.phar.1.gz -> /usr/share/man/man1/phar.phar.default.1.gz
+│   │   ├── php -> /usr/bin/php.default
+│   │   ├── php.1.gz -> /usr/share/man/man1/php.default.1.gz
+│   │   ├── pico -> /bin/nano
+│   │   ├── pico.1.gz -> /usr/share/man/man1/nano.1.gz
+│   │   ├── pinentry -> /usr/bin/pinentry-curses
+│   │   ├── pinentry.1.gz -> /usr/share/man/man1/pinentry-curses.1.gz
+│   │   ├── rmiregistry -> /usr/lib/jvm/java-21-openjdk-amd64/bin/rmiregistry
+│   │   ├── rmiregistry.1.gz -> /usr/lib/jvm/java-21-openjdk-amd64/man/man1/rmiregistry.1.gz
+│   │   ├── rmt -> /usr/sbin/rmt-tar
+│   │   ├── rmt.8.gz -> /usr/share/man/man8/rmt-tar.8.gz
+│   │   ├── rview -> /usr/bin/vim.basic
+│   │   ├── rvim -> /usr/bin/vim.basic
+│   │   ├── sar -> /usr/bin/sar.sysstat
+│   │   ├── sar.1.gz -> /usr/share/man/man1/sar.sysstat.1.gz
+│   │   ├── serialver -> /usr/lib/jvm/java-21-openjdk-amd64/bin/serialver
+│   │   ├── serialver.1.gz -> /usr/lib/jvm/java-21-openjdk-amd64/man/man1/serialver.1.gz
+│   │   ├── unlzma -> /usr/bin/unxz
+│   │   ├── unlzma.1.gz -> /usr/share/man/man1/unxz.1.gz
+│   │   ├── vi -> /usr/bin/vim.basic
+│   │   ├── view -> /usr/bin/vim.basic
+│   │   ├── vim -> /usr/bin/vim.basic
+│   │   ├── vimdiff -> /usr/bin/vim.basic
+│   │   ├── which -> /usr/bin/which.debianutils
+│   │   ├── which.1.gz -> /usr/share/man/man1/which.debianutils.1.gz
+│   │   ├── which.de1.gz -> /usr/share/man/de/man1/which.debianutils.1.gz
+│   │   ├── which.es1.gz -> /usr/share/man/es/man1/which.debianutils.1.gz
+│   │   ├── which.fr1.gz -> /usr/share/man/fr/man1/which.debianutils.1.gz
+│   │   ├── which.it1.gz -> /usr/share/man/it/man1/which.debianutils.1.gz
+│   │   ├── which.ja1.gz -> /usr/share/man/ja/man1/which.debianutils.1.gz
+│   │   ├── which.pl1.gz -> /usr/share/man/pl/man1/which.debianutils.1.gz
+│   │   ├── which.sl1.gz -> /usr/share/man/sl/man1/which.debianutils.1.gz
+│   │   ├── www-browser -> /usr/bin/lynx
+│   │   ├── x-cursor-theme -> /usr/share/icons/Adwaita/cursor.theme
+│   │   └── x-www-browser -> /usr/bin/google-chrome-stable
+│   ├── apt
+│   │   ├── apt.conf.d
+│   │   ├── auth.conf.d
+│   │   ├── keyrings
+│   │   ├── preferences.d
+│   │   ├── sources.list
+│   │   ├── sources.list.d
+│   │   └── trusted.gpg.d
+│   ├── bash.bashrc
+│   ├── bash_completion.d
+│   │   ├── git-prompt
+│   │   └── global-python-argcomplete
+│   ├── bindresvport.blacklist
+│   ├── binfmt.d
+│   ├── ca-certificates
+│   │   └── update.d
+│   ├── ca-certificates.conf
+│   ├── cloud
+│   │   └── build.info
+│   ├── containerd
+│   │   └── config.toml
+│   ├── credstore  [error opening dir]
+│   ├── credstore.encrypted  [error opening dir]
+│   ├── cron.d
+│   │   ├── e2scrub_all
+│   │   ├── php
+│   │   └── sysstat
+│   ├── cron.daily
+│   │   ├── apt-compat
+│   │   ├── dpkg
+│   │   ├── google-chrome -> /opt/google/chrome/cron/google-chrome
+│   │   └── sysstat
+│   ├── dbus-1
+│   │   ├── session.d
+│   │   └── system.d
+│   ├── dconf
+│   │   └── db
+│   ├── debconf.conf
+│   ├── debian_version
+│   ├── debuginfod
+│   │   └── elfutils.urls
+│   ├── default
+│   │   ├── cacerts
+│   │   ├── dbus
+│   │   ├── docker
+│   │   ├── google-chrome
+│   │   ├── locale -> ../locale.conf
+│   │   ├── rsync
+│   │   ├── ssh
+│   │   ├── sysstat
+│   │   └── useradd
+│   ├── deluser.conf
+│   ├── devbox-rebuild-hash
+│   ├── devbox-version-info
+│   ├── dictionaries-common
+│   │   └── ispell-default
+│   ├── docker
+│   ├── dotnet
+│   │   ├── install_location
+│   │   └── install_location_x64
+│   ├── dpkg
+│   │   ├── dpkg.cfg
+│   │   ├── dpkg.cfg.d
+│   │   ├── origins
+│   │   ├── shlibs.default
+│   │   └── shlibs.override
+│   ├── e2scrub.conf
+│   ├── emacs
+│   │   └── site-start.d
+│   ├── environment
+│   ├── ethertypes
+│   ├── fonts
+│   │   ├── conf.avail
+│   │   ├── conf.d
+│   │   └── fonts.conf
+│   ├── fstab
+│   ├── gai.conf
+│   ├── gdb
+│   │   ├── gdbinit
+│   │   └── gdbinit.d
+│   ├── glvnd
+│   │   └── egl_vendor.d
+│   ├── gnutls
+│   │   └── config
+│   ├── gprofng.rc
+│   ├── group
+│   ├── group-
+│   ├── gshadow
+│   ├── gshadow-
+│   ├── gss
+│   │   └── mech.d
+│   ├── gtk-3.0
+│   │   ├── im-multipress.conf
+│   │   └── settings.ini
+│   ├── host.conf
+│   ├── hostname
+│   ├── hosts
+│   ├── hosts.allow
+│   ├── hosts.deny
+│   ├── init.d
+│   │   ├── dbus
+│   │   ├── docker
+│   │   ├── procps
+│   │   ├── rsync
+│   │   ├── ssh
+│   │   ├── sysstat
+│   │   └── x11-common
+│   ├── inputrc
+│   ├── iproute2
+│   │   ├── bpf_pinning
+│   │   ├── ematch_map
+│   │   ├── group
+│   │   ├── nl_protos
+│   │   ├── rt_dsfield
+│   │   ├── rt_protos
+│   │   ├── rt_protos.d
+│   │   ├── rt_realms
+│   │   ├── rt_scopes
+│   │   ├── rt_tables
+│   │   └── rt_tables.d
+│   ├── issue
+│   ├── issue.net
+│   ├── java-21-openjdk
+│   │   ├── accessibility.properties
+│   │   ├── jaxp.properties
+│   │   ├── jfr
+│   │   ├── jvm-amd64.cfg
+│   │   ├── logging.properties
+│   │   ├── management
+│   │   ├── net.properties
+│   │   ├── psfont.properties.ja
+│   │   ├── psfontj2d.properties
+│   │   ├── security
+│   │   ├── sound.properties
+│   │   └── swing.properties
+│   ├── kernel
+│   │   ├── install.d
+│   │   └── postinst.d
+│   ├── ld.so.cache
+│   ├── ld.so.conf
+│   ├── ld.so.conf.d
+│   │   ├── libc.conf
+│   │   └── x86_64-linux-gnu.conf
+│   ├── legal
+│   ├── libaudit.conf
+│   ├── libnl-3
+│   │   ├── classid
+│   │   └── pktloc
+│   ├── locale.alias
+│   ├── locale.conf
+│   ├── locale.gen
+│   ├── localtime -> /usr/share/zoneinfo/Etc/UTC
+│   ├── logcheck
+│   │   └── ignore.d.server
+│   ├── login.defs
+│   ├── logrotate.d
+│   │   ├── alternatives
+│   │   ├── apt
+│   │   └── dpkg
+│   ├── lsb-release
+│   ├── lynx
+│   │   ├── lynx.cfg
+│   │   └── lynx.lss
+│   ├── machine-id
+│   ├── magic
+│   ├── magic.mime
+│   ├── mime.types
+│   ├── mke2fs.conf
+│   ├── modules-load.d
+│   │   └── modules.conf -> ../modules
+│   ├── mtab -> ../proc/self/mounts
+│   ├── nanorc
+│   ├── netconfig
+│   ├── networks
+│   ├── nftables.conf
+│   ├── nsswitch.conf
+│   ├── openal
+│   │   └── alsoft.conf
+│   ├── openni2
+│   │   └── OpenNI.ini
+│   ├── opt
+│   ├── os-release -> ../usr/lib/os-release
+│   ├── pam.conf
+│   ├── pam.d
+│   │   ├── chfn
+│   │   ├── chpasswd
+│   │   ├── chsh
+│   │   ├── common-account
+│   │   ├── common-auth
+│   │   ├── common-password
+│   │   ├── common-session
+│   │   ├── common-session-noninteractive
+│   │   ├── login
+│   │   ├── newusers
+│   │   ├── other
+│   │   ├── passwd
+│   │   ├── runuser
+│   │   ├── runuser-l
+│   │   ├── sshd
+│   │   ├── su
+│   │   ├── su-l
+│   │   ├── sudo
+│   │   └── sudo-i
+│   ├── passwd
+│   ├── passwd-
+│   ├── perl
+│   │   └── Net
+│   ├── php
+│   │   └── 8.3
+│   ├── polkit-1
+│   │   └── rules.d
+│   ├── profile
+│   ├── profile.d
+│   │   ├── 01-locale-fix.sh
+│   │   ├── bun.sh
+│   │   ├── debuginfod.csh -> /usr/share/libdebuginfod-common/debuginfod.csh
+│   │   ├── debuginfod.sh -> /usr/share/libdebuginfod-common/debuginfod.sh
+│   │   ├── dotnet.sh
+│   │   ├── gawk.csh
+│   │   └── gawk.sh
+│   ├── protocols
+│   ├── pulse
+│   │   ├── client.conf
+│   │   └── client.conf.d
+│   ├── python3
+│   │   └── debian_config
+│   ├── python3.12
+│   │   └── sitecustomize.py
+│   ├── rc0.d
+│   │   └── K01docker -> ../init.d/docker
+│   ├── rc1.d
+│   │   └── K01docker -> ../init.d/docker
+│   ├── rc2.d
+│   │   ├── S01dbus -> ../init.d/dbus
+│   │   ├── S01docker -> ../init.d/docker
+│   │   ├── S01rsync -> ../init.d/rsync
+│   │   ├── S01ssh -> ../init.d/ssh
+│   │   └── S01sysstat -> ../init.d/sysstat
+│   ├── rc3.d
+│   │   ├── S01dbus -> ../init.d/dbus
+│   │   ├── S01docker -> ../init.d/docker
+│   │   ├── S01rsync -> ../init.d/rsync
+│   │   ├── S01ssh -> ../init.d/ssh
+│   │   └── S01sysstat -> ../init.d/sysstat
+│   ├── rc4.d
+│   │   ├── S01dbus -> ../init.d/dbus
+│   │   ├── S01docker -> ../init.d/docker
+│   │   ├── S01rsync -> ../init.d/rsync
+│   │   ├── S01ssh -> ../init.d/ssh
+│   │   └── S01sysstat -> ../init.d/sysstat
+│   ├── rc5.d
+│   │   ├── S01dbus -> ../init.d/dbus
+│   │   ├── S01docker -> ../init.d/docker
+│   │   ├── S01rsync -> ../init.d/rsync
+│   │   ├── S01ssh -> ../init.d/ssh
+│   │   └── S01sysstat -> ../init.d/sysstat
+│   ├── rc6.d
+│   │   └── K01docker -> ../init.d/docker
+│   ├── rcS.d
+│   │   ├── S01procps -> ../init.d/procps
+│   │   └── S01x11-common -> ../init.d/x11-common
+│   ├── resolv.conf
+│   ├── rmt -> /usr/sbin/rmt
+│   ├── rpc
+│   ├── security
+│   │   ├── access.conf
+│   │   ├── faillock.conf
+│   │   ├── group.conf
+│   │   ├── limits.conf
+│   │   ├── limits.d
+│   │   ├── namespace.conf
+│   │   ├── namespace.d
+│   │   ├── namespace.init
+│   │   ├── opasswd
+│   │   ├── pam_env.conf
+│   │   ├── pwhistory.conf
+│   │   ├── sepermit.conf
+│   │   └── time.conf
+│   ├── selinux
+│   │   └── semanage.conf
+│   ├── sensors.d
+│   │   └── .placeholder
+│   ├── sensors3.conf
+│   ├── services
+│   ├── sgml
+│   │   ├── catalog -> /var/lib/sgml-base/supercatalog
+│   │   └── xml-core.cat
+│   ├── shadow
+│   ├── shadow-
+│   ├── shells
+│   ├── skel
+│   │   ├── .bash_logout
+│   │   ├── .bashrc
+│   │   └── .profile
+│   ├── ssh
+│   │   ├── moduli
+│   │   ├── ssh_config
+│   │   ├── ssh_config.d
+│   │   ├── ssh_host_ecdsa_key
+│   │   ├── ssh_host_ecdsa_key.pub
+│   │   ├── ssh_host_ed25519_key
+│   │   ├── ssh_host_ed25519_key.pub
+│   │   ├── ssh_host_rsa_key
+│   │   ├── ssh_host_rsa_key.pub
+│   │   ├── sshd_config
+│   │   └── sshd_config.d
+│   ├── ssl
+│   │   ├── certs
+│   │   ├── openssl.cnf
+│   │   └── private
+│   ├── subgid
+│   ├── subgid-
+│   ├── subuid
+│   ├── subuid-
+│   ├── sudo.conf
+│   ├── sudo_logsrvd.conf
+│   ├── sudoers
+│   ├── sudoers.d
+│   │   ├── README
+│   │   ├── jules
+│   │   └── swebot
+│   ├── sysctl.conf
+│   ├── sysctl.d
+│   │   ├── 10-bufferbloat.conf
+│   │   ├── 10-console-messages.conf
+│   │   ├── 10-ipv6-privacy.conf
+│   │   ├── 10-kernel-hardening.conf
+│   │   ├── 10-magic-sysrq.conf
+│   │   ├── 10-map-count.conf
+│   │   ├── 10-network-security.conf
+│   │   ├── 10-ptrace.conf
+│   │   ├── 10-zeropage.conf
+│   │   ├── 99-sysctl.conf -> ../sysctl.conf
+│   │   └── README.sysctl
+│   ├── sysstat
+│   │   ├── sysstat
+│   │   └── sysstat.ioconf
+│   ├── systemd
+│   │   ├── journald.conf
+│   │   ├── logind.conf
+│   │   ├── network
+│   │   ├── networkd.conf
+│   │   ├── pstore.conf
+│   │   ├── sleep.conf
+│   │   ├── system
+│   │   ├── system-generators
+│   │   ├── system.conf
+│   │   ├── user
+│   │   └── user.conf
+│   ├── terminfo
+│   │   └── README
+│   ├── timezone
+│   ├── timidity
+│   │   └── timgm6mb.cfg
+│   ├── tmpfiles.d
+│   ├── ucf.conf
+│   ├── udev
+│   │   ├── hwdb.d
+│   │   ├── iocost.conf
+│   │   ├── rules.d
+│   │   └── udev.conf
+│   ├── ufw
+│   │   └── applications.d
+│   ├── update-motd.d
+│   │   ├── 00-header
+│   │   ├── 10-help-text
+│   │   └── 50-motd-news
+│   ├── vconsole.conf -> default/keyboard
+│   ├── vdpau_wrapper.cfg
+│   ├── vim
+│   │   └── vimrc
+│   ├── vulkan
+│   │   ├── explicit_layer.d
+│   │   ├── icd.d
+│   │   └── implicit_layer.d
+│   ├── wgetrc
+│   ├── xattr.conf
+│   ├── xdg
+│   │   └── systemd
+│   └── xml
+│       ├── catalog
+│       ├── catalog.old
+│       ├── polkitd.xml
+│       ├── polkitd.xml.old
+│       ├── xml-core.xml
+│       └── xml-core.xml.old
+├── go
+│   ├── bin
+│   └── src
+├── home
+│   ├── jules
+│   │   ├── .android
+│   │   ├── .bash_logout
+│   │   ├── .bashrc
+│   │   ├── .cache
+│   │   ├── .cargo
+│   │   ├── .conan2
+│   │   ├── .config
+│   │   ├── .gitconfig
+│   │   ├── .gradle
+│   │   ├── .local
+│   │   ├── .npm
+│   │   ├── .nvm
+│   │   ├── .profile
+│   │   ├── .pyenv
+│   │   ├── .rustup
+│   │   ├── .ssh
+│   │   └── .sudo_as_admin_successful
+│   ├── swebot -> /home/jules
+│   └── ubuntu  [error opening dir]
+├── lib -> usr/lib
+├── lib.usr-is-merged
+├── lib64 -> usr/lib64
+├── media
+├── mnt
+├── opt
+│   ├── android-sdk
+│   │   ├── .knownPackages
+│   │   ├── .temp
+│   │   ├── build-tools
+│   │   ├── cmdline-tools
+│   │   ├── licenses
+│   │   ├── platform-tools
+│   │   └── platforms
+│   ├── containerd  [error opening dir]
+│   ├── environment_summary.sh
+│   ├── flutter
+│   │   ├── .autoroller-preupload.sh
+│   │   ├── .ci.yaml
+│   │   ├── .gemini
+│   │   ├── .gitattributes
+│   │   ├── .github
+│   │   ├── .gitignore
+│   │   ├── .vscode
+│   │   ├── AUTHORS
+│   │   ├── CHANGELOG.md
+│   │   ├── CODEOWNERS
+│   │   ├── CODE_OF_CONDUCT.md
+│   │   ├── CONTRIBUTING.md
+│   │   ├── DEPS
+│   │   ├── LICENSE
+│   │   ├── PATENT_GRANT
+│   │   ├── README.md
+│   │   ├── TESTOWNERS
+│   │   ├── analysis_options.yaml
+│   │   ├── bin
+│   │   ├── buildtools
+│   │   ├── dartdoc_options.yaml
+│   │   ├── docs
+│   │   ├── engine
+│   │   ├── examples
+│   │   ├── flutter_console.bat
+│   │   ├── packages
+│   │   ├── pubspec.lock
+│   │   ├── pubspec.yaml
+│   │   └── third_party
+│   ├── google
+│   │   └── chrome
+│   └── jules
+│       ├── pipx
+│       └── playwright
+├── rom
+│   ├── bin -> usr/bin
+│   ├── bin.usr-is-merged
+│   ├── boot
+│   ├── etc
+│   │   ├── .java
+│   │   ├── .pwd.lock
+│   │   ├── PackageKit
+│   │   ├── X11
+│   │   ├── adduser.conf
+│   │   ├── alternatives
+│   │   ├── apt
+│   │   ├── bash.bashrc
+│   │   ├── bash_completion.d
+│   │   ├── bindresvport.blacklist
+│   │   ├── binfmt.d
+│   │   ├── ca-certificates
+│   │   ├── ca-certificates.conf
+│   │   ├── cloud
+│   │   ├── containerd
+│   │   ├── credstore
+│   │   ├── credstore.encrypted
+│   │   ├── cron.d
+│   │   ├── cron.daily
+│   │   ├── dbus-1
+│   │   ├── dconf
+│   │   ├── debconf.conf
+│   │   ├── debian_version
+│   │   ├── debuginfod
+│   │   ├── default
+│   │   ├── deluser.conf
+│   │   ├── devbox-rebuild-hash
+│   │   ├── devbox-version-info
+│   │   ├── dictionaries-common
+│   │   ├── docker
+│   │   ├── dotnet
+│   │   ├── dpkg
+│   │   ├── e2scrub.conf
+│   │   ├── emacs
+│   │   ├── environment
+│   │   ├── ethertypes
+│   │   ├── fonts
+│   │   ├── fstab
+│   │   ├── gai.conf
+│   │   ├── gdb
+│   │   ├── glvnd
+│   │   ├── gnutls
+│   │   ├── gprofng.rc
+│   │   ├── group
+│   │   ├── group-
+│   │   ├── gshadow
+│   │   ├── gshadow-
+│   │   ├── gss
+│   │   ├── gtk-3.0
+│   │   ├── host.conf
+│   │   ├── hostname
+│   │   ├── hosts
+│   │   ├── hosts.allow
+│   │   ├── hosts.deny
+│   │   ├── init.d
+│   │   ├── inputrc
+│   │   ├── iproute2
+│   │   ├── issue
+│   │   ├── issue.net
+│   │   ├── java-21-openjdk
+│   │   ├── kernel
+│   │   ├── ld.so.cache
+│   │   ├── ld.so.conf
+│   │   ├── ld.so.conf.d
+│   │   ├── legal
+│   │   ├── libaudit.conf
+│   │   ├── libnl-3
+│   │   ├── locale.alias
+│   │   ├── locale.conf
+│   │   ├── locale.gen
+│   │   ├── localtime -> /usr/share/zoneinfo/Etc/UTC
+│   │   ├── logcheck
+│   │   ├── login.defs
+│   │   ├── logrotate.d
+│   │   ├── lsb-release
+│   │   ├── lynx
+│   │   ├── machine-id
+│   │   ├── magic
+│   │   ├── magic.mime
+│   │   ├── mime.types
+│   │   ├── mke2fs.conf
+│   │   ├── modules-load.d
+│   │   ├── mtab -> ../proc/self/mounts
+│   │   ├── nanorc
+│   │   ├── netconfig
+│   │   ├── networks
+│   │   ├── nftables.conf
+│   │   ├── nsswitch.conf
+│   │   ├── openal
+│   │   ├── openni2
+│   │   ├── opt
+│   │   ├── os-release -> ../usr/lib/os-release
+│   │   ├── pam.conf
+│   │   ├── pam.d
+│   │   ├── passwd
+│   │   ├── passwd-
+│   │   ├── perl
+│   │   ├── php
+│   │   ├── polkit-1
+│   │   ├── profile
+│   │   ├── profile.d
+│   │   ├── protocols
+│   │   ├── pulse
+│   │   ├── python3
+│   │   ├── python3.12
+│   │   ├── rc0.d
+│   │   ├── rc1.d
+│   │   ├── rc2.d
+│   │   ├── rc3.d
+│   │   ├── rc4.d
+│   │   ├── rc5.d
+│   │   ├── rc6.d
+│   │   ├── rcS.d
+│   │   ├── resolv.conf
+│   │   ├── rmt -> /usr/sbin/rmt
+│   │   ├── rpc
+│   │   ├── security
+│   │   ├── selinux
+│   │   ├── sensors.d
+│   │   ├── sensors3.conf
+│   │   ├── services
+│   │   ├── sgml
+│   │   ├── shadow
+│   │   ├── shadow-
+│   │   ├── shells
+│   │   ├── skel
+│   │   ├── ssh
+│   │   ├── ssl
+│   │   ├── subgid
+│   │   ├── subgid-
+│   │   ├── subuid
+│   │   ├── subuid-
+│   │   ├── sudo.conf
+│   │   ├── sudo_logsrvd.conf
+│   │   ├── sudoers
+│   │   ├── sudoers.d
+│   │   ├── sysctl.conf
+│   │   ├── sysctl.d
+│   │   ├── sysstat
+│   │   ├── systemd
+│   │   ├── terminfo
+│   │   ├── timezone
+│   │   ├── timidity
+│   │   ├── tmpfiles.d
+│   │   ├── ucf.conf
+│   │   ├── udev
+│   │   ├── ufw
+│   │   ├── update-motd.d
+│   │   ├── vconsole.conf -> default/keyboard
+│   │   ├── vdpau_wrapper.cfg
+│   │   ├── vim
+│   │   ├── vulkan
+│   │   ├── wgetrc
+│   │   ├── xattr.conf
+│   │   ├── xdg
+│   │   └── xml
+│   ├── go
+│   │   ├── bin
+│   │   └── src
+│   ├── home
+│   │   ├── jules
+│   │   ├── swebot -> /home/jules
+│   │   └── ubuntu
+│   ├── lib -> usr/lib
+│   ├── lib.usr-is-merged
+│   ├── lib64 -> usr/lib64
+│   ├── media
+│   ├── merged
+│   ├── mnt
+│   ├── opt
+│   │   ├── android-sdk
+│   │   ├── environment_summary.sh
+│   │   ├── flutter
+│   │   ├── google
+│   │   └── jules
+│   ├── overlay
+│   │   ├── lost+found
+│   │   ├── root
+│   │   └── work
+│   ├── root
+│   │   ├── .android
+│   │   ├── .bashrc
+│   │   ├── .cache
+│   │   ├── .config
+│   │   ├── .flutter
+│   │   ├── .launchpadlib
+│   │   ├── .local
+│   │   ├── .profile
+│   │   ├── .pub-cache
+│   │   ├── .ssh
+│   │   └── .wget-hsts
+│   ├── run
+│   │   ├── adduser
+│   │   ├── dbus
+│   │   ├── lock
+│   │   ├── log
+│   │   ├── sendsigs.omit.d
+│   │   ├── setrans
+│   │   ├── shm -> /dev/shm
+│   │   ├── sudo
+│   │   ├── systemd
+│   │   └── user
+│   ├── sbin -> usr/sbin
+│   ├── sbin.usr-is-merged
+│   ├── srv
+│   ├── tmp
+│   │   ├── 143.0.7499.192
+│   │   ├── adb.0.log
+│   │   ├── hsperfdata_jules
+│   │   ├── hsperfdata_root
+│   │   ├── node-compile-cache
+│   │   ├── profile.sh
+│   │   ├── python-build.20260118060709.91.log
+│   │   ├── python-build.20260118060824.13476.log
+│   │   ├── python-patch.sZiV3v
+│   │   └── v8-compile-cache-1001
+│   ├── usr
+│   │   ├── bin
+│   │   ├── games
+│   │   ├── include
+│   │   ├── lib
+│   │   ├── lib64
+│   │   ├── libexec
+│   │   ├── local
+│   │   ├── sbin
+│   │   ├── share
+│   │   └── src
+│   └── var
+│       ├── backups
+│       ├── cache
+│       ├── lib
+│       ├── local
+│       ├── lock -> /run/lock
+│       ├── log
+│       ├── mail
+│       ├── opt
+│       ├── run -> /run
+│       ├── spool
+│       └── tmp
+├── root
+│   ├── .android
+│   │   ├── adb.5037
+│   │   ├── adbkey
+│   │   ├── adbkey.pub
+│   │   └── cache
+│   ├── .bashrc
+│   ├── .cache
+│   │   └── pip
+│   ├── .config
+│   │   └── flutter
+│   ├── .flutter
+│   ├── .launchpadlib  [error opening dir]
+│   ├── .local
+│   │   └── share
+│   ├── .profile
+│   ├── .pub-cache
+│   │   ├── README.md
+│   │   ├── _temp
+│   │   ├── active_roots
+│   │   ├── hosted
+│   │   └── hosted-hashes
+│   ├── .ssh  [error opening dir]
+│   └── .wget-hsts
+├── run
+│   ├── agetty.reload
+│   ├── containerd  [error opening dir]
+│   ├── credentials
+│   │   └── @system
+│   ├── dbus
+│   │   ├── containers
+│   │   └── system_bus_socket
+│   ├── devbox-session
+│   │   └── default
+│   ├── docker  [error opening dir]
+│   ├── docker.pid
+│   ├── docker.sock
+│   ├── initctl
+│   ├── lock
+│   │   └── subsys
+│   ├── log
+│   │   └── journal
+│   ├── motd.dynamic
+│   ├── mount
+│   ├── sendsigs.omit.d
+│   ├── setrans
+│   ├── shm -> /dev/shm
+│   ├── sshd
+│   ├── sshd.pid
+│   ├── sudo  [error opening dir]
+│   ├── systemd
+│   │   ├── ask-password
+│   │   ├── generator
+│   │   ├── inaccessible
+│   │   ├── incoming
+│   │   ├── inhibit
+│   │   ├── io.systemd.ManagedOOM
+│   │   ├── io.systemd.sysext
+│   │   ├── journal
+│   │   ├── machines
+│   │   ├── mount-rootfs
+│   │   ├── netif
+│   │   ├── notify
+│   │   ├── private
+│   │   ├── propagate
+│   │   ├── seats
+│   │   ├── sessions
+│   │   ├── show-status
+│   │   ├── shutdown
+│   │   ├── system
+│   │   ├── systemd-units-load
+│   │   ├── transient
+│   │   ├── units
+│   │   ├── userdb
+│   │   └── users
+│   ├── udev
+│   │   ├── control
+│   │   ├── data
+│   │   ├── links
+│   │   ├── tags
+│   │   └── watch
+│   ├── user
+│   │   └── 1001
+│   └── utmp
+├── sbin -> usr/sbin
+├── sbin.usr-is-merged
+├── srv
+├── tmp
+│   ├── .ICE-unix
+│   ├── .X11-unix
+│   ├── .XIM-unix
+│   ├── .font-unix
+│   ├── systemd-private-8393954b4ef54800969994f58a388139-systemd-logind.service-GGS8bh  [error opening dir]
+│   └── tmux-1001
+│       └── default
+├── usr
+│   ├── bin
+│   │   ├── X11 -> .
+│   │   ├── Xvfb
+│   │   ├── [
+│   │   ├── aclocal -> /etc/alternatives/aclocal
+│   │   ├── aclocal-1.16
+│   │   ├── acorn -> ../share/nodejs/acorn/bin/acorn
+│   │   ├── activate-global-python-argcomplete
+│   │   ├── add-apt-repository
+│   │   ├── addpart
+│   │   ├── addr2line -> x86_64-linux-gnu-addr2line
+│   │   ├── amdgpu-arch-18 -> ../lib/llvm-18/bin/amdgpu-arch
+│   │   ├── analyze-build-18 -> ../lib/llvm-18/bin/analyze-build
+│   │   ├── apt
+│   │   ├── apt-add-repository -> add-apt-repository
+│   │   ├── apt-cache
+│   │   ├── apt-cdrom
+│   │   ├── apt-config
+│   │   ├── apt-extracttemplates
+│   │   ├── apt-ftparchive
+│   │   ├── apt-get
+│   │   ├── apt-key
+│   │   ├── apt-mark
+│   │   ├── apt-sortpkgs
+│   │   ├── ar -> x86_64-linux-gnu-ar
+│   │   ├── arborist -> ../share/nodejs/@npmcli/arborist/bin/index.js
+│   │   ├── arch
+│   │   ├── as -> x86_64-linux-gnu-as
+│   │   ├── asan_symbolize -> asan_symbolize-18
+│   │   ├── asan_symbolize-18
+│   │   ├── autoconf
+│   │   ├── autoheader
+│   │   ├── autom4te
+│   │   ├── automake -> /etc/alternatives/automake
+│   │   ├── automake-1.16
+│   │   ├── autoreconf
+│   │   ├── autoscan
+│   │   ├── autoupdate
+│   │   ├── awk -> /etc/alternatives/awk
+│   │   ├── b2sum
+│   │   ├── babeljs -> /etc/alternatives/babeljs
+│   │   ├── babeljs-7 -> ../share/nodejs/@babel/cli/bin/babel.js
+│   │   ├── babeljs-7-external-helpers -> ../share/nodejs/@babel/cli/bin/babel-external-helpers.js
+│   │   ├── babeljs-7-node -> ../share/nodejs/@babel/node/bin/babel-node.js
+│   │   ├── babeljs-7-parser -> ../share/nodejs/@babel/parser/bin/babel-parser.js
+│   │   ├── babeljs-external-helpers -> /etc/alternatives/babeljs-external-helpers
+│   │   ├── babeljs-node -> /etc/alternatives/babeljs-node
+│   │   ├── babeljs-parser -> /etc/alternatives/babeljs-parser
+│   │   ├── base32
+│   │   ├── base64
+│   │   ├── basename
+│   │   ├── basenc
+│   │   ├── bash
+│   │   ├── bashbug
+│   │   ├── bdftopcf
+│   │   ├── bdftruncate
+│   │   ├── browse -> xdg-open
+│   │   ├── browserslist -> ../share/nodejs/browserslist/cli.js
+│   │   ├── bundle3.2
+│   │   ├── bundler3.2
+│   │   ├── bunzip2
+│   │   ├── busctl
+│   │   ├── bzcat
+│   │   ├── bzcmp -> bzdiff
+│   │   ├── bzdiff
+│   │   ├── bzegrep -> bzgrep
+│   │   ├── bzexe
+│   │   ├── bzfgrep -> bzgrep
+│   │   ├── bzgrep
+│   │   ├── bzip2
+│   │   ├── bzip2recover
+│   │   ├── bzless -> bzmore
+│   │   ├── bzmore
+│   │   ├── c++ -> /etc/alternatives/c++
+│   │   ├── c++filt -> x86_64-linux-gnu-c++filt
+│   │   ├── c-index-test-18 -> ../lib/llvm-18/bin/c-index-test
+│   │   ├── c89 -> /etc/alternatives/c89
+│   │   ├── c89-gcc
+│   │   ├── c99 -> /etc/alternatives/c99
+│   │   ├── c99-gcc
+│   │   ├── c_rehash
+│   │   ├── callgrind_annotate
+│   │   ├── callgrind_control
+│   │   ├── captoinfo -> tic
+│   │   ├── cat
+│   │   ├── cc -> /etc/alternatives/cc
+│   │   ├── ccache
+│   │   ├── cg_annotate
+│   │   ├── cg_diff
+│   │   ├── cg_merge
+│   │   ├── chage
+│   │   ├── chattr
+│   │   ├── chcon
+│   │   ├── chfn
+│   │   ├── chgrp
+│   │   ├── chmod
+│   │   ├── choom
+│   │   ├── chown
+│   │   ├── chrt
+│   │   ├── chsh
+│   │   ├── cifsiostat
+│   │   ├── cksum
+│   │   ├── clang -> ../lib/llvm-18/bin/clang
+│   │   ├── clang++ -> ../lib/llvm-18/bin/clang++
+│   │   ├── clang++-18 -> ../lib/llvm-18/bin/clang++
+│   │   ├── clang-18 -> ../lib/llvm-18/bin/clang
+│   │   ├── clang-apply-replacements-18 -> ../lib/llvm-18/bin/clang-apply-replacements
+│   │   ├── clang-change-namespace-18 -> ../lib/llvm-18/bin/clang-change-namespace
+│   │   ├── clang-check-18 -> ../lib/llvm-18/bin/clang-check
+│   │   ├── clang-cl-18 -> ../lib/llvm-18/bin/clang-cl
+│   │   ├── clang-cpp-18 -> ../lib/llvm-18/bin/clang-cpp
+│   │   ├── clang-doc-18 -> ../lib/llvm-18/bin/clang-doc
+│   │   ├── clang-extdef-mapping-18 -> ../lib/llvm-18/bin/clang-extdef-mapping
+│   │   ├── clang-format -> clang-format-18
+│   │   ├── clang-format-18 -> ../lib/llvm-18/bin/clang-format
+│   │   ├── clang-format-diff -> clang-format-diff-18
+│   │   ├── clang-format-diff-18
+│   │   ├── clang-include-cleaner-18 -> ../lib/llvm-18/bin/clang-include-cleaner
+│   │   ├── clang-include-fixer-18 -> ../lib/llvm-18/bin/clang-include-fixer
+│   │   ├── clang-linker-wrapper-18 -> ../lib/llvm-18/bin/clang-linker-wrapper
+│   │   ├── clang-move-18 -> ../lib/llvm-18/bin/clang-move
+│   │   ├── clang-offload-bundler-18 -> ../lib/llvm-18/bin/clang-offload-bundler
+│   │   ├── clang-offload-packager-18 -> ../lib/llvm-18/bin/clang-offload-packager
+│   │   ├── clang-pseudo-18 -> ../lib/llvm-18/bin/clang-pseudo
+│   │   ├── clang-query-18 -> ../lib/llvm-18/bin/clang-query
+│   │   ├── clang-refactor-18 -> ../lib/llvm-18/bin/clang-refactor
+│   │   ├── clang-rename-18 -> ../lib/llvm-18/bin/clang-rename
+│   │   ├── clang-reorder-fields-18 -> ../lib/llvm-18/bin/clang-reorder-fields
+│   │   ├── clang-repl-18 -> ../lib/llvm-18/bin/clang-repl
+│   │   ├── clang-scan-deps-18 -> ../lib/llvm-18/bin/clang-scan-deps
+│   │   ├── clang-tblgen-18 -> ../lib/llvm-18/bin/clang-tblgen
+│   │   ├── clang-tidy -> ../lib/llvm-18/bin/clang-tidy
+│   │   ├── clang-tidy-18 -> ../lib/llvm-18/bin/clang-tidy
+│   │   ├── clang-tidy-diff -> clang-tidy-diff-18.py
+│   │   ├── clang-tidy-diff-18.py -> ../lib/llvm-18/share/clang/clang-tidy-diff.py
+│   │   ├── clear
+│   │   ├── clear_console
+│   │   ├── cmake
+│   │   ├── cmp
+│   │   ├── comm
+│   │   ├── containerd
+│   │   ├── containerd-shim-runc-v2
+│   │   ├── corelist
+│   │   ├── cp
+│   │   ├── cpack
+│   │   ├── cpan
+│   │   ├── cpan5.38-x86_64-linux-gnu
+│   │   ├── cpp -> cpp-13
+│   │   ├── cpp-13 -> x86_64-linux-gnu-cpp-13
+│   │   ├── cppcheck
+│   │   ├── cppcheck-htmlreport
+│   │   ├── csplit
+│   │   ├── ctest
+│   │   ├── ctr
+│   │   ├── ctstat -> lnstat
+│   │   ├── curl
+│   │   ├── cut
+│   │   ├── cvtsudoers
+│   │   ├── dash
+│   │   ├── date
+│   │   ├── dbus-cleanup-sockets
+│   │   ├── dbus-daemon
+│   │   ├── dbus-monitor
+│   │   ├── dbus-run-session
+│   │   ├── dbus-send
+│   │   ├── dbus-update-activation-environment
+│   │   ├── dbus-uuidgen
+│   │   ├── dd
+│   │   ├── deb-systemd-helper
+│   │   ├── deb-systemd-invoke
+│   │   ├── debconf
+│   │   ├── debconf-apt-progress
+│   │   ├── debconf-communicate
+│   │   ├── debconf-copydb
+│   │   ├── debconf-escape
+│   │   ├── debconf-set-selections
+│   │   ├── debconf-show
+│   │   ├── delpart
+│   │   ├── delv
+│   │   ├── df
+│   │   ├── dh_autotools-dev_restoreconfig
+│   │   ├── dh_autotools-dev_updateconfig
+│   │   ├── dh_installxmlcatalogs
+│   │   ├── diagtool-18 -> ../lib/llvm-18/bin/diagtool
+│   │   ├── diff
+│   │   ├── diff3
+│   │   ├── dig
+│   │   ├── dir
+│   │   ├── dircolors
+│   │   ├── dirmngr
+│   │   ├── dirmngr-client
+│   │   ├── dirname
+│   │   ├── dmesg
+│   │   ├── dnsdomainname -> hostname
+│   │   ├── dnx -> ../lib/dotnet/dnx
+│   │   ├── docker
+│   │   ├── docker-proxy
+│   │   ├── dockerd
+│   │   ├── domainname -> hostname
+│   │   ├── dos2unix
+│   │   ├── dotnet -> ../lib/dotnet/dotnet
+│   │   ├── dpkg
+│   │   ├── dpkg-architecture
+│   │   ├── dpkg-buildapi
+│   │   ├── dpkg-buildflags
+│   │   ├── dpkg-buildpackage
+│   │   ├── dpkg-buildtree
+│   │   ├── dpkg-checkbuilddeps
+│   │   ├── dpkg-deb
+│   │   ├── dpkg-distaddfile
+│   │   ├── dpkg-divert
+│   │   ├── dpkg-genbuildinfo
+│   │   ├── dpkg-genchanges
+│   │   ├── dpkg-gencontrol
+│   │   ├── dpkg-gensymbols
+│   │   ├── dpkg-maintscript-helper
+│   │   ├── dpkg-mergechangelogs
+│   │   ├── dpkg-name
+│   │   ├── dpkg-parsechangelog
+│   │   ├── dpkg-query
+│   │   ├── dpkg-realpath
+│   │   ├── dpkg-scanpackages
+│   │   ├── dpkg-scansources
+│   │   ├── dpkg-shlibdeps
+│   │   ├── dpkg-source
+│   │   ├── dpkg-split
+│   │   ├── dpkg-statoverride
+│   │   ├── dpkg-trigger
+│   │   ├── dpkg-vendor
+│   │   ├── du
+│   │   ├── dwp -> x86_64-linux-gnu-dwp
+│   │   ├── echo
+│   │   ├── editor -> /etc/alternatives/editor
+│   │   ├── egrep
+│   │   ├── elfedit -> x86_64-linux-gnu-elfedit
+│   │   ├── enc2xs
+│   │   ├── encguess
+│   │   ├── env
+│   │   ├── erb -> erb3.2
+│   │   ├── erb3.2
+│   │   ├── escodegen -> ../share/nodejs/escodegen/bin/escodegen.js
+│   │   ├── esgenerate -> ../share/nodejs/escodegen/bin/esgenerate.js
+│   │   ├── eslint -> ../share/nodejs/eslint/bin/eslint.js
+│   │   ├── esparse -> ../share/nodejs/esprima/bin/esparse.js
+│   │   ├── esvalidate -> ../share/nodejs/esprima/bin/esvalidate.js
+│   │   ├── ex -> /etc/alternatives/ex
+│   │   ├── expand
+│   │   ├── expiry
+│   │   ├── expr
+│   │   ├── factor
+│   │   ├── faillog
+│   │   ├── fallocate
+│   │   ├── false
+│   │   ├── fc-cache
+│   │   ├── fc-cat
+│   │   ├── fc-conflist
+│   │   ├── fc-list
+│   │   ├── fc-match
+│   │   ├── fc-pattern
+│   │   ├── fc-query
+│   │   ├── fc-scan
+│   │   ├── fc-validate
+│   │   ├── fgrep
+│   │   ├── filan
+│   │   ├── file
+│   │   ├── find
+│   │   ├── find-all-symbols-18 -> ../lib/llvm-18/bin/find-all-symbols
+│   │   ├── findmnt
+│   │   ├── flock
+│   │   ├── fmt
+│   │   ├── fold
+│   │   ├── fonttosfnt
+│   │   ├── free
+│   │   ├── fsnotifywait
+│   │   ├── fsnotifywatch
+│   │   ├── funzip
+│   │   ├── fuser
+│   │   ├── g++ -> g++-13
+│   │   ├── g++-13 -> x86_64-linux-gnu-g++-13
+│   │   ├── gapplication
+│   │   ├── gawk
+│   │   ├── gawkbug
+│   │   ├── gcc -> gcc-13
+│   │   ├── gcc-13 -> x86_64-linux-gnu-gcc-13
+│   │   ├── gcc-ar -> gcc-ar-13
+│   │   ├── gcc-ar-13 -> x86_64-linux-gnu-gcc-ar-13
+│   │   ├── gcc-nm -> gcc-nm-13
+│   │   ├── gcc-nm-13 -> x86_64-linux-gnu-gcc-nm-13
+│   │   ├── gcc-ranlib -> gcc-ranlib-13
+│   │   ├── gcc-ranlib-13 -> x86_64-linux-gnu-gcc-ranlib-13
+│   │   ├── gcore
+│   │   ├── gcov -> gcov-13
+│   │   ├── gcov-13 -> x86_64-linux-gnu-gcov-13
+│   │   ├── gcov-dump -> gcov-dump-13
+│   │   ├── gcov-dump-13 -> x86_64-linux-gnu-gcov-dump-13
+│   │   ├── gcov-tool -> gcov-tool-13
+│   │   ├── gcov-tool-13 -> x86_64-linux-gnu-gcov-tool-13
+│   │   ├── gdb
+│   │   ├── gdb-add-index
+│   │   ├── gdbtui
+│   │   ├── gdbus
+│   │   ├── gem
+│   │   ├── gem3.2
+│   │   ├── gencat
+│   │   ├── getconf
+│   │   ├── getent
+│   │   ├── getopt
+│   │   ├── gio
+│   │   ├── gio-querymodules -> ../lib/x86_64-linux-gnu/glib-2.0/gio-querymodules
+│   │   ├── git
+│   │   ├── git-clang-format -> git-clang-format-18
+│   │   ├── git-clang-format-18 -> ../lib/llvm-18/bin/git-clang-format
+│   │   ├── git-receive-pack -> git
+│   │   ├── git-shell
+│   │   ├── git-upload-archive -> git
+│   │   ├── git-upload-pack -> git
+│   │   ├── glib-compile-schemas -> ../lib/x86_64-linux-gnu/glib-2.0/glib-compile-schemas
+│   │   ├── gmake -> make
+│   │   ├── gnome-www-browser -> /etc/alternatives/gnome-www-browser
+│   │   ├── gold -> x86_64-linux-gnu-gold
+│   │   ├── google-chrome -> /etc/alternatives/google-chrome
+│   │   ├── google-chrome-stable -> /opt/google/chrome/google-chrome
+│   │   ├── gp-archive -> x86_64-linux-gnu-gp-archive
+│   │   ├── gp-collect-app -> x86_64-linux-gnu-gp-collect-app
+│   │   ├── gp-display-html -> x86_64-linux-gnu-gp-display-html
+│   │   ├── gp-display-src -> x86_64-linux-gnu-gp-display-src
+│   │   ├── gp-display-text -> x86_64-linux-gnu-gp-display-text
+│   │   ├── gpasswd
+│   │   ├── gpg
+│   │   ├── gpg-agent
+│   │   ├── gpg-connect-agent
+│   │   ├── gpg2 -> gpg
+│   │   ├── gpgconf
+│   │   ├── gpgparsemail
+│   │   ├── gpgsm
+│   │   ├── gpgsplit
+│   │   ├── gpgtar
+│   │   ├── gpgv
+│   │   ├── gprof -> x86_64-linux-gnu-gprof
+│   │   ├── gprofng -> x86_64-linux-gnu-gprofng
+│   │   ├── grep
+│   │   ├── gresource
+│   │   ├── groups
+│   │   ├── gsettings
+│   │   ├── gtk-update-icon-cache
+│   │   ├── gunzip
+│   │   ├── gyp
+│   │   ├── gzexe
+│   │   ├── gzip
+│   │   ├── h2ph
+│   │   ├── h2xs
+│   │   ├── handlebars -> ../share/nodejs/handlebars/bin/handlebars
+│   │   ├── hardlink
+│   │   ├── head
+│   │   ├── helpztags
+│   │   ├── hmaptool-18 -> ../lib/llvm-18/bin/hmaptool
+│   │   ├── host
+│   │   ├── hostid
+│   │   ├── hostname
+│   │   ├── hostnamectl
+│   │   ├── htop
+│   │   ├── hwasan_symbolize-18 -> ../lib/llvm-18/lib/clang/18/bin/hwasan_symbolize
+│   │   ├── i386 -> setarch
+│   │   ├── iconv
+│   │   ├── id
+│   │   ├── ifnames
+│   │   ├── infocmp
+│   │   ├── infotocap -> tic
+│   │   ├── inotifywait
+│   │   ├── inotifywatch
+│   │   ├── install
+│   │   ├── instmodsh
+│   │   ├── intercept-build-18 -> ../lib/llvm-18/bin/intercept-build
+│   │   ├── ionice
+│   │   ├── iostat
+│   │   ├── ip
+│   │   ├── ipcmk
+│   │   ├── ipcrm
+│   │   ├── ipcs
+│   │   ├── iptables-xml -> ../sbin/xtables-legacy-multi
+│   │   ├── irb -> irb3.2
+│   │   ├── irb3.2
+│   │   ├── ischroot
+│   │   ├── ispell-wrapper
+│   │   ├── istanbul -> ../share/nodejs/istanbul/lib/cli.js
+│   │   ├── jar -> /etc/alternatives/jar
+│   │   ├── jarsigner -> /etc/alternatives/jarsigner
+│   │   ├── java -> /etc/alternatives/java
+│   │   ├── javac -> /etc/alternatives/javac
+│   │   ├── javadoc -> /etc/alternatives/javadoc
+│   │   ├── javap -> /etc/alternatives/javap
+│   │   ├── jcmd -> /etc/alternatives/jcmd
+│   │   ├── jconsole -> /etc/alternatives/jconsole
+│   │   ├── jdb -> /etc/alternatives/jdb
+│   │   ├── jdeprscan -> /etc/alternatives/jdeprscan
+│   │   ├── jdeps -> /etc/alternatives/jdeps
+│   │   ├── jexec -> /etc/alternatives/jexec
+│   │   ├── jfr -> /etc/alternatives/jfr
+│   │   ├── jhsdb -> /etc/alternatives/jhsdb
+│   │   ├── jimage -> /etc/alternatives/jimage
+│   │   ├── jinfo -> /etc/alternatives/jinfo
+│   │   ├── jlink -> /etc/alternatives/jlink
+│   │   ├── jmap -> /etc/alternatives/jmap
+│   │   ├── jmod -> /etc/alternatives/jmod
+│   │   ├── join
+│   │   ├── journalctl
+│   │   ├── jpackage -> /etc/alternatives/jpackage
+│   │   ├── jps -> /etc/alternatives/jps
+│   │   ├── jq
+│   │   ├── jrunscript -> /etc/alternatives/jrunscript
+│   │   ├── js -> /etc/alternatives/js
+│   │   ├── js-yaml -> ../share/nodejs/js-yaml/bin/js-yaml.js
+│   │   ├── jsesc -> ../share/nodejs/jsesc/bin/jsesc
+│   │   ├── jshell -> /etc/alternatives/jshell
+│   │   ├── json5 -> ../share/nodejs/json5/lib/cli.js
+│   │   ├── json_pp
+│   │   ├── jstack -> /etc/alternatives/jstack
+│   │   ├── jstat -> /etc/alternatives/jstat
+│   │   ├── jstatd -> /etc/alternatives/jstatd
+│   │   ├── jwebserver -> /etc/alternatives/jwebserver
+│   │   ├── kbxutil
+│   │   ├── kernel-install
+│   │   ├── keytool -> /etc/alternatives/keytool
+│   │   ├── kill
+│   │   ├── killall
+│   │   ├── last
+│   │   ├── lastb -> last
+│   │   ├── lastlog
+│   │   ├── lcf
+│   │   ├── ld -> x86_64-linux-gnu-ld
+│   │   ├── ld.bfd -> x86_64-linux-gnu-ld.bfd
+│   │   ├── ld.gold -> x86_64-linux-gnu-ld.gold
+│   │   ├── ld.so -> ../lib64/ld-linux-x86-64.so.2
+│   │   ├── ldd
+│   │   ├── less
+│   │   ├── lessecho
+│   │   ├── lessfile -> lesspipe
+│   │   ├── lesskey
+│   │   ├── lesspipe
+│   │   ├── libnetcfg
+│   │   ├── libpng-config -> libpng16-config
+│   │   ├── libpng16-config
+│   │   ├── libtoolize
+│   │   ├── link
+│   │   ├── linux32 -> setarch
+│   │   ├── linux64 -> setarch
+│   │   ├── ln
+│   │   ├── lnstat
+│   │   ├── locale
+│   │   ├── locale-check
+│   │   ├── localectl
+│   │   ├── localedef
+│   │   ├── logger
+│   │   ├── login
+│   │   ├── loginctl
+│   │   ├── logname
+│   │   ├── ls
+│   │   ├── lsattr
+│   │   ├── lsb_release
+│   │   ├── lsblk
+│   │   ├── lscpu
+│   │   ├── lsipc
+│   │   ├── lslocks
+│   │   ├── lslogins
+│   │   ├── lsmem
+│   │   ├── lsns
+│   │   ├── lsof
+│   │   ├── lspgpot
+│   │   ├── lto-dump -> lto-dump-13
+│   │   ├── lto-dump-13 -> x86_64-linux-gnu-lto-dump-13
+│   │   ├── lynx
+│   │   ├── lzcat -> /etc/alternatives/lzcat
+│   │   ├── lzcmp -> /etc/alternatives/lzcmp
+│   │   ├── lzdiff -> /etc/alternatives/lzdiff
+│   │   ├── lzegrep -> /etc/alternatives/lzegrep
+│   │   ├── lzfgrep -> /etc/alternatives/lzfgrep
+│   │   ├── lzgrep -> /etc/alternatives/lzgrep
+│   │   ├── lzless -> /etc/alternatives/lzless
+│   │   ├── lzma -> /etc/alternatives/lzma
+│   │   ├── lzmainfo
+│   │   ├── lzmore -> /etc/alternatives/lzmore
+│   │   ├── m4
+│   │   ├── mac2unix -> dos2unix
+│   │   ├── make
+│   │   ├── make-first-existing-target
+│   │   ├── mawk
+│   │   ├── mcookie
+│   │   ├── md5sum
+│   │   ├── md5sum.textutils -> md5sum
+│   │   ├── mdig
+│   │   ├── mesg
+│   │   ├── migrate-pubring-from-classic-gpg
+│   │   ├── mkdir
+│   │   ├── mkfifo
+│   │   ├── mkfontdir
+│   │   ├── mkfontscale
+│   │   ├── mknod
+│   │   ├── mktemp
+│   │   ├── modularize-18 -> ../lib/llvm-18/bin/modularize
+│   │   ├── more
+│   │   ├── mount
+│   │   ├── mountpoint
+│   │   ├── mpstat
+│   │   ├── ms_print
+│   │   ├── mv
+│   │   ├── namei
+│   │   ├── nano
+│   │   ├── nanoid -> ../share/nodejs/nanoid/bin/nanoid.js
+│   │   ├── nawk -> /etc/alternatives/nawk
+│   │   ├── ncurses6-config
+│   │   ├── ncursesw6-config
+│   │   ├── netstat
+│   │   ├── networkctl
+│   │   ├── newgrp
+│   │   ├── nice
+│   │   ├── ninja
+│   │   ├── nisdomainname -> hostname
+│   │   ├── nl
+│   │   ├── nm -> x86_64-linux-gnu-nm
+│   │   ├── nmap
+│   │   ├── node
+│   │   ├── node-gyp -> ../share/nodejs/node-gyp/bin/node-gyp.js
+│   │   ├── nodejs -> node
+│   │   ├── nohup
+│   │   ├── nping
+│   │   ├── npm -> ../share/nodejs/npm/bin/npm-cli.js
+│   │   ├── npm-arborist -> ../share/nodejs/@npmcli/arborist/bin/index.js
+│   │   ├── nproc
+│   │   ├── npx -> ../share/nodejs/npm/bin/npx-cli.js
+│   │   ├── nsenter
+│   │   ├── nslookup
+│   │   ├── nstat
+│   │   ├── nsupdate
+│   │   ├── numfmt
+│   │   ├── nvptx-arch-18 -> ../lib/llvm-18/bin/nvptx-arch
+│   │   ├── nyc -> ../share/nodejs/nyc/bin/nyc.js
+│   │   ├── objcopy -> x86_64-linux-gnu-objcopy
+│   │   ├── objdump -> x86_64-linux-gnu-objdump
+│   │   ├── od
+│   │   ├── open -> /etc/alternatives/open
+│   │   ├── openssl
+│   │   ├── pacote -> ../share/nodejs/pacote/lib/bin.js
+│   │   ├── pager -> /etc/alternatives/pager
+│   │   ├── partx
+│   │   ├── passwd
+│   │   ├── paste
+│   │   ├── patch
+│   │   ├── pathchk
+│   │   ├── pdb3 -> pdb3.12
+│   │   ├── pdb3.12 -> ../lib/python3.12/pdb.py
+│   │   ├── peekfd
+│   │   ├── perl
+│   │   ├── perl5.38-x86_64-linux-gnu
+│   │   ├── perl5.38.2
+│   │   ├── perlbug
+│   │   ├── perldoc
+│   │   ├── perlivp
+│   │   ├── perlthanks
+│   │   ├── pgrep
+│   │   ├── phar -> /etc/alternatives/phar
+│   │   ├── phar.default -> phar8.3
+│   │   ├── phar.phar -> /etc/alternatives/phar.phar
+│   │   ├── phar.phar.default -> phar.phar8.3
+│   │   ├── phar.phar8.3 -> phar8.3.phar
+│   │   ├── phar8.3 -> phar8.3.phar
+│   │   ├── phar8.3.phar
+│   │   ├── php -> /etc/alternatives/php
+│   │   ├── php.default -> php8.3
+│   │   ├── php8.3
+│   │   ├── pico -> /etc/alternatives/pico
+│   │   ├── piconv
+│   │   ├── pidof -> ../sbin/killall5
+│   │   ├── pidstat
+│   │   ├── pidwait
+│   │   ├── pinentry -> /etc/alternatives/pinentry
+│   │   ├── pinentry-curses
+│   │   ├── ping
+│   │   ├── ping4 -> ping
+│   │   ├── ping6 -> ping
+│   │   ├── pinky
+│   │   ├── pipx
+│   │   ├── pkaction
+│   │   ├── pkcheck
+│   │   ├── pkg-config -> pkgconf
+│   │   ├── pkgconf
+│   │   ├── pkill -> pgrep
+│   │   ├── pkttyagent
+│   │   ├── pl2pm
+│   │   ├── pldd
+│   │   ├── pmap
+│   │   ├── pod2html
+│   │   ├── pod2man
+│   │   ├── pod2text
+│   │   ├── pod2usage
+│   │   ├── podchecker
+│   │   ├── pp-trace-18 -> ../lib/llvm-18/bin/pp-trace
+│   │   ├── pr
+│   │   ├── printenv
+│   │   ├── printf
+│   │   ├── prlimit
+│   │   ├── procan
+│   │   ├── prove
+│   │   ├── prtstat
+│   │   ├── ps
+│   │   ├── pslog
+│   │   ├── pstree
+│   │   ├── pstree.x11 -> pstree
+│   │   ├── ptar
+│   │   ├── ptardiff
+│   │   ├── ptargrep
+│   │   ├── ptx
+│   │   ├── pwd
+│   │   ├── pwdx
+│   │   ├── py3clean
+│   │   ├── py3compile
+│   │   ├── py3versions -> ../share/python3/py3versions.py
+│   │   ├── pydoc3 -> pydoc3.12
+│   │   ├── pydoc3.12
+│   │   ├── pygettext3 -> pygettext3.12
+│   │   ├── pygettext3.12
+│   │   ├── pygmentize
+│   │   ├── python-argcomplete-check-easy-install-script
+│   │   ├── python3 -> python3.12
+│   │   ├── python3.12
+│   │   ├── qrcode-terminal -> ../share/nodejs/qrcode-terminal/bin/qrcode-terminal.js
+│   │   ├── racc3.2
+│   │   ├── rake
+│   │   ├── rake3.2
+│   │   ├── ranlib -> x86_64-linux-gnu-ranlib
+│   │   ├── rbash -> bash
+│   │   ├── rbs3.2
+│   │   ├── rdbg3.2
+│   │   ├── rdma
+│   │   ├── rdoc -> rdoc3.2
+│   │   ├── rdoc3.2
+│   │   ├── readelf -> x86_64-linux-gnu-readelf
+│   │   ├── readlink
+│   │   ├── realpath
+│   │   ├── register-python-argcomplete
+│   │   ├── regjsparser -> ../share/nodejs/regjsparser/bin/parser
+│   │   ├── rename.ul
+│   │   ├── renice
+│   │   ├── reset -> tset
+│   │   ├── resizepart
+│   │   ├── rev
+│   │   ├── rg
+│   │   ├── rgrep
+│   │   ├── ri -> ri3.2
+│   │   ├── ri3.2
+│   │   ├── rimraf -> ../share/nodejs/rimraf/bin.js
+│   │   ├── rm
+│   │   ├── rmdir
+│   │   ├── rmiregistry -> /etc/alternatives/rmiregistry
+│   │   ├── rnano -> nano
+│   │   ├── routel
+│   │   ├── rpcgen
+│   │   ├── rrsync
+│   │   ├── rsync
+│   │   ├── rsync-ssl
+│   │   ├── rtstat -> lnstat
+│   │   ├── ruby -> ruby3.2
+│   │   ├── ruby3.2
+│   │   ├── run-clang-tidy -> run-clang-tidy-18.py
+│   │   ├── run-clang-tidy-18 -> ../lib/llvm-18/bin/run-clang-tidy
+│   │   ├── run-clang-tidy-18.py -> ../lib/llvm-18/bin/run-clang-tidy
+│   │   ├── run-parts
+│   │   ├── runc
+│   │   ├── runcon
+│   │   ├── rview -> /etc/alternatives/rview
+│   │   ├── rvim -> /etc/alternatives/rvim
+│   │   ├── sadf
+│   │   ├── sancov-18 -> ../lib/llvm-18/bin/sancov
+│   │   ├── sar -> /etc/alternatives/sar
+│   │   ├── sar.sysstat
+│   │   ├── savelog
+│   │   ├── scalar
+│   │   ├── scan-build-18 -> ../share/clang/scan-build-18/bin/scan-build
+│   │   ├── scan-build-py-18 -> ../lib/llvm-18/bin/scan-build-py
+│   │   ├── scan-view-18 -> ../share/clang/scan-view-18/bin/scan-view
+│   │   ├── scp
+│   │   ├── script
+│   │   ├── scriptlive
+│   │   ├── scriptreplay
+│   │   ├── sdiff
+│   │   ├── sed
+│   │   ├── select-default-iwrap
+│   │   ├── select-editor
+│   │   ├── semver -> ../share/nodejs/semver/bin/semver.js
+│   │   ├── sensible-browser
+│   │   ├── sensible-editor
+│   │   ├── sensible-pager
+│   │   ├── sensible-terminal
+│   │   ├── seq
+│   │   ├── serialver -> /etc/alternatives/serialver
+│   │   ├── session-migration
+│   │   ├── setarch
+│   │   ├── setpriv
+│   │   ├── setsid
+│   │   ├── setterm
+│   │   ├── setxkbmap
+│   │   ├── sftp
+│   │   ├── sg -> newgrp
+│   │   ├── sh -> dash
+│   │   ├── sha1sum
+│   │   ├── sha224sum
+│   │   ├── sha256sum
+│   │   ├── sha384sum
+│   │   ├── sha512sum
+│   │   ├── shasum
+│   │   ├── shred
+│   │   ├── shuf
+│   │   ├── size -> x86_64-linux-gnu-size
+│   │   ├── skill
+│   │   ├── slabtop
+│   │   ├── sleep
+│   │   ├── slogin -> ssh
+│   │   ├── snice -> skill
+│   │   ├── socat -> socat1
+│   │   ├── socat-broker.sh
+│   │   ├── socat-chain.sh
+│   │   ├── socat-mux.sh
+│   │   ├── socat1
+│   │   ├── sort
+│   │   ├── splain
+│   │   ├── split
+│   │   ├── ss
+│   │   ├── ssh
+│   │   ├── ssh-add
+│   │   ├── ssh-agent
+│   │   ├── ssh-argv0
+│   │   ├── ssh-copy-id
+│   │   ├── ssh-keygen
+│   │   ├── ssh-keyscan
+│   │   ├── stat
+│   │   ├── stdbuf
+│   │   ├── strace
+│   │   ├── strace-log-merge
+│   │   ├── streamzip
+│   │   ├── strings -> x86_64-linux-gnu-strings
+│   │   ├── strip -> x86_64-linux-gnu-strip
+│   │   ├── stty
+│   │   ├── su
+│   │   ├── sudo
+│   │   ├── sudoedit -> sudo
+│   │   ├── sudoreplay
+│   │   ├── sum
+│   │   ├── sync
+│   │   ├── syntax_suggest3.2
+│   │   ├── systemctl
+│   │   ├── systemd -> ../lib/systemd/systemd
+│   │   ├── systemd-ac-power
+│   │   ├── systemd-analyze
+│   │   ├── systemd-ask-password
+│   │   ├── systemd-cat
+│   │   ├── systemd-cgls
+│   │   ├── systemd-cgtop
+│   │   ├── systemd-confext -> systemd-sysext
+│   │   ├── systemd-creds
+│   │   ├── systemd-cryptenroll
+│   │   ├── systemd-cryptsetup
+│   │   ├── systemd-delta
+│   │   ├── systemd-detect-virt
+│   │   ├── systemd-escape
+│   │   ├── systemd-firstboot
+│   │   ├── systemd-hwdb
+│   │   ├── systemd-id128
+│   │   ├── systemd-inhibit
+│   │   ├── systemd-machine-id-setup
+│   │   ├── systemd-mount
+│   │   ├── systemd-notify
+│   │   ├── systemd-path
+│   │   ├── systemd-repart
+│   │   ├── systemd-run
+│   │   ├── systemd-socket-activate
+│   │   ├── systemd-stdio-bridge
+│   │   ├── systemd-sysext
+│   │   ├── systemd-sysusers
+│   │   ├── systemd-tmpfiles
+│   │   ├── systemd-tty-ask-password-agent
+│   │   ├── systemd-umount -> systemd-mount
+│   │   ├── tabs
+│   │   ├── tac
+│   │   ├── tail
+│   │   ├── tape -> ../share/nodejs/tape/bin/tape
+│   │   ├── tapestat
+│   │   ├── tar
+│   │   ├── taskset
+│   │   ├── tclsh -> tclsh8.6
+│   │   ├── tclsh8.6
+│   │   ├── tcltk-depends
+│   │   ├── tee
+│   │   ├── tempfile
+│   │   ├── terser -> ../share/nodejs/terser/bin/terser
+│   │   ├── test
+│   │   ├── tic
+│   │   ├── timedatectl
+│   │   ├── timeout
+│   │   ├── tload
+│   │   ├── tmux
+│   │   ├── toe
+│   │   ├── tomlq
+│   │   ├── top
+│   │   ├── touch
+│   │   ├── tput
+│   │   ├── tr
+│   │   ├── tree
+│   │   ├── true
+│   │   ├── truncate
+│   │   ├── tset
+│   │   ├── tsort
+│   │   ├── tty
+│   │   ├── typeprof3.2
+│   │   ├── tzselect
+│   │   ├── ucf
+│   │   ├── ucfq
+│   │   ├── ucfr
+│   │   ├── uclampset
+│   │   ├── ucs2any
+│   │   ├── udevadm
+│   │   ├── umount
+│   │   ├── uname
+│   │   ├── uncompress
+│   │   ├── unexpand
+│   │   ├── uniq
+│   │   ├── unix2dos
+│   │   ├── unix2mac -> unix2dos
+│   │   ├── unlink
+│   │   ├── unlzma -> /etc/alternatives/unlzma
+│   │   ├── unminimize
+│   │   ├── unshare
+│   │   ├── unxz -> xz
+│   │   ├── unzip
+│   │   ├── unzipsfx
+│   │   ├── update-alternatives
+│   │   ├── update-mime-database
+│   │   ├── update_rubygems
+│   │   ├── uptime
+│   │   ├── users
+│   │   ├── utmpdump
+│   │   ├── valgrind
+│   │   ├── valgrind-di-server
+│   │   ├── valgrind-listener
+│   │   ├── valgrind.bin
+│   │   ├── varlinkctl
+│   │   ├── vdir
+│   │   ├── vgdb
+│   │   ├── vi -> /etc/alternatives/vi
+│   │   ├── view -> /etc/alternatives/view
+│   │   ├── vim -> /etc/alternatives/vim
+│   │   ├── vim.basic
+│   │   ├── vimdiff -> /etc/alternatives/vimdiff
+│   │   ├── vimtutor
+│   │   ├── vmstat
+│   │   ├── w
+│   │   ├── wall
+│   │   ├── watch
+│   │   ├── watchgnupg
+│   │   ├── wc
+│   │   ├── wdctl
+│   │   ├── webpack -> ../share/nodejs/webpack/bin/webpack.js
+│   │   ├── webpack-cli -> ../share/nodejs/webpack-cli/bin/cli.js
+│   │   ├── wget
+│   │   ├── whereis
+│   │   ├── which -> /etc/alternatives/which
+│   │   ├── which.debianutils
+│   │   ├── who
+│   │   ├── whoami
+│   │   ├── wish -> wish8.6
+│   │   ├── wish8.6
+│   │   ├── www-browser -> /etc/alternatives/www-browser
+│   │   ├── x-www-browser -> /etc/alternatives/x-www-browser
+│   │   ├── x86_64 -> setarch
+│   │   ├── x86_64-linux-gnu-addr2line
+│   │   ├── x86_64-linux-gnu-ar
+│   │   ├── x86_64-linux-gnu-as
+│   │   ├── x86_64-linux-gnu-c++filt
+│   │   ├── x86_64-linux-gnu-cpp -> x86_64-linux-gnu-cpp-13
+│   │   ├── x86_64-linux-gnu-cpp-13
+│   │   ├── x86_64-linux-gnu-dwp
+│   │   ├── x86_64-linux-gnu-elfedit
+│   │   ├── x86_64-linux-gnu-g++ -> x86_64-linux-gnu-g++-13
+│   │   ├── x86_64-linux-gnu-g++-13
+│   │   ├── x86_64-linux-gnu-gcc -> x86_64-linux-gnu-gcc-13
+│   │   ├── x86_64-linux-gnu-gcc-13
+│   │   ├── x86_64-linux-gnu-gcc-ar -> x86_64-linux-gnu-gcc-ar-13
+│   │   ├── x86_64-linux-gnu-gcc-ar-13
+│   │   ├── x86_64-linux-gnu-gcc-nm -> x86_64-linux-gnu-gcc-nm-13
+│   │   ├── x86_64-linux-gnu-gcc-nm-13
+│   │   ├── x86_64-linux-gnu-gcc-ranlib -> x86_64-linux-gnu-gcc-ranlib-13
+│   │   ├── x86_64-linux-gnu-gcc-ranlib-13
+│   │   ├── x86_64-linux-gnu-gcov -> x86_64-linux-gnu-gcov-13
+│   │   ├── x86_64-linux-gnu-gcov-13
+│   │   ├── x86_64-linux-gnu-gcov-dump -> x86_64-linux-gnu-gcov-dump-13
+│   │   ├── x86_64-linux-gnu-gcov-dump-13
+│   │   ├── x86_64-linux-gnu-gcov-tool -> x86_64-linux-gnu-gcov-tool-13
+│   │   ├── x86_64-linux-gnu-gcov-tool-13
+│   │   ├── x86_64-linux-gnu-gold -> x86_64-linux-gnu-ld.gold
+│   │   ├── x86_64-linux-gnu-gp-archive
+│   │   ├── x86_64-linux-gnu-gp-collect-app
+│   │   ├── x86_64-linux-gnu-gp-display-html
+│   │   ├── x86_64-linux-gnu-gp-display-src
+│   │   ├── x86_64-linux-gnu-gp-display-text
+│   │   ├── x86_64-linux-gnu-gprof
+│   │   ├── x86_64-linux-gnu-gprofng
+│   │   ├── x86_64-linux-gnu-ld -> x86_64-linux-gnu-ld.bfd
+│   │   ├── x86_64-linux-gnu-ld.bfd
+│   │   ├── x86_64-linux-gnu-ld.gold
+│   │   ├── x86_64-linux-gnu-lto-dump -> x86_64-linux-gnu-lto-dump-13
+│   │   ├── x86_64-linux-gnu-lto-dump-13
+│   │   ├── x86_64-linux-gnu-nm
+│   │   ├── x86_64-linux-gnu-objcopy
+│   │   ├── x86_64-linux-gnu-objdump
+│   │   ├── x86_64-linux-gnu-pkg-config -> pkgconf
+│   │   ├── x86_64-linux-gnu-pkgconf -> pkgconf
+│   │   ├── x86_64-linux-gnu-ranlib
+│   │   ├── x86_64-linux-gnu-readelf
+│   │   ├── x86_64-linux-gnu-size
+│   │   ├── x86_64-linux-gnu-strings
+│   │   ├── x86_64-linux-gnu-strip
+│   │   ├── xargs
+│   │   ├── xauth
+│   │   ├── xdg-desktop-icon
+│   │   ├── xdg-desktop-menu
+│   │   ├── xdg-email
+│   │   ├── xdg-icon-resource
+│   │   ├── xdg-mime
+│   │   ├── xdg-open
+│   │   ├── xdg-screensaver
+│   │   ├── xdg-settings
+│   │   ├── xkbbell
+│   │   ├── xkbcomp
+│   │   ├── xkbevd
+│   │   ├── xkbprint
+│   │   ├── xkbvleds
+│   │   ├── xkbwatch
+│   │   ├── xq-python
+│   │   ├── xsubpp
+│   │   ├── xvfb-run
+│   │   ├── xz
+│   │   ├── xzcat -> xz
+│   │   ├── xzcmp -> xzdiff
+│   │   ├── xzdiff
+│   │   ├── xzegrep -> xzgrep
+│   │   ├── xzfgrep -> xzgrep
+│   │   ├── xzgrep
+│   │   ├── xzless
+│   │   ├── xzmore
+│   │   ├── yes
+│   │   ├── ypdomainname -> hostname
+│   │   ├── yq
+│   │   ├── zcat
+│   │   ├── zcmp
+│   │   ├── zdiff
+│   │   ├── zdump
+│   │   ├── zegrep
+│   │   ├── zfgrep
+│   │   ├── zforce
+│   │   ├── zgrep
+│   │   ├── zip
+│   │   ├── zipcloak
+│   │   ├── zipdetails
+│   │   ├── zipgrep
+│   │   ├── zipinfo
+│   │   ├── zipnote
+│   │   ├── zipsplit
+│   │   ├── zless
+│   │   ├── zmore
+│   │   └── znew
+│   ├── games
+│   ├── include
+│   │   ├── GL
+│   │   ├── X11
+│   │   ├── aio.h
+│   │   ├── aliases.h
+│   │   ├── alloca.h
+│   │   ├── ar.h
+│   │   ├── argp.h
+│   │   ├── argz.h
+│   │   ├── arpa
+│   │   ├── asm-generic
+│   │   ├── assert.h
+│   │   ├── brotli
+│   │   ├── byteswap.h
+│   │   ├── bzlib.h
+│   │   ├── c++
+│   │   ├── clang
+│   │   ├── complex.h
+│   │   ├── cpio.h
+│   │   ├── crypt.h
+│   │   ├── ctype.h
+│   │   ├── curses.h
+│   │   ├── cursesapp.h
+│   │   ├── cursesf.h
+│   │   ├── cursesm.h
+│   │   ├── cursesp.h
+│   │   ├── cursesw.h
+│   │   ├── cursslk.h
+│   │   ├── db.h
+│   │   ├── db_185.h
+│   │   ├── dirent.h
+│   │   ├── dlfcn.h
+│   │   ├── drm
+│   │   ├── elf.h
+│   │   ├── endian.h
+│   │   ├── envz.h
+│   │   ├── err.h
+│   │   ├── errno.h
+│   │   ├── error.h
+│   │   ├── eti.h
+│   │   ├── etip.h
+│   │   ├── execinfo.h
+│   │   ├── expat.h
+│   │   ├── expat_external.h
+│   │   ├── fcntl.h
+│   │   ├── features-time64.h
+│   │   ├── features.h
+│   │   ├── fenv.h
+│   │   ├── finclude
+│   │   ├── fmtmsg.h
+│   │   ├── fnmatch.h
+│   │   ├── fontconfig
+│   │   ├── form.h
+│   │   ├── freetype2
+│   │   ├── fstab.h
+│   │   ├── fts.h
+│   │   ├── ftw.h
+│   │   ├── gawkapi.h
+│   │   ├── gconv.h
+│   │   ├── gdb
+│   │   ├── gdbm.h
+│   │   ├── getopt.h
+│   │   ├── glob.h
+│   │   ├── gmpxx.h
+│   │   ├── gnu-versions.h
+│   │   ├── gnumake.h
+│   │   ├── grp.h
+│   │   ├── gshadow.h
+│   │   ├── iconv.h
+│   │   ├── ifaddrs.h
+│   │   ├── inttypes.h
+│   │   ├── iproute2
+│   │   ├── langinfo.h
+│   │   ├── lastlog.h
+│   │   ├── libgen.h
+│   │   ├── libintl.h
+│   │   ├── libpng -> libpng16
+│   │   ├── libpng16
+│   │   ├── limits.h
+│   │   ├── link.h
+│   │   ├── linux
+│   │   ├── locale.h
+│   │   ├── lzma
+│   │   ├── lzma.h
+│   │   ├── malloc.h
+│   │   ├── math.h
+│   │   ├── mcheck.h
+│   │   ├── memory.h
+│   │   ├── menu.h
+│   │   ├── misc
+│   │   ├── mntent.h
+│   │   ├── monetary.h
+│   │   ├── mqueue.h
+│   │   ├── mtd
+│   │   ├── ncurses.h -> curses.h
+│   │   ├── ncurses_dll.h
+│   │   ├── ncursesw
+│   │   ├── net
+│   │   ├── netash
+│   │   ├── netatalk
+│   │   ├── netax25
+│   │   ├── netdb.h
+│   │   ├── neteconet
+│   │   ├── netinet
+│   │   ├── netipx
+│   │   ├── netiucv
+│   │   ├── netpacket
+│   │   ├── netrom
+│   │   ├── netrose
+│   │   ├── nfs
+│   │   ├── nl_types.h
+│   │   ├── node
+│   │   ├── nodejs
+│   │   ├── nss.h
+│   │   ├── obstack.h
+│   │   ├── openssl
+│   │   ├── panel.h
+│   │   ├── paths.h
+│   │   ├── png.h -> libpng16/png.h
+│   │   ├── pngconf.h -> libpng16/pngconf.h
+│   │   ├── pnglibconf.h -> libpng16/pnglibconf.h
+│   │   ├── poll.h
+│   │   ├── printf.h
+│   │   ├── proc_service.h
+│   │   ├── protocols
+│   │   ├── pthread.h
+│   │   ├── pty.h
+│   │   ├── pwd.h
+│   │   ├── rdma
+│   │   ├── re_comp.h
+│   │   ├── readline
+│   │   ├── regex.h
+│   │   ├── regexp.h
+│   │   ├── regulator
+│   │   ├── resolv.h
+│   │   ├── rpc
+│   │   ├── rpcsvc
+│   │   ├── ruby-3.2.0
+│   │   ├── sched.h
+│   │   ├── scsi
+│   │   ├── search.h
+│   │   ├── semaphore.h
+│   │   ├── setjmp.h
+│   │   ├── sgtty.h
+│   │   ├── shadow.h
+│   │   ├── signal.h
+│   │   ├── sound
+│   │   ├── spawn.h
+│   │   ├── sqlite3.h
+│   │   ├── sqlite3ext.h
+│   │   ├── stab.h
+│   │   ├── stdbit.h
+│   │   ├── stdc-predef.h
+│   │   ├── stdint.h
+│   │   ├── stdio.h
+│   │   ├── stdio_ext.h
+│   │   ├── stdlib.h
+│   │   ├── string.h
+│   │   ├── strings.h
+│   │   ├── sudo_plugin.h
+│   │   ├── syscall.h
+│   │   ├── sysexits.h
+│   │   ├── syslog.h
+│   │   ├── tar.h
+│   │   ├── tcl -> tcl8.6
+│   │   ├── tcl8.6
+│   │   ├── term.h
+│   │   ├── term_entry.h
+│   │   ├── termcap.h
+│   │   ├── termio.h
+│   │   ├── termios.h
+│   │   ├── tgmath.h
+│   │   ├── thread_db.h
+│   │   ├── threads.h
+│   │   ├── time.h
+│   │   ├── tk -> tcl8.6
+│   │   ├── ttyent.h
+│   │   ├── uchar.h
+│   │   ├── ucontext.h
+│   │   ├── ulimit.h
+│   │   ├── unctrl.h
+│   │   ├── unistd.h
+│   │   ├── utime.h
+│   │   ├── utmp.h
+│   │   ├── utmpx.h
+│   │   ├── uuid
+│   │   ├── uv
+│   │   ├── uv.h
+│   │   ├── v8 -> node
+│   │   ├── valgrind
+│   │   ├── values.h
+│   │   ├── video
+│   │   ├── wait.h
+│   │   ├── wchar.h
+│   │   ├── wctype.h
+│   │   ├── wordexp.h
+│   │   ├── x86_64-linux-gnu
+│   │   ├── xcb
+│   │   ├── xen
+│   │   ├── zconf.h
+│   │   └── zlib.h
+│   ├── lib
+│   │   ├── X11
+│   │   ├── apt
+│   │   ├── aspell
+│   │   ├── bfd-plugins
+│   │   ├── binfmt.d
+│   │   ├── ccache
+│   │   ├── clang
+│   │   ├── cmake
+│   │   ├── compat-ld
+│   │   ├── cpp -> /etc/alternatives/cpp
+│   │   ├── dbus-1.0
+│   │   ├── debug
+│   │   ├── dotnet
+│   │   ├── dpkg
+│   │   ├── emacsen-common
+│   │   ├── environment.d
+│   │   ├── file
+│   │   ├── gcc
+│   │   ├── girepository-1.0
+│   │   ├── git-core
+│   │   ├── gnupg
+│   │   ├── gnupg2
+│   │   ├── gold-ld
+│   │   ├── init
+│   │   ├── ispell
+│   │   ├── jvm
+│   │   ├── kernel
+│   │   ├── llvm-18
+│   │   ├── locale
+│   │   ├── lsb
+│   │   ├── mime
+│   │   ├── modprobe.d
+│   │   ├── openssh
+│   │   ├── os-release
+│   │   ├── pam.d
+│   │   ├── pcrlock.d
+│   │   ├── php
+│   │   ├── pkgconfig
+│   │   ├── policykit-1
+│   │   ├── polkit-1
+│   │   ├── python3
+│   │   ├── python3.12
+│   │   ├── ruby
+│   │   ├── sasl2
+│   │   ├── sftp-server -> openssh/sftp-server
+│   │   ├── software-properties
+│   │   ├── ssl
+│   │   ├── sysctl.d
+│   │   ├── sysstat
+│   │   ├── systemd
+│   │   ├── sysusers.d
+│   │   ├── tcl8.6
+│   │   ├── tclConfig.sh -> tcl8.6/tclConfig.sh
+│   │   ├── tclooConfig.sh -> tcl8.6/tclooConfig.sh
+│   │   ├── tcltk
+│   │   ├── tk8.6
+│   │   ├── tkConfig.sh -> tk8.6/tkConfig.sh
+│   │   ├── tmpfiles.d
+│   │   ├── udev
+│   │   ├── valgrind
+│   │   ├── x86_64-linux-gnu
+│   │   └── xorg
+│   ├── lib64
+│   │   └── ld-linux-x86-64.so.2 -> ../lib/x86_64-linux-gnu/ld-linux-x86-64.so.2
+│   ├── libexec
+│   │   ├── coreutils
+│   │   ├── dconf-service
+│   │   ├── docker
+│   │   ├── dpkg
+│   │   ├── gcc
+│   │   ├── glib-pacrunner
+│   │   ├── packagekit-direct
+│   │   ├── packagekitd
+│   │   ├── pk-debconf-helper
+│   │   ├── pk-offline-update
+│   │   ├── polkit-agent-helper-1 -> ../lib/polkit-1/polkit-agent-helper-1
+│   │   ├── sudo
+│   │   └── valgrind
+│   ├── local
+│   │   ├── bin
+│   │   ├── bun
+│   │   ├── etc
+│   │   ├── games
+│   │   ├── go
+│   │   ├── include
+│   │   ├── lib
+│   │   ├── man -> share/man
+│   │   ├── sbin
+│   │   ├── share
+│   │   └── src
+│   ├── sbin
+│   │   ├── add-shell
+│   │   ├── addgnupghome
+│   │   ├── addgroup -> adduser
+│   │   ├── adduser
+│   │   ├── agetty
+│   │   ├── applygnupgdefaults
+│   │   ├── arp
+│   │   ├── arpd
+│   │   ├── arptables -> /etc/alternatives/arptables
+│   │   ├── arptables-nft -> xtables-nft-multi
+│   │   ├── arptables-nft-restore -> xtables-nft-multi
+│   │   ├── arptables-nft-save -> xtables-nft-multi
+│   │   ├── arptables-restore -> /etc/alternatives/arptables-restore
+│   │   ├── arptables-save -> /etc/alternatives/arptables-save
+│   │   ├── aspell-autobuildhash
+│   │   ├── badblocks
+│   │   ├── blkdiscard
+│   │   ├── blkid
+│   │   ├── blkzone
+│   │   ├── blockdev
+│   │   ├── bridge
+│   │   ├── capsh
+│   │   ├── chcpu
+│   │   ├── chgpasswd
+│   │   ├── chmem
+│   │   ├── chpasswd
+│   │   ├── chroot
+│   │   ├── cpgr -> cppw
+│   │   ├── cppw
+│   │   ├── ctrlaltdel
+│   │   ├── dcb
+│   │   ├── debugfs
+│   │   ├── delgroup -> deluser
+│   │   ├── deluser
+│   │   ├── devlink
+│   │   ├── dpkg-preconfigure
+│   │   ├── dpkg-reconfigure
+│   │   ├── dumpe2fs
+│   │   ├── e2freefrag
+│   │   ├── e2fsck
+│   │   ├── e2image
+│   │   ├── e2label -> tune2fs
+│   │   ├── e2mmpstatus -> dumpe2fs
+│   │   ├── e2scrub
+│   │   ├── e2scrub_all
+│   │   ├── e2undo
+│   │   ├── e4crypt
+│   │   ├── e4defrag
+│   │   ├── ebtables -> /etc/alternatives/ebtables
+│   │   ├── ebtables-nft -> xtables-nft-multi
+│   │   ├── ebtables-nft-restore -> xtables-nft-multi
+│   │   ├── ebtables-nft-save -> xtables-nft-multi
+│   │   ├── ebtables-restore -> /etc/alternatives/ebtables-restore
+│   │   ├── ebtables-save -> /etc/alternatives/ebtables-save
+│   │   ├── ebtables-translate -> xtables-nft-multi
+│   │   ├── faillock
+│   │   ├── filefrag
+│   │   ├── findfs
+│   │   ├── fsck
+│   │   ├── fsck.cramfs
+│   │   ├── fsck.ext2 -> e2fsck
+│   │   ├── fsck.ext3 -> e2fsck
+│   │   ├── fsck.ext4 -> e2fsck
+│   │   ├── fsck.minix
+│   │   ├── fsfreeze
+│   │   ├── fstab-decode
+│   │   ├── fstrim
+│   │   ├── genl
+│   │   ├── getcap
+│   │   ├── getpcaps
+│   │   ├── getty -> agetty
+│   │   ├── groupadd
+│   │   ├── groupdel
+│   │   ├── groupmems
+│   │   ├── groupmod
+│   │   ├── grpck
+│   │   ├── grpconv
+│   │   ├── grpunconv
+│   │   ├── halt -> ../bin/systemctl
+│   │   ├── iconvconfig
+│   │   ├── ifconfig
+│   │   ├── init -> ../lib/systemd/systemd
+│   │   ├── initctl
+│   │   ├── install-sgmlcatalog
+│   │   ├── installkernel
+│   │   ├── invoke-rc.d
+│   │   ├── ip -> /bin/ip
+│   │   ├── ip6tables -> /etc/alternatives/ip6tables
+│   │   ├── ip6tables-apply -> iptables-apply
+│   │   ├── ip6tables-legacy -> xtables-legacy-multi
+│   │   ├── ip6tables-legacy-restore -> xtables-legacy-multi
+│   │   ├── ip6tables-legacy-save -> xtables-legacy-multi
+│   │   ├── ip6tables-nft -> xtables-nft-multi
+│   │   ├── ip6tables-nft-restore -> xtables-nft-multi
+│   │   ├── ip6tables-nft-save -> xtables-nft-multi
+│   │   ├── ip6tables-restore -> /etc/alternatives/ip6tables-restore
+│   │   ├── ip6tables-restore-translate -> xtables-nft-multi
+│   │   ├── ip6tables-save -> /etc/alternatives/ip6tables-save
+│   │   ├── ip6tables-translate -> xtables-nft-multi
+│   │   ├── ipmaddr
+│   │   ├── iptables -> /etc/alternatives/iptables
+│   │   ├── iptables-apply
+│   │   ├── iptables-legacy -> xtables-legacy-multi
+│   │   ├── iptables-legacy-restore -> xtables-legacy-multi
+│   │   ├── iptables-legacy-save -> xtables-legacy-multi
+│   │   ├── iptables-nft -> xtables-nft-multi
+│   │   ├── iptables-nft-restore -> xtables-nft-multi
+│   │   ├── iptables-nft-save -> xtables-nft-multi
+│   │   ├── iptables-restore -> /etc/alternatives/iptables-restore
+│   │   ├── iptables-restore-translate -> xtables-nft-multi
+│   │   ├── iptables-save -> /etc/alternatives/iptables-save
+│   │   ├── iptables-translate -> xtables-nft-multi
+│   │   ├── iptunnel
+│   │   ├── isosize
+│   │   ├── ispell-autobuildhash
+│   │   ├── killall5
+│   │   ├── ldattach
+│   │   ├── ldconfig
+│   │   ├── ldconfig.real
+│   │   ├── locale-gen
+│   │   ├── logsave
+│   │   ├── losetup
+│   │   ├── mii-tool
+│   │   ├── mke2fs
+│   │   ├── mkfs
+│   │   ├── mkfs.bfs
+│   │   ├── mkfs.cramfs
+│   │   ├── mkfs.ext2 -> mke2fs
+│   │   ├── mkfs.ext3 -> mke2fs
+│   │   ├── mkfs.ext4 -> mke2fs
+│   │   ├── mkfs.minix
+│   │   ├── mkhomedir_helper
+│   │   ├── mklost+found
+│   │   ├── mkswap
+│   │   ├── nameif
+│   │   ├── newusers
+│   │   ├── nfnl_osf
+│   │   ├── nft
+│   │   ├── nologin
+│   │   ├── overlay-init
+│   │   ├── pam-auth-update
+│   │   ├── pam_extrausers_chkpwd
+│   │   ├── pam_extrausers_update
+│   │   ├── pam_getenv
+│   │   ├── pam_namespace_helper
+│   │   ├── pam_timestamp_check
+│   │   ├── phpdismod -> phpenmod
+│   │   ├── phpenmod
+│   │   ├── phpquery
+│   │   ├── pivot_root
+│   │   ├── plipconfig
+│   │   ├── policy-rc.d
+│   │   ├── poweroff -> ../bin/systemctl
+│   │   ├── pwck
+│   │   ├── pwconv
+│   │   ├── pwhistory_helper
+│   │   ├── pwunconv
+│   │   ├── rarp
+│   │   ├── readprofile
+│   │   ├── reboot -> ../bin/systemctl
+│   │   ├── remove-default-ispell
+│   │   ├── remove-default-wordlist
+│   │   ├── remove-shell
+│   │   ├── resize2fs
+│   │   ├── rmt -> /etc/alternatives/rmt
+│   │   ├── rmt-tar
+│   │   ├── route
+│   │   ├── rtacct
+│   │   ├── rtcwake
+│   │   ├── rtmon
+│   │   ├── runlevel -> ../bin/systemctl
+│   │   ├── runuser
+│   │   ├── select-default-ispell
+│   │   ├── select-default-wordlist
+│   │   ├── service
+│   │   ├── setcap
+│   │   ├── shadowconfig
+│   │   ├── shutdown -> ../bin/systemctl
+│   │   ├── slattach
+│   │   ├── sshd
+│   │   ├── start-stop-daemon
+│   │   ├── sudo_logsrvd
+│   │   ├── sudo_sendlog
+│   │   ├── sulogin
+│   │   ├── swaplabel
+│   │   ├── swapoff
+│   │   ├── swapon
+│   │   ├── switch_root
+│   │   ├── sysctl
+│   │   ├── tarcat
+│   │   ├── tc
+│   │   ├── telinit -> ../bin/systemctl
+│   │   ├── tipc
+│   │   ├── tune2fs
+│   │   ├── unix_chkpwd
+│   │   ├── unix_update
+│   │   ├── update-ca-certificates
+│   │   ├── update-catalog
+│   │   ├── update-ccache-symlinks
+│   │   ├── update-default-aspell -> update-dictcommon-aspell
+│   │   ├── update-default-ispell
+│   │   ├── update-default-wordlist
+│   │   ├── update-dictcommon-aspell
+│   │   ├── update-dictcommon-hunspell
+│   │   ├── update-fonts-alias
+│   │   ├── update-fonts-dir
+│   │   ├── update-fonts-scale
+│   │   ├── update-icon-caches
+│   │   ├── update-java-alternatives
+│   │   ├── update-locale
+│   │   ├── update-passwd
+│   │   ├── update-rc.d
+│   │   ├── update-shells
+│   │   ├── update-xmlcatalog
+│   │   ├── useradd
+│   │   ├── userdel
+│   │   ├── usermod
+│   │   ├── validlocale
+│   │   ├── vdpa
+│   │   ├── vigr -> vipw
+│   │   ├── vipw
+│   │   ├── visudo
+│   │   ├── wipefs
+│   │   ├── xtables-legacy-multi
+│   │   ├── xtables-monitor -> xtables-nft-multi
+│   │   ├── xtables-nft-multi
+│   │   ├── zic
+│   │   └── zramctl
+│   ├── share
+│   │   ├── GConf
+│   │   ├── PackageKit
+│   │   ├── X11
+│   │   ├── aclocal
+│   │   ├── aclocal-1.16
+│   │   ├── alsa
+│   │   ├── apache-maven-3.9.12
+│   │   ├── appdata
+│   │   ├── application-registry
+│   │   ├── applications
+│   │   ├── apport
+│   │   ├── autoconf
+│   │   ├── automake-1.16
+│   │   ├── awk
+│   │   ├── base-files
+│   │   ├── base-passwd
+│   │   ├── bash-completion
+│   │   ├── binfmts
+│   │   ├── bug
+│   │   ├── build-essential
+│   │   ├── ca-certificates
+│   │   ├── ca-certificates-java
+│   │   ├── clang
+│   │   ├── cmake
+│   │   ├── cmake-3.28
+│   │   ├── common-licenses
+│   │   ├── dbus-1
+│   │   ├── debconf
+│   │   ├── debhelper
+│   │   ├── debianutils
+│   │   ├── dict
+│   │   ├── dictionaries-common
+│   │   ├── directfb-1.7.7
+│   │   ├── distro-info
+│   │   ├── doc
+│   │   ├── doc-base
+│   │   ├── dot.bashrc
+│   │   ├── dot.profile
+│   │   ├── dot.profile.md5sums
+│   │   ├── dpkg
+│   │   ├── drirc.d
+│   │   ├── emacs
+│   │   ├── emacsen-common
+│   │   ├── enchant-2
+│   │   ├── file
+│   │   ├── fish
+│   │   ├── fontconfig
+│   │   ├── fonts
+│   │   ├── gcc
+│   │   ├── gdb
+│   │   ├── gettext
+│   │   ├── git-core
+│   │   ├── gitweb
+│   │   ├── glib-2.0
+│   │   ├── glvnd
+│   │   ├── gnome-control-center
+│   │   ├── gnupg
+│   │   ├── gradle -> /usr/share/gradle-8.8
+│   │   ├── gradle-8.8
+│   │   ├── gst-plugins-base
+│   │   ├── gstreamer-1.0
+│   │   ├── gtk-3.0
+│   │   ├── gtk-4.0
+│   │   ├── hunspell
+│   │   ├── i18n
+│   │   ├── icons
+│   │   ├── info
+│   │   ├── info.dir
+│   │   ├── initramfs-tools
+│   │   ├── iptables
+│   │   ├── iso-codes
+│   │   ├── java
+│   │   ├── javascript
+│   │   ├── keyrings
+│   │   ├── ladspa
+│   │   ├── libc-bin
+│   │   ├── libdebuginfod-common
+│   │   ├── libdrm
+│   │   ├── libgcrypt20
+│   │   ├── libmysofa
+│   │   ├── libthai
+│   │   ├── libtool
+│   │   ├── lintian
+│   │   ├── locale
+│   │   ├── locales
+│   │   ├── lto-disabled-list
+│   │   ├── man
+│   │   ├── maven -> /usr/share/apache-maven-3.9.12
+│   │   ├── menu
+│   │   ├── metainfo
+│   │   ├── mfx
+│   │   ├── mime
+│   │   ├── mime-info
+│   │   ├── misc
+│   │   ├── motd
+│   │   ├── nano
+│   │   ├── networks
+│   │   ├── nmap
+│   │   ├── node_modules -> nodejs
+│   │   ├── nodejs
+│   │   ├── npm -> nodejs/npm
+│   │   ├── openal
+│   │   ├── openssh
+│   │   ├── pam
+│   │   ├── pam-configs
+│   │   ├── perl
+│   │   ├── perl5
+│   │   ├── php
+│   │   ├── php8.3-bcmath
+│   │   ├── php8.3-common
+│   │   ├── php8.3-curl
+│   │   ├── php8.3-gd
+│   │   ├── php8.3-intl
+│   │   ├── php8.3-mbstring
+│   │   ├── php8.3-mysql
+│   │   ├── php8.3-opcache
+│   │   ├── php8.3-readline
+│   │   ├── php8.3-sqlite3
+│   │   ├── php8.3-xml
+│   │   ├── php8.3-zip
+│   │   ├── pixmaps
+│   │   ├── pkg-php-tools
+│   │   ├── pkgconfig
+│   │   ├── polkit-1
+│   │   ├── profile
+│   │   ├── profile.md5sums
+│   │   ├── python-apt
+│   │   ├── python-wheels
+│   │   ├── python3
+│   │   ├── readline
+│   │   ├── ri
+│   │   ├── rsync
+│   │   ├── rubygems-integration
+│   │   ├── sensible-utils
+│   │   ├── session-migration
+│   │   ├── sgml
+│   │   ├── sgml-base
+│   │   ├── sounds
+│   │   ├── source-highlight
+│   │   ├── staff-group-for-usr-local
+│   │   ├── systemd
+│   │   ├── systemtap
+│   │   ├── tabset
+│   │   ├── tcltk
+│   │   ├── terminfo
+│   │   ├── themes
+│   │   ├── ucf
+│   │   ├── upstart
+│   │   ├── util-linux
+│   │   ├── vim
+│   │   ├── xml
+│   │   ├── xml-core
+│   │   ├── zoneinfo
+│   │   └── zsh
+│   └── src
+└── var
+    ├── .updated
+    ├── backups
+    │   ├── alternatives.tar.0
+    │   ├── dpkg.arch.0
+    │   ├── dpkg.diversions.0
+    │   ├── dpkg.statoverride.0
+    │   └── dpkg.status.0
+    ├── cache
+    │   ├── PackageKit
+    │   ├── adduser
+    │   ├── apt
+    │   ├── debconf
+    │   ├── dictionaries-common
+    │   ├── fontconfig
+    │   ├── ldconfig
+    │   └── private
+    ├── lib
+    │   ├── PackageKit
+    │   ├── apt
+    │   ├── aspell
+    │   ├── ca-certificates-java
+    │   ├── containerd
+    │   ├── dbus
+    │   ├── dictionaries-common
+    │   ├── docker
+    │   ├── dpkg
+    │   ├── emacsen-common
+    │   ├── gems
+    │   ├── git
+    │   ├── ispell
+    │   ├── misc
+    │   ├── pam
+    │   ├── php
+    │   ├── polkit-1
+    │   ├── private
+    │   ├── python
+    │   ├── sgml-base
+    │   ├── shells.state
+    │   ├── sudo
+    │   ├── systemd
+    │   ├── ucf
+    │   ├── vim
+    │   ├── xfonts
+    │   ├── xkb
+    │   └── xml-core
+    ├── local
+    ├── lock -> /run/lock
+    ├── log
+    │   ├── README -> ../../usr/share/doc/systemd/README.logs
+    │   ├── alternatives.log
+    │   ├── apt
+    │   ├── bootstrap.log
+    │   ├── btmp
+    │   ├── dpkg.log
+    │   ├── faillog
+    │   ├── fontconfig.log
+    │   ├── journal
+    │   ├── lastlog
+    │   ├── private
+    │   ├── sysstat
+    │   └── wtmp
+    ├── mail
+    ├── opt
+    ├── run -> /run
+    ├── spool
+    │   └── mail -> ../mail
+    └── tmp
+        └── systemd-private-8393954b4ef54800969994f58a388139-systemd-logind.service-pTjWiZ
+
+752 directories, 1951 files
+```
+
+---
+*Generated on 2026-03-04*

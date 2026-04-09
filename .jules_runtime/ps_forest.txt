@@ -1,0 +1,93 @@
+    PID    PPID USER         ELAPSED %CPU %MEM CMD
+      2       0 root           59:45  0.0  0.0 [kthreadd]
+      3       2 root           59:45  0.0  0.0  \_ [pool_workqueue_release]
+      4       2 root           59:45  0.0  0.0  \_ [kworker/R-rcu_g]
+      5       2 root           59:45  0.0  0.0  \_ [kworker/R-rcu_p]
+      6       2 root           59:45  0.0  0.0  \_ [kworker/R-slub_]
+      7       2 root           59:45  0.0  0.0  \_ [kworker/R-netns]
+      9       2 root           59:45  0.0  0.0  \_ [kworker/0:0H-events_highpri]
+     12       2 root           59:45  0.0  0.0  \_ [kworker/R-mm_pe]
+     13       2 root           59:45  0.0  0.0  \_ [rcu_tasks_kthread]
+     14       2 root           59:45  0.0  0.0  \_ [rcu_tasks_trace_kthread]
+     15       2 root           59:45  0.0  0.0  \_ [ksoftirqd/0]
+     16       2 root           59:45  0.0  0.0  \_ [rcu_preempt]
+     17       2 root           59:45  0.0  0.0  \_ [migration/0]
+     18       2 root           59:45  0.0  0.0  \_ [cpuhp/0]
+     19       2 root           59:45  0.0  0.0  \_ [cpuhp/1]
+     20       2 root           59:45  0.0  0.0  \_ [migration/1]
+     21       2 root           59:45  0.0  0.0  \_ [ksoftirqd/1]
+     23       2 root           59:45  0.0  0.0  \_ [kworker/1:0H-kblockd]
+     24       2 root           59:45  0.0  0.0  \_ [cpuhp/2]
+     25       2 root           59:45  0.0  0.0  \_ [migration/2]
+     26       2 root           59:45  0.0  0.0  \_ [ksoftirqd/2]
+     28       2 root           59:45  0.0  0.0  \_ [kworker/2:0H-kblockd]
+     29       2 root           59:45  0.0  0.0  \_ [cpuhp/3]
+     30       2 root           59:45  0.0  0.0  \_ [migration/3]
+     31       2 root           59:45  0.0  0.0  \_ [ksoftirqd/3]
+     33       2 root           59:45  0.0  0.0  \_ [kworker/3:0H-kblockd]
+     34       2 root           59:45  0.0  0.0  \_ [kdevtmpfs]
+     35       2 root           59:45  0.0  0.0  \_ [kworker/R-inet_]
+     36       2 root           59:45  0.0  0.0  \_ [oom_reaper]
+     37       2 root           59:45  0.0  0.0  \_ [kworker/R-write]
+     38       2 root           59:45  0.0  0.0  \_ [kcompactd0]
+     39       2 root           59:45  0.0  0.0  \_ [ksmd]
+     40       2 root           59:45  0.0  0.0  \_ [khugepaged]
+     41       2 root           59:45  0.0  0.0  \_ [kworker/R-crypt]
+     42       2 root           59:45  0.0  0.0  \_ [kworker/R-kbloc]
+     44       2 root           59:45  0.0  0.0  \_ [kworker/2:1-cgroup_destroy]
+     45       2 root           59:45  0.0  0.0  \_ [kworker/u8:1-events_unbound]
+     49       2 root           59:45  0.0  0.0  \_ [kworker/0:1H-kblockd]
+     80       2 root           59:45  0.0  0.0  \_ [kswapd0]
+     83       2 root           59:45  0.0  0.0  \_ [kworker/R-kthro]
+     88       2 root           59:45  0.0  0.0  \_ [irq/24-ACPI:Ged]
+     91       2 root           59:45  0.0  0.0  \_ [kworker/R-acpi_]
+    177       2 root           59:45  0.0  0.0  \_ [kworker/R-mld]
+    178       2 root           59:45  0.0  0.0  \_ [kworker/R-ipv6_]
+    182       2 root           59:45  0.0  0.0  \_ [kworker/R-kstrp]
+    320       2 root           59:45  0.0  0.0  \_ [kworker/u8:5-events_unbound]
+    408       2 root           59:44  0.0  0.0  \_ [kworker/2:1H-kblockd]
+    410       2 root           59:44  0.0  0.0  \_ [kworker/3:1H-kblockd]
+    412       2 root           59:44  0.0  0.0  \_ [jbd2/vdb-8]
+    413       2 root           59:44  0.0  0.0  \_ [kworker/R-ext4-]
+    427       2 root           59:43  0.0  0.0  \_ [kworker/1:1H-kblockd]
+    467       2 root           59:42  0.0  0.0  \_ [kworker/0:7-cgroup_destroy]
+    783       2 root           59:42  0.0  0.0  \_ [kworker/3:2]
+    788       2 root           59:42  0.0  0.0  \_ [kworker/2:3-events]
+    827       2 root           59:41  0.0  0.0  \_ [kworker/1:3-events]
+   4177       2 root           40:28  0.0  0.0  \_ [kworker/0:0-events_power_efficient]
+   4206       2 root           40:26  0.0  0.0  \_ [kworker/3:0-events]
+   4207       2 root           40:26  0.0  0.0  \_ [kworker/1:0-events]
+   7791       2 root           09:54  0.0  0.0  \_ [kworker/u8:2-events_unbound]
+   8119       2 root           04:00  0.0  0.0  \_ [kworker/u8:0-events_unbound]
+   8405       2 root           02:43  0.0  0.0  \_ [kworker/0:1-events]
+      1       0 root           59:45  0.1  0.1 /usr/sbin/init
+    438       1 root           59:42  0.0  0.2 /usr/lib/systemd/systemd-journald
+    794       1 root           59:42  0.0  0.0 /usr/lib/systemd/systemd-udevd
+    837       1 message+       59:36  0.0  0.0 @dbus-daemon --system --address=systemd: --nofork --nopidfile --systemd-activation --syslog-only
+    845       1 root           59:35  0.0  0.1 /usr/lib/systemd/systemd-logind
+    848       1 root           59:35  0.0  0.0 /sbin/agetty -o -p -- \u --noclear - linux
+    849       1 root           59:35  0.0  0.0 /sbin/agetty -o -p -- \u --keep-baud 115200,57600,38400,9600 - vt220
+    878       1 root           59:35 109748  0.5 /usr/bin/containerd
+    880       1 root           59:35  0.0  0.0 sshd: /usr/sbin/sshd -D [listener] 0 of 10-100 startups
+    882     880 root           59:35  0.0  0.1  \_ sshd: swebot [priv]
+    912     882 jules          59:34  0.0  0.0  |   \_ sshd: swebot@notty
+    921     880 root           59:33  0.0  0.1  \_ sshd: swebot [priv]
+    934     921 jules          59:32  0.0  0.0  |   \_ sshd: swebot@notty
+   4179     880 root           40:28  0.0  0.1  \_ sshd: swebot [priv]
+   4190    4179 jules          40:27  0.1  0.0  |   \_ sshd: swebot@notty
+   6459     880 root           27:52  0.0  0.1  \_ sshd: swebot [priv]
+   6470    6459 jules          27:51  0.1  0.0  |   \_ sshd: swebot@notty
+   8319     880 root           02:59  0.1  0.1  \_ sshd: swebot [priv]
+   8330    8319 jules          02:58  0.2  0.0      \_ sshd: swebot@notty
+   8732    8330 jules          00:00  0.0  0.0          \_ bash -c echo "${BASHPID}"  RUN_ROOT_DIR=/run/devbox-session/default PANE_PID="1252"  # sleep 1  # enable this to mimic very slow command start. # set -x umask 0 sudo mkdir -m777 -p "${RUN_ROOT_DIR}"  coproc inw {     LC_ALL=C exec inotifywait -e create,moved_to --include '/stamp$' "${RUN_ROOT_DIR}" 2>&1 }  set -m (     # If the pane has exited, also end the wait.     if ps -p ${PANE_PID} > /dev/null; then       tail --pid "${PANE_PID}" -f /dev/null     fi     touch "${RUN_ROOT_DIR}/stamp" ) & pane_waiter=$!  echo "pane waiter is at $pane_waiter"  while IFS= read -r -u "${inw[0]}" line 2>/dev/null; do     if [ "$line" = "Watches established." ]; then         break     fi done if [ -e "${RUN_ROOT_DIR}/stamp" ]; then     echo "stamp found"     kill "$inw_PID" else     echo "waiting for stamp"     wait -n fi echo "done" kill -- "-$pane_waiter" || exit 0
+   8738    8732 jules          00:00  0.0  0.0              \_ inotifywait -e create,moved_to --include /stamp$ /run/devbox-session/default
+   8739    8732 jules          00:00  0.0  0.0              \_ bash -c echo "${BASHPID}"  RUN_ROOT_DIR=/run/devbox-session/default PANE_PID="1252"  # sleep 1  # enable this to mimic very slow command start. # set -x umask 0 sudo mkdir -m777 -p "${RUN_ROOT_DIR}"  coproc inw {     LC_ALL=C exec inotifywait -e create,moved_to --include '/stamp$' "${RUN_ROOT_DIR}" 2>&1 }  set -m (     # If the pane has exited, also end the wait.     if ps -p ${PANE_PID} > /dev/null; then       tail --pid "${PANE_PID}" -f /dev/null     fi     touch "${RUN_ROOT_DIR}/stamp" ) & pane_waiter=$!  echo "pane waiter is at $pane_waiter"  while IFS= read -r -u "${inw[0]}" line 2>/dev/null; do     if [ "$line" = "Watches established." ]; then         break     fi done if [ -e "${RUN_ROOT_DIR}/stamp" ]; then     echo "stamp found"     kill "$inw_PID" else     echo "waiting for stamp"     wait -n fi echo "done" kill -- "-$pane_waiter" || exit 0
+   8741    8739 jules          00:00  0.0  0.0                  \_ tail --pid 1252 -f /dev/null
+    883       1 root           59:35  0.0  0.0 /usr/bin/socat -d VSOCK-LISTEN:22,fork TCP4:127.0.0.1:22
+    892       1 jules          59:34  0.0  0.1 /usr/lib/systemd/systemd --user
+    893     892 jules          59:34  0.0  0.0  \_ (sd-pam)
+    925       1 root           59:32  0.2  1.0 /usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock
+   1251       1 jules          59:21  0.0  0.0 tmux new-session -d -s default -c /app -e JULES_SESSION_ID=15374601768006575019 -e GIT_TERMINAL_PROMPT=0
+   1252    1251 jules          59:21  0.0  0.1  \_ -bash
+   8752    1252 jules          00:00 41.0  0.1      \_ /home/jules/.pyenv/versions/3.12.12/bin/python3 diagnostics.py
+   8870    8752 jules          00:00  0.0  0.0          \_ ps -eo pid,ppid,user,etime,%cpu,%mem,cmd --forest
